@@ -1,0 +1,222 @@
+<div class="container-fluid register d-flex">
+    <div class="container">
+        <div class="row" data-aos="fade-up">
+            <div class="col-md-2"></div>
+            <div class="col-md-9 p-5 boder">
+                <!-- Add A Carousel for the form  -->
+                <h1 class="mb-3 text-center"> <b>Shipment Form</b></h1>
+                <!-- bootstrap css -->
+                <!-- <h1 class="text-center fs-4">FASTTRAC</h1> -->
+                <form id="signUpForm" action="/user/shipmen" method="POST">
+                    <!-- start step indicators -->
+                    <div class="form-header d-flex mb-4">
+                        <span class="stepIndicator">Sender's Details</span>
+                        <span class="stepIndicator">Receiver's Details</span>
+                        <span class="stepIndicator">Package Details</span>
+                    </div>
+                    <!-- end step indicators -->
+
+                    <!-- step one -->
+                    <div class="step">
+                        <p class="text-center mb-4">Sender's Info</p>
+                        <div class="mb-3">
+                            <input type="text" placeholder=" Enter Full Name" oninput="this.className = ''" name="sender_name">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Enter Address" oninput="this.className = ''"
+                                name="sender_locate">
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" placeholder="Enter Phone Number" oninput="this.className = ''"
+                                name="sender_phone">
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" placeholder="Alternative Phone Number" oninput="this.className = ''"
+                                name="sender_phone2">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Enter State/Province" oninput="this.className = ''"
+                                name="Sstate">
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="country" name="Scountry">
+                                <option>select country</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Aland Islands">Aland Islands</option>
+                                <option value="Albania">Albania</option>
+                                <option value="Algeria">Algeria</option>
+                                <option value="American Samoa">American Samoa</option>
+                                <option value="Andorra">Andorra</option>
+                                <option value="Angola">Angola</option>
+                                <option value="Anguilla">Anguilla</option>
+                                <option value="Antarctica">Antarctica</option>
+                                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Armenia">Armenia</option>
+                                <option value="Aruba">Aruba</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Austria">Austria</option>
+                                <option value="Azerbaijan">Azerbaijan</option>
+                                <option value="Bahamas">Bahamas</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="Barbados">Barbados</option>
+                                <option value="Belarus">Belarus</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Belize">Belize</option>
+                                <option value="Benin">Benin</option>
+                                <option value="Bermuda">Bermuda</option>
+                                <option value="Bhutan">Bhutan</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Bonaire, Sint Eust
+                            
+                        </div>
+                    </div>
+
+                    <!-- step two -->
+                    <div class="step">
+                        <p class="text-center mb-4">Receiver's Details </p>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Enter Full Name" oninput="this.className = ''" name="receiver_name">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Enter Receiver's Address" oninput="this.className = ''"
+                                name="receiver_locate">
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" placeholder="Enter Phone Number" oninput="this.className = ''"
+                                name="receiver_phone">
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" placeholder="Alternative Phone Number" oninput="this.className = ''"
+                                name="receiver_phone2">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Enter State/Province" oninput="this.className = ''"
+                                name="Rstate">
+                        </div>
+                        <div class="mb-3">
+                            <select class="form-select" id="country" name="Rcountry">
+                                <option>select country</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Aland Islands">Aland Islands</option>
+                                <option value="Albania">Albania</option>
+                                <option value="Algeria">Algeria</option>
+                                <option value="American Samoa">American Samoa</option>
+                                <option value="Andorra">Andorra</option>
+                                <option value="Angola">Angola</option>
+                                <option value="Anguilla">Anguilla</option>
+                                <option value="Antarctica">Antarctica</option>
+                                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Armenia">Armenia</option>
+                                <option value="Aruba">Aruba</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Austria">Austria</option>
+                                <option value="Azerbaijan">Azerbaijan</option>
+                                <option value="Bahamas">Bahamas</option>
+                                <option value="Bahrain">Bahrain</option>
+                                <option value="Bangladesh">Bangladesh</option>
+                                <option value="Barbados">Barbados</option>
+                                <option value="Belarus">Belarus</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Belize">Belize</option>
+                                <option value="Benin">Benin</option>
+                                <option value="Bermuda">Bermuda</option>
+                                <option value="Bhutan">Bhutan</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Bonaire, Sint Eust
+                            
+                        </div>
+                    </div>
+
+                    <!-- step three -->
+                    <div class="step">
+                        <p class="text-center mb-4">Package Details </p>
+                        <div class="mb-3">
+                            <select name="category" id="category" class="form-select">
+                                <option>Select Category</option>
+                                <option value="Apparel">Apparel</option>
+                                <option value="Appliances">Appliances</option>
+                                <option value="Automotive Parts">Automotive Parts</option>
+                                <option value="Baby Supplies">Baby Supplies</option>
+                                <option value="Beauty Products">Beauty Products</option>
+                                <option value="Books">Books</option>
+                                <option value="Computer Supplies">Computer Supplies</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Food & Beverages">Food & Beverages</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Gadget">Gadget</option>
+                                <option value="Health & Beauty">Health & Beauty</option>
+                                <option value="Home & Garden">Home & Garden</option>
+                                <option value="Home Decor">Home Decor</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Kitchen Accesories">Kitchen Accesories</option>
+                                <option value="Solar Panel">Solar Panel</option>
+                                <option value="Sporting Goods">Sporting Goods</option>
+                                <option value="Television">Television</option>
+                                <option value="Toys & Games">Toys & Games</option>
+                                <option value="Vehicle Parts">Vehicle Parts</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Description of Item(s)" oninput="this.className = ''"
+                                name="shipment_description">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Number Of Items" oninput="this.className = ''" name="item_quantity">
+                        </div>
+                        <!-- <div class="mb-3">
+                            <input type="number" placeholder="Enter Total Weight (kg)" oninput="this.className = ''"
+                                name="weight">
+                        </div> -->
+                        <div class="mb-3"> 
+                            <!-- Dimension -->
+                            <div class="row mb-2"> <span>Weight in (kg) Others in (cm)</span>
+                                <div class="col-4">
+                                    <input type="number" name="shipment_weight" onchange="getDimension()" placeholder="Weight" id="weight">
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" onchange="getDimension()" placeholder="Length" id="length">
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" onchange="getDimension()" placeholder="Height" id="height">
+                                </div>
+                            </div>
+                            <div class="row mb-2 p-3">
+                                <b>Generated Dimension</b>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" readonly placeholder="Dimension" id="result" name="dimension">
+                        </div>
+                        
+                    </div>
+
+                    <!-- start previous / next buttons -->
+                    <div class="form-footer d-flex">
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                    <!-- end previous / next buttons -->
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function getDimension(){
+        let weight = document.getElementById('weight').value;
+        let height = document.getElementById('height').value;
+        let length = document.getElementById('length').value;
+
+        let abc = weight * height * length;
+        let ans = abc/ 5000
+        document.getElementById('result').value = ans;
+    }
+
+</script>

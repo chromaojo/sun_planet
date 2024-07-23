@@ -1,0 +1,80 @@
+<div class="container-fluid profileP">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+      <section id="services" class="services">
+        <div class="container">
+
+          <div class="section-title">
+            <h2>Profile</h2>
+            <p>Ensure the information you are inputting is valid, correct and updated. This would help us to serve you
+              better</p>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 icon-box" data-aos="fade-up">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-briefcase"></i></div>
+              <h4 class="title"><a href="">Email Address</a></h4>
+              <p class="description">
+                <%= userData.email %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-card-checklist"></i></div>
+              <h4 class="title"><a href="">Account Id</a></h4>
+              <p class="description">
+                <%= userData.account_id %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-telephone"></i></div>
+              <h4 class="title"><a href="/user/edit">Phone Number</a></h4>
+              <p class="description">
+                <%= userData.phone_number %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-book"></i></div>
+              <h4 class="title"><a href="/user/edit">Name in Full</a></h4>
+              <p class="description">
+                <%= userData.surname %>
+                  <%= userData.othername %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="400">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-brightness-high"></i></div>
+              <h4 class="title"><a href="/user/edit">Organization / Username</a></h4>
+              <p class="description">
+                <%= userData.username %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-calendar"></i></div>
+              <h4 class="title"><a href="/user/edit">Address </a></h4>
+              <p class="description">
+                <%= userData.address %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-calendar4-week"></i></div>
+              <h4 class="title"><a href="/user/edit">Registered</a></h4>
+              <p class="description">
+                <%= userData.role %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="500">
+              <div class="icon"><a href="/user/edit"> <i class="bi bi-key"></i></div>
+              <h4 class="title"><a href="">Password</a></h4>
+              <p class="description">
+                XXXXXXXXXX
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section><!-- End Services Section -->
+
+    </div>
+  </div>
+</div>

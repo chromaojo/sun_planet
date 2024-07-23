@@ -1,0 +1,37 @@
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+  <div class="hero-container text-end p-4 " data-aos="fade-in">
+    <h1 class="px-5">Welcome<span> To </span> </h1>
+    <h1 class="px-5">Fasttrac Logistics</h1>
+    <p>You are <span class="typed"
+        data-typed-items="<%= userData.email %>, <%= userData.username %>, an esteemed <%= userData.role %>,"></span>
+    </p>
+  </div>
+  <div class="hero-container" data-aos="fade-in">
+    <div class="container m-3 p-4 border">
+      <div class="row text-center">
+        <div class="col-md-3 col-3 m-1 border icon-box" data-aos="fade-up">
+          <div class="icon"><i class="bx bx-home"></i></div>
+          <h4 class="title"><a href="">Total Amount</a></h4>
+          <p class="description">
+            N <%= userData.account_balance %>
+          </p>
+        </div>
+        <div class="col-md-5 col-5 m-1 border icon-box" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon"><i class="bi bi-telephone"></i></div>
+          <h4 class="title"><a href="">Account Id</a></h4>
+          <p class="description">
+            <%= userData.account_id %>
+          </p>
+        </div>
+        <div class="col-md-3 col-3 m-1 border icon-box" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon"><i class="bi bi-telephone"></i></div>
+          <h4 class="title"><a href="">Account Balance</a></h4>
+          <p class="description">
+            N <%= userData.account_balance %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->

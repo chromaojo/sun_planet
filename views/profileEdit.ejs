@@ -1,0 +1,130 @@
+<div class="container-fluid profileP">
+  <div class="row" id="profile">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+      <section id="" class="services">
+        <div class="container">
+          <div class="section-title">
+            <h2>Settings</h2>
+            <p>Edit The Profile Settings Carefully</p>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 icon-box" data-aos="fade-up">
+              <div class="icon"><i class="bi bi-briefcase"></i></div>
+              <h4 class="title"><a href="">Email Address</a></h4>
+              <p class="description">
+                <%= userData.email %>
+              </p>
+            </div>
+            <div class="col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-card-checklist"></i></div>
+              <h4 class="title"><a href="">Account Id</a></h4>
+              <p class="description">
+                <%= userData.account_id %>
+              </p>
+            </div>
+          </div>
+          <form action="/user/edit/phone_number" method="POST">
+            <div class="row" data-aos="fade-up" data-aos-delay="189">
+              <div class="col-md-3 p-2 icon-box">
+                <div class="icon"><i class="bi bi-telephone"></i></div>
+                <h4 class="title"><a href="">Phone Number</a></h4>
+              </div>
+              <div class="col-md-7 p-2">
+                <input type="number" name="phone_number" id="" placeholder="Phone Number : <%= userData.phone_number %>"
+                  class="form-control">
+              </div>
+              <div class="col-md-2 p-2">
+                <button type="submit" class="btn btn-outline-primary w-100">Done</button>
+              </div>
+            </div>
+          </form> <hr class="border"> <br/>
+          <form action="/user/edit/surname" method="POST">
+            <div class="row" data-aos="fade-up" data-aos-delay="189">
+
+              <div class="col-md-3 icon-box">
+                <div class="icon"><i class="bi bi-book"></i></div>
+                <h4 class="title"><a href="">Surname </a></h4>
+              </div>
+              <div class="col-md-7">
+                <input type="text" name="surname" id="" placeholder="Surname : <%= userData.surname %>"
+                  class="form-control">
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100">Done</button>
+              </div>
+            </div>
+          </form> <hr class="border"> <br/>
+          <form action="/user/edit/other" method="POST">
+            <div class="row" data-aos="fade-up" data-aos-delay="189">
+              <div class="col-md-3 icon-box">
+                <div class="icon"><i class="bi bi-book"></i></div>
+                <h4 class="title"><a href="">Other Name</a></h4>
+              </div>
+              <div class="col-md-7">
+                <input type="text" name="othername" id="" placeholder="Other Names : <%= userData.othername %>"
+                  class="form-control">
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100">Done</button>
+              </div>
+            </div>
+          </form> <hr class="border"> <br/>
+          <form action="/user/edit/username" method="POST">
+            <div class="row" data-aos="fade-up" data-aos-delay="189">
+
+              <div class="col-md-3 icon-box">
+                <div class="icon"><i class="bi bi-brightness-high"></i></div>
+                <h4 class="title"><a href="">Username</a></h4>
+              </div>
+              <div class="col-md-7">
+                <input type="text" name="username" id="" placeholder="Username : <%= userData.username %>"
+                  class="form-control">
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100">Done</button>
+              </div>
+            </div>
+          </form> <hr class="border"> <br/>
+          <form action="/user/edit/address" method="POST">
+            <div class="row" data-aos="fade-up" data-aos-delay="99">
+              <div class="col-md-3 icon-box">
+                <div class="icon"><i class="bi bi-calendar4-week"></i></div>
+                <h4 class="title"><a href="">Address</a></h4>
+              </div>
+              <div class="col-md-7">
+                <input type="text" name="address" id="" placeholder="Address : <%= userData.address %>"
+                  class="form-control">
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100">Done</button>
+              </div>
+            </div>
+          </form> <hr class="border"> <br/>
+          <form action="/user/edit/passsword" method="POST">
+            <div class="row" data-aos="fade-up" data-aos-delay="89">
+              <div class="col-md-3 icon-box">
+                <div class="icon"><i class="bi bi-key"></i></div>
+                <h4 class="title"><a href="">Password</a></h4>
+              </div>
+              <div class="col-md-7">
+                <input type="text" name="old_passsword" id="" placeholder="Enter Old Password"
+                  class="form-control">
+                  <input type="password" name="new_passsword" id="" placeholder="Enter New Password"
+                  class="form-control">
+                  <input type="password" name="new_passsword" id="" placeholder="Repeat The New Password"
+                  class="form-control">
+              </div>
+              <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary w-100 w-100">Done</button>
+              </div>
+            </div>
+          </form> <hr class="border"> <br/>
+        </div>
+    </div>
+    </section><!-- End Services Section -->
+
+  </div>
+</div>
+</div>

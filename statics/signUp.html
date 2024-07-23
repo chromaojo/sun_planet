@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Register - FASTTRACK</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="asset/img/favicon.png" rel="icon">
+    <link href="asset/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="asset/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="asset/vendor/aos/aos.css" rel="stylesheet">
+    <link href="asset/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="asset/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="asset/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="asset/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="asset/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="asset/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/assets/css/style1.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="asset/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <section id="contact" class="contact">
+
+        <div class="container-fluid" data-aos="fade-up">
+
+            <div class="row">
+                <h1 class="mb-2 text-center"> <b>Registeration Form</b></h1> <span><a href="/">Back To Home </a></span>
+
+                <!-- bootstrap css -->
+                <form id="signUpForm" action="/user/register" method="POST">
+                    <!-- start step indicators -->
+                    <div class="form-header d-flex mb-4">
+                        <span class="stepIndicator">Account Setup</span>
+                        <span class="stepIndicator">Personal Details</span>
+                        <span class="stepIndicator">Contact Details</span>
+                    </div>
+                    <!-- end step indicators -->
+
+                    <!-- step one -->
+                    <div class="step">
+                        <p class="text-center mb-4">Create your account</p>
+                        <div class="mb-3">
+                            <input type="email" placeholder="Email Address" oninput="this.className = ''" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" id="password" placeholder="Password" oninput="this.className = ''" name="password">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" id="password1" placeholder="Confirm Password" oninput="this.className = ''"
+                                name="password1">
+                        </div>
+                    </div>
+
+                    <!-- step two -->
+                    <div class="step">
+                        <p class="text-center mb-4"> Personal Details</p>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Surname" oninput="this.className = ''" name="surname">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Other Names" oninput="this.className = ''" name="othername">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Username/ Company Name" oninput="this.className = ''"
+                                name="username">
+                        </div>
+                    </div>
+
+                    <!-- step three -->
+                    <div class="step">
+                        <p class="text-center mb-4">We Want To Serve You Better</p>
+                        <div class="mb-3">
+                            <input type="text" placeholder="Address" oninput="this.className = ''" name="address">
+                        </div>
+                        <div class="mb-3">
+                            <input type="number" placeholder="Mobile" oninput="this.className = ''" name="phone_number">
+                        </div>
+                        <div class="mb-3">
+                            <input type="checkbox" required > Terms & Conditions
+                        </div>
+                    </div>
+
+                    <!-- start previous / next buttons -->
+                    <div class="form-footer d-flex">
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                    <!-- end previous / next buttons -->
+                </form>
+            </div>
+
+
+        </div>
+
+
+    </section><!-- End Contact Section -->
+
+
+
+    <a href="/" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="asset/vendor/aos/aos.js"></script>
+    <script src="asset/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="asset/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="asset/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="asset/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="asset/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="asset/vendor/php-email-form/validate.js"></script>
+    <script src="/assets/js/multi-form.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="asset/js/main.js"></script>
+
+</body>
+
+</html>

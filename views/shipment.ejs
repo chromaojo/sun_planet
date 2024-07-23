@@ -1,0 +1,56 @@
+<div class="container-fluid register d-flex">
+    <div class="container">
+        <div class="row" data-aos="fade-up">
+            <div class="col-md-2"></div>
+            <div class="col-md-9 p-5 ">
+                <!-- Add A Carousel for the form  -->
+                <h1 class="mb-4 text-center"> <b>Shipment History</b></h1>
+
+
+                <% if (userShip.id==null) { %>
+                    <br> <br>
+                    <h3 class="m-5 text-center mb-5">There is no recorded transaction at the moment</h3>
+                    <a href="/user/shipmenu" class="btn btn-outline-danger ">Back To Menu</a>
+                    <% } else{%>
+
+                        <h3 class="mb-5 "><i>Transaction Details</i> </h3>
+                        <table class="table">
+                            <thead>
+                                <th></th>
+                                <th>Sender's Name </th>
+                                <th> Transaction Code </th>
+                                <th>Item Weight (kg)</th>
+                                <th>Reciever's Name</th>
+                            </thead>
+                            <tbody>
+                                <% userShip.forEach(trans=> { %>
+
+
+                                    <tr>
+                                        <td>
+                                            <li>FT</li>
+                                        </td>
+                                        <td>
+                                            <%= trans.sender_name %>
+                                        </td>
+                                        <td>
+                                            <%= trans.transaction_code %>
+                                        </td>
+                                        <td>
+                                            <%= trans.shipment_weight %>
+                                        </td>
+                                        <td>
+                                            <%= trans.receiver_name %>
+                                        </td>
+                                    </tr>
+
+                                    <% }) %>
+                            </tbody>
+                        </table>
+
+                <% } %>
+            </div>
+        </div>
+
+    </div>
+</div>

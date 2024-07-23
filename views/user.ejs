@@ -1,0 +1,55 @@
+<div class="container-fluid register d-flex">
+    <% let counter = 1; %>
+    <div class="container" id="user">
+        <div class="row" data-aos="fade-up">
+            <div class="col-md-2"></div>
+            <div class="col-md-9 p-5 ">
+                <!-- Add A Carousel for the form  -->
+                <h1 class="mb-5 text-center"> <b>Users Details</b></h1>
+                <h3 class="mb-4 text-center"><span>Every User's Details </span> </h3>
+                <table class="table">
+                    <thead>
+                        <th>S/N</th>
+                        <th> Email </th>
+                        <th>Role</th>
+                        <th>Password Reset</th>
+                        <th>Edit</th>
+                    </thead>
+                    <tbody>
+                        <% userAll.forEach(trans=> { %>
+
+
+                            <tr> 
+                                <td> 
+                                    <%= counter++ %>
+                                </td>
+                                <td>
+                                    <a href="">
+                                        <%= trans.email %>
+                                    </a>
+                                </td>
+                                <td>
+                                   <a href="">
+                                    <%= trans.role %>
+                                   </a>
+                                </td>
+                                <td>
+                                    <a href="">
+                                        <span>*************</span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/admin/users/<%= trans.user_id %>" class="btn btn-outline-danger">Edit</a>
+                                </td>
+                            </tr>
+
+                        <% }) %>
+                    </tbody>
+
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
