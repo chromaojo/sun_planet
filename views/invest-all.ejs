@@ -1,0 +1,104 @@
+<div class="container d-flex" id="prop-list"> 
+
+    <div class="row"> <h2>Investments</h2>
+        <div class="col">
+
+        </div>
+        <div class="col-md-10 w-100 p-2">
+
+            <br>
+            <hr> <br>
+            <div class="container overflow-auto " style="height: 88vh;">
+                <div class="row p-3">
+                    <nav class="navbar navbar-expand-md navbar-dark text-dark fixed-top bg-light">
+                        <div class="container">
+                            <a class="navbar-brand text-dark" href="#">
+                                <%= info.name %>
+                            </a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                                aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse text-dark" id="navbarCollapse">
+                                <ul class="navbar-nav me-auto mb-4 mb-md-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark text-capitalize" href="#">
+                                            <%= info.name %>
+                                        </a>
+                                    </li>
+    
+                                </ul>
+                                <form class="d-flex">
+                                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </nav>
+                    <% if (userInvest=='' ) { %>
+                        <br> <br>
+                        <h3 class="m-5 text-center mb-5">There is no investment at the moment</h3>
+    
+                        <% } else{%>
+                            <% userInvest.forEach(trans=> { %>
+    
+    
+                                <div class="col-md-6 p-1 ">
+                                    <div 
+                                        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                                        <div class="col p-4 d-flex flex-column position-static">
+                                            <strong class="d-inline-block mb-2 ">Location : <%= trans.location %> </strong>
+                                            <h3 class="mb-0">
+                                                <%= trans.title.substring(0, 17)+( trans.title.length>17?'...': "") %>
+                                            </h3>
+                                            <div class="mb-1 text-muted">
+                                                <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' ,
+                                                    month:'short', day :'2-digit'}) %> ||
+                                                    <%= new Date(trans.created_at).toLocaleTimeString() %>
+                                            </div>
+                                            <p class="card-text mb-auto">
+                                                <%= trans.description.substring(0, 70)+( trans.description.length>70?'...':
+                                                    "") %>
+                                            </p>
+                                            <a href="/user/Investerty-zZkKqQP/<%= trans.id %>" class="stretched-link btn-outline-primary">View Details</a>
+                                        </div>
+                                        <div class="col-auto d-none d-lg-block">
+                                            <a href="/user/Investerty-zZkKqQP/<%= trans.id %>">
+                                                <svg class="bd-placeholder-img" width="200" height="250"
+                                                xmlns="http://www.w3.org/2000/svg" role="img"
+                                                aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice"
+                                                focusable="false">
+                                                <title>Placeholder</title>
+                                                <rect width="100%" height="100%" fill="#55595c" /><text x="30%" y="50%"
+                                                    fill="#eceeef">Thumbnail</text>
+                                            </svg>
+                                            </a>
+    
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <% }) %>
+                                    <% } %>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

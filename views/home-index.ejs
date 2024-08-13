@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate PLC</title>
+</head>
+<body>
+  <h3 class="bg-dark text-light text-center p-4 text-capitalize"><%= info.name %></h3>
+  <div class="container">
+    <div class="card p-4 mt-5">
+      <div class="row">
+        <div class="col">
+          <h2 class="text-capitalize">Welcome to <%= info.name %></h2>
+          <p><%= info.slogan %></p>
+          <a href="/login" class="btn btn-primary">Call To Action (Login)</a>
+        </div>
+      </div>
+    </div>
+  </div> <br>
+
+  <div class="container"> <h2 class="bg-primary text-light text-center p-3 ">Properties Listings</h2>
+    <div class="row">
+      <div class="col card p-5">
+        <h3>For Rent</h3>
+        <p>Properties in this category are for rent </p>
+      </div>
+      <div class="col card p-5">
+        <h3>For Sale</h3>
+        <p>Properties in this category are for Sale </p>
+      </div>
+      <div class="col card p-5">
+        <h3>For Lease</h3>
+        <p>Properties in this category are for Lease </p>
+      </div>
+      <div class="col card p-5">
+        <h3>For Shortlet</h3>
+        <p>Properties in this category are for Shortlet </p>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

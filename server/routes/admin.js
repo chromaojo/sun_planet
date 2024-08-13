@@ -36,7 +36,7 @@ route.get('/users', UserLoggin, (req, res) => {
     
 
     const sql = `
-      SELECT * FROM fasttrac.users;
+      SELECT * FROM realEstate.re_users;
     `;
 
     db.query(sql, [userId], (err, results) => {
@@ -56,16 +56,16 @@ route.get('/users', UserLoggin, (req, res) => {
 
 
 // To get each user detail 
-route.get('/users/:userId', UserLoggin, (req, res) => {
+route.get('/users/:user_id', UserLoggin, (req, res) => {
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    const userId = req.params.userId;
+    const user_id = req.params.user_id;
 
     // Retrieve user data from the database based on userId
     const sql = `
-      SELECT * FROM fasttrac.users WHERE user_id = ?;
+      SELECT * FROM realEstate.re_users WHERE user_id = ?;
     `;
 
-    db.query(sql, [userId], (err, results) => {
+    db.query(sql, [user_id], (err, results) => {
         if (err) {
             console.log('Error retrieving user data:', err);
             return res.status(500).send('Internal Server Error');
@@ -75,11 +75,14 @@ route.get('/users/:userId', UserLoggin, (req, res) => {
             return res.status(404).send('User not found');
         }
         res.clearCookie('userOne');
-        req.app.set('userOne', results)
+        
+        res.cookie('userOne', JSON.stringify({ ...results }));
         // res.json(results);
-        const userOne = req.app.get('userOne');
+        
+        const userO = req.cookies.userOne ? JSON.parse(req.cookies.userOne) : null;
+        const userOne = userO
         console.log(' UserOne details is', userOne)
-        res.render('user-edit', { userData, userOne });
+        res.render('user-edit', { userData, userOne })
     });
 });
 
@@ -90,7 +93,7 @@ route.post('/users/:userId/edit', UserLoggin, (req, res) => {
 
     // Update user role in the database
     const sql = `
-      UPDATE fasttrac.users 
+      UPDATE realEstate.re_users
       SET role = ?
       WHERE user_id = ?;
     `;
@@ -100,56 +103,13 @@ route.post('/users/:userId/edit', UserLoggin, (req, res) => {
             console.log('Error updating user role:', err);
             return res.status(500).send('Internal Server Error');
         }
-        res.redirect('/users'); // Redirect to the list of users or any appropriate route
-    });
-});
-
-
-// To get single Query 
-
-route.get('/shipments/:userId', UserLoggin, (req, res) => {
-    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
-    const userId = req.params.userId;
-    
-
-    const sql = `
-      SELECT * FROM fasttrac.shipments WHERE user_id = ?;
-    `;
-
-    db.query(sql, [userId], (err, results) => {
-        if (err) {
-            console.log('Error retrieving shipments:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-        res.clearCookie('userShip');
-        req.app.set('userShip', results)
-        // res.json(results);
-        const userShip = req.app.get('userShip');
-        console.log("The shipment history is", userShip)
-        res.render('shipment', { userData, userShip })
+        res.clearCookie('userOne');
+        res.redirect('/admin/users'); // Redirect to the list of users or any appropriate route
     });
 });
 
 
 
-// To get all the shipments for the admin
-
-route.get('/shipments', (req, res) => {
-    const sql = `
-        SELECT * 
-        FROM fasttrac.shipments;
-    `;
-
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.log('Error fetching shipments:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-
-        res.json(results);
-    });
-});
 
 
 module.exports = route;

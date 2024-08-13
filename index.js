@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 app.use(cookieParser());
 
 
-
+app.use('/db', require('./server/config/table'));
 
 app.use('', require('./server/routes/pages'));
 app.use('/user', require('./server/routes/customer'));

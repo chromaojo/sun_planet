@@ -1,0 +1,48 @@
+<div class="container-fluid register d-flex">
+    <div class="container">
+        <div class="row" data-aos="fade-up">
+          <div class="col"></div>
+            <div class="col-md-10 p-5 ">
+                <!-- Add A Carousel for the form  -->
+                <h1 class="mb-4 text-center"> <b>Property Details</b></h1>
+
+
+                <% if (userInvest.id==null) { %>
+                    <br> <br>
+                    <h3 class="m-5 text-center mb-5">There is no recorded property at the moment</h3>
+                    <a href="/user/dashboard" class="btn btn-outline-danger ">Back To Menu</a>
+                    <% } else{%>
+                        <div class="row w-100">
+                            <div class="col-md-12">
+                                <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                                    <%= userInvest.category %> Property
+                                </h3>
+
+                                <article class="blog-post">
+                                    <h2 class="blog-post-title"><b><%= userInvest.title  %></b></h2>
+                                    <p class="blog-post-meta">
+                                        <%= new Date(userInvest.created_at).toLocaleString('en-GB',{year : 'numeric' ,
+                                                    month:'short', day :'2-digit'}) %> ||
+                                                    <%= new Date(userInvest.created_at).toLocaleTimeString() %> - -
+                                        <a href="#"> <%= userInvest.price  %> NGN</a></p>
+
+                                    <p>
+                                        <%= userInvest.description  %>
+                                    </p>
+                                    <hr>
+                                  
+                                    <blockquote class="blockquote">
+                                        <p>
+                                            <i>Location : <%= userInvest.location %></i>
+                                        </p>
+                                    </blockquote>
+                                 </article>
+                            </div>
+                        </div>
+
+                        <% } %>
+            </div>
+        </div>
+
+    </div>
+</div>

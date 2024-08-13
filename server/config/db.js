@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: 'Oluchroma234',
-  database: 'fasttrac',
+  database: 'realEstate',
   waitForConnections: true,
 
 });

@@ -1,0 +1,80 @@
+<div class="container p-2">
+    <% if (userProp.id==null) { %>
+        <br> <br>
+        <h3 class="m-5 text-center mb-5">There is no recorded property at the moment</h3>
+        <% } else{%>
+            <div class="card info-card customers-card">
+
+                <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                            <h6>Details</h6>
+                            <hr>
+                        </li>
+
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-week"></i>: <%= new
+                                    Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short',
+                                    day :'2-digit'}) %> ||
+                                    <%= new Date(userProp.created_at).toLocaleTimeString() %></a>
+                        </li>
+                        <li>
+                            <a href="/user/save/<%= userProp.id %>" class="dropdown-item"> <i
+                                    class="bi bi-folder-plus"></i>Archive It</a>
+                        </li>
+                        <li><a class="dropdown-item" href="#">Location : <%= userProp.location %></a></li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Title : <b>
+                            <%= userProp.title %>
+                        </b></h5>
+
+                    <div class="row">
+                        <div class="col px-4">
+
+                            <h5 class="card-title mt-3">Location : <span>
+                                    <%= userProp.location %>
+                                </span></h5>
+                            <h5 class="card-title mt-3 text-capitalize">property category : <span>
+                                    <%= userProp.category %>
+                                </span></h5>
+                            <h5 class="card-title"> Price :<span>
+                                    <%= userProp.price %> NGN
+                                </span></h5>
+
+                            <h5 class="card-title"> <span>Created - <%= new
+                                        Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
+                                        month:'short', day :'2-digit'}) %></span></h5>
+                        </div>
+                        <div class="col">
+                            <a href="/assets/img/card.jpg">
+                                <img src="/assets/img/card.jpg" class="card-img-top p-5" alt="Product picture">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+
+                        <div class="ps-3">
+                            <% if (userProp.description) { %>
+                                <% userProp.description.split('\n').forEach(function(line) { %>
+                                    <% if (line.trim()) { %>
+                                        <p>
+                                            <%= line %>
+                                        </p>
+                                        <% } %>
+                                            <% }); %>
+                                                <% } %>
+
+                        </div>
+                    </div>
+
+                </div>
+                <% } %>
+            </div>
+
+</div><!-- End Customers Card -->
+
+
+</div>

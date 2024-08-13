@@ -9,8 +9,6 @@ const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 99999);
 const rand = rando + "FTL" + random;
 
-// username, surname, othername, phone_number, address
-
 
 // To Update Surname 
 route.post('/surname', UserLoggin, async (req, res) => {
@@ -19,7 +17,7 @@ route.post('/surname', UserLoggin, async (req, res) => {
     if (surname) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE fasttrac.accounts SET surname = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE realestate.re_accounts SET surname = ?  WHERE email = ?';
             let values = [surname, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -43,8 +41,8 @@ route.post('/surname', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM fasttrac.users u
-            LEFT JOIN fasttrac.accounts a ON u.user_id = a.user_id
+            FROM realestate.re_users u
+            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -80,6 +78,8 @@ route.post('/surname', UserLoggin, async (req, res) => {
     }
 });
 
+
+
 // To Update Username
 route.post('/username', UserLoggin, async (req, res) => {
     //  
@@ -87,7 +87,7 @@ route.post('/username', UserLoggin, async (req, res) => {
     if (username) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE fasttrac.accounts SET username = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE realestate.re_accounts SET username = ?  WHERE email = ?';
             let values = [username, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -111,8 +111,8 @@ route.post('/username', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM fasttrac.users u
-            LEFT JOIN fasttrac.accounts a ON u.user_id = a.user_id
+            FROM realestate.re_users u
+            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -155,7 +155,7 @@ route.post('/other', UserLoggin, async (req, res) => {
     if (othername) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE fasttrac.accounts SET othername = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE realestate.re_accounts SET othername = ?  WHERE email = ?';
             let values = [othername, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -179,8 +179,8 @@ route.post('/other', UserLoggin, async (req, res) => {
                     a.username,
                     a.address,
                     a.email as account_email
-                FROM fasttrac.users u
-                LEFT JOIN fasttrac.accounts a ON u.user_id = a.user_id
+                FROM realestate.re_users u
+                LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
                 `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -223,7 +223,7 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
     if (phone_number) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE fasttrac.accounts SET phone_number = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE realestate.re_accounts SET phone_number = ?  WHERE email = ?';
             let values = [phone_number, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -247,8 +247,144 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM fasttrac.users u
-            LEFT JOIN fasttrac.accounts a ON u.user_id = a.user_id
+            FROM realestate.re_users u
+            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+            WHERE u.email = ?;
+            `;
+                db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
+                    if (error) {
+
+                        return res.status(500).json({
+                            message: 'Internal Server Error'
+                        });
+                    }
+
+                    if (result.length === 0) {
+                        return res.status(401).json({
+                            message: 'Invalid Data or Fields'
+                        });
+                    }
+
+                    delete userData
+                    req.app.set('userData', result[0])
+                    const userWithAccount = result[0];
+                    res.clearCookie('user');
+                    res.cookie('user', JSON.stringify(userWithAccount));
+                    res.redirect('/user/profile');
+
+                });
+
+            });
+        } catch (err) {
+            console.error('Error Loading Update:', err);
+            res.status(500).send('Error Loading Update');
+        }
+    } else {
+        res.redirect('/user/edit');
+    }
+});
+
+// To Update Phone Number 
+route.post('/whatsapp', UserLoggin, async (req, res) => {
+    //  
+    const { whatsapp } = req.body;
+    if (whatsapp) {
+        try {
+            const userData = req.app.get('userData');
+            let updateUsername = 'UPDATE realestate.re_accounts SET whatsapp = ?  WHERE email = ?';
+            let values = [whatsapp, userData.email];
+
+            db.query(updateUsername, values, (error, result) => {
+                if (error) {
+                    console.log('An Update Error Occurred ', error);
+                    res.status(500).send({ message: 'An Update Error Occurred' });
+                }
+                console.log('Updated successfully !', result)
+                const sqlGetUserWithAccount = `
+            SELECT 
+                u.user_id,
+                u.password,
+                u.email,
+                u.role,
+                a.account_id,
+                a.total_spent,
+                a.account_balance,
+                a.phone_number,
+                a.surname,
+                a.othername,
+                a.username,
+                a.address,
+                a.email as account_email
+            FROM realestate.re_users u
+            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+            WHERE u.email = ?;
+            `;
+                db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
+                    if (error) {
+
+                        return res.status(500).json({
+                            message: 'Internal Server Error'
+                        });
+                    }
+
+                    if (result.length === 0) {
+                        return res.status(401).json({
+                            message: 'Invalid Data or Fields'
+                        });
+                    }
+
+                    delete userData
+                    req.app.set('userData', result[0])
+                    const userWithAccount = result[0];
+                    res.clearCookie('user');
+                    res.cookie('user', JSON.stringify(userWithAccount));
+                    res.redirect('/user/profile');
+
+                });
+
+            });
+        } catch (err) {
+            console.error('Error Loading Update:', err);
+            res.status(500).send('Error Loading Update');
+        }
+    } else {
+        res.redirect('/user/edit');
+    }
+});
+
+// To Update Phone Number 
+route.post('/facebook', UserLoggin, async (req, res) => {
+    //  
+    const { facebook } = req.body;
+    if (facebook) {
+        try {
+            const userData = req.app.get('userData');
+            let updateUsername = 'UPDATE realestate.re_accounts SET facebook = ?  WHERE email = ?';
+            let values = [facebook, userData.email];
+
+            db.query(updateUsername, values, (error, result) => {
+                if (error) {
+                    console.log('An Update Error Occurred ', error);
+                    res.status(500).send({ message: 'An Update Error Occurred' });
+                }
+                console.log('Updated successfully !', result)
+                const sqlGetUserWithAccount = `
+            SELECT 
+                u.user_id,
+                u.password,
+                u.email,
+                u.role,
+                a.account_id,
+                a.total_spent,
+                a.account_balance,
+                a.phone_number,
+                a.surname,
+                a.othername,
+                a.username,
+                a.address,
+                a.email as account_email
+            FROM realestate.re_users u
+            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -291,7 +427,7 @@ route.post('/address', UserLoggin, async (req, res) => {
     if (address) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE fasttrac.accounts SET address = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE realestate.re_accounts SET address = ?  WHERE email = ?';
             let values = [address, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -315,8 +451,8 @@ route.post('/address', UserLoggin, async (req, res) => {
                     a.username,
                     a.address,
                     a.email as account_email
-                FROM fasttrac.users u
-                LEFT JOIN fasttrac.accounts a ON u.user_id = a.user_id
+                FROM realestate.re_users u
+                LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
                 `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -360,7 +496,7 @@ route.post('/password', UserLoggin, async (req, res) => {
     if (password) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE fasttrac.accounts SET password = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE realestate.re_accounts SET password = ?  WHERE email = ?';
             let values = [password, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
