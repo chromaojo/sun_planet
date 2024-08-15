@@ -1,0 +1,143 @@
+
+
+<section class="section">
+
+  <div class="row">
+    <h5>Complaints / Inquiry</h5> <br>
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Complaint / Enqiry Form</h5>
+          <p>
+            This Complaints and Enquiries section of this software is a dedicated section for our numerous & noble
+            customers, users, or visitors to: <br>
+            - Report concerns or issues with products, services, or experiences <br>
+            - Seek clarification or information about company offerings <br>
+            - Provide feedback or suggestions for improvement
+          </p>
+  
+          <!-- Basic Modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
+            Make A Complaint Or Enqiry
+          </button>
+          <div class="modal fade" id="basicModal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Complaint & Inquiries</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="card p-4">
+                    <form action="/user/complaints/xXPpRyds" method="post" class="php-email-form">
+                      <div class="row gy-4">
+                        <div class="col-md-12">
+                          <label for="name">Account Id</label>
+                          <input type="text" name="account_id" class="form-control" value="<%= userData.account_id %>"
+                            readonly>
+                        </div>
+  
+                        <div class="col-md-6">
+                          <label for="name">Full Name</label>
+                          <input type="text" name="name" class="form-control"
+                            value="<%= userData.surname %> <%= userData.othername %>" required>
+                        </div>
+  
+                        <div class="col-md-6 ">
+                          <label for="number">Active Phone Number</label>
+                          <input type="number" class="form-control" name="number" placeholder="Your Phone number"
+                            required>
+                        </div>
+                        <div class="col-md-12">
+                          <textarea class="form-control" name="complain" rows="6" placeholder="Message"
+                            required></textarea>
+                        </div>
+                      </div>
+  
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Send</button></form>
+  
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  
+                </div>
+              </div>
+            </div>
+          </div><!-- End Basic Modal-->
+  
+        </div>
+      </div>
+    </div>
+  </div> <br>
+  <hr> <br>
+
+
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"> Complaints / Enquiry Section</h5>
+          <% if (userComplain=='' ) { %>
+            <br> <br>
+            <h3 class="m-5 text-center mb-5">There is no complaint / inquiry at the moment</h3>
+  
+            <% } else{%>
+          <p class="text-capitalize">Every Complaint / enquiry history is made available here</p>
+
+          <!-- Table with stripped rows -->
+          <table class="table datatable">
+            <thead>
+              <% let counter = 1 %>
+              <tr>
+                <th scope="col">#</th>
+                
+                <th scope="col">Full Name</th>
+                <th scope="col">Report Id</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Title</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <% userComplain.forEach(trans=> { %>
+                  <tr> 
+                      <th scope="row"><%= counter++ %></th>
+                      <td>
+                        <%= trans.name %>
+                      </td>
+                      <td>
+                        <%= trans.report_id %> 
+                      </td>
+                      <td>
+                        <%= trans.number %>
+                      </td>
+                      <td>
+                          <%= trans.title %>
+                      </td>
+                      <td>
+                        <% if ( trans.status ==='pending' ) { %>
+                          <span class="badge bg-warning">Processing...</span>
+                        <% } else{ %>
+                        <span class="badge bg-success">Resolved</span>
+                        <% } %>
+                      </td>
+                  </tr>
+
+              <% }) %>
+              
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+          <% } %>
+          
+         
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

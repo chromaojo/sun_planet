@@ -1,64 +1,20 @@
-<div class="pagetitle">
-  <h1>Profile</h1>
-  <nav>
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
-      <li class="breadcrumb-item active">Profile</li>
-    </ol>
-  </nav>
-</div><!-- End Page Title -->
+<div class="container-fluid register d-flex">
 
-<section class="section profile">
-  <div class="row">
-    <div class="col-xl-4">
-
-      <div class="card">
-        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-          <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-          <h2>
-            <%= userData.surname %>
-              <%= userData.othername %>
-          </h2>
-          <h3>
-           @ <%= userData.username %>
-          </h3>
-          <div class="social-links mt-2">
-            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-          <h5 class="card-title">About</h5>
-          <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus.
-            Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet
-            perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="col-xl-8">
-
-      <div class="card">
+    <div class="card">
         <div class="card-body pt-3">
           <!-- Bordered Tabs -->
           <ul class="nav nav-tabs nav-tabs-bordered">
 
             <li class="nav-item">
-              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Unresolved</button>
             </li>
+
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Resolved</button>
+              </li>
 
             <li class="nav-item">
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-            </li>
-
-            <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
             </li>
 
             <li class="nav-item">
@@ -75,92 +31,78 @@
               <h5 class="card-title text-center mb-3"><b>Profile Details</b></h5>
 
               <div class="row">
-                <div class="card bg-light m-auto p-2">
-                  <div class="col-md-10 p-3  icon-box" data-aos="fade-up">
-
-                    <div class="row">
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-card-checklist"></i> <b class="title"> <a href="">Full Name :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.surname %>
-                                <%= userData.othername %>
-                            </b>
-                        </div>
-                      </div>
-
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-telephone"></i> <b class="title"> <a href="">Phone Number :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.phone_number %>
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
-
+                <div class="col-12">
+                  <div class="card recent-sales overflow-auto">
+    
+                    <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                          <h6>Filter</h6>
+                        </li>
+    
+                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                      </ul>
                     </div>
-                    <div class="row">
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-envelope"></i> <b class="title"> <a href="">Email Address :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.email %>
-                            </b>
-                        </div>
-                      </div>
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-card-checklist"></i> <b class="title"> <a href="">Account Id :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.account_id %>
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
+    
+                    <div class="card-body">
+                      <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+    
+                      <table class="table table-borderless datatable">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row"><a href="#">#2457</a></th>
+                            <td>Brandon Jacob</td>
+                            <td><a href="#" class="text-primary">At praesentium minu</a></td>
+                            <td>$64</td>
+                            <td><span class="badge bg-success">Approved</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row"><a href="#">#2147</a></th>
+                            <td>Bridie Kessler</td>
+                            <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
+                            <td>$47</td>
+                            <td><span class="badge bg-warning">Pending</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row"><a href="#">#2049</a></th>
+                            <td>Ashleigh Langosh</td>
+                            <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
+                            <td>$147</td>
+                            <td><span class="badge bg-success">Approved</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row"><a href="#">#2644</a></th>
+                            <td>Angus Grady</td>
+                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
+                            <td>$67</td>
+                            <td><span class="badge bg-danger">Rejected</span></td>
+                          </tr>
+                          <tr>
+                            <th scope="row"><a href="#">#2644</a></th>
+                            <td>Raheem Lehner</td>
+                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
+                            <td>$165</td>
+                            <td><span class="badge bg-success">Approved</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+    
                     </div>
-                    <div class="row">
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-pen"></i> <b class="title"> <a href="">Username :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.username %>
-                            </b>
-                        </div>
-                      </div>
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-map"></i> <b class="title"> <a href="">Address :</a></b> <br>
-                            <b class="description text-dark">
-                              <%= userData.address %>
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-                    <div class="row">
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-envelope"></i> <b class="title"> <a href="">User Role :</a></b>
-                            <b class="description text-dark capitalize">
-                              Esteemed <%= userData.role %>
-                            </b>
-                        </div>
-                      </div>
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-card-checklist"></i> <b class="title"> <a href="">Account Balance :</a></b>
-                            <b class="description text-dark ">
-                              <%= userData.account_balance %> NGN
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-
+    
                   </div>
-
-                </div>
+                </div><!-- End Recent Sales -->
               </div>
 
             </div>
@@ -189,7 +131,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="surname" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.surname %>">
+                            placeholder="Oluwachrom">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-primary btn-sm">Save </button>
@@ -205,7 +147,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="othername" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.othername %>">
+                            placeholder="Temidayo">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-primary btn-sm">Save </button>
@@ -222,7 +164,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="username" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.username %>">
+                            placeholder="chromzy">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-sm btn-primary">Save </button>
@@ -238,7 +180,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="address" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.address %>">
+                            placeholder="11, Adedeji Street, Iju-Ishaga, Lagos">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-primary btn-sm">Save </button>
@@ -254,7 +196,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="phone_number" type="number" class="form-control" id="fullName"
-                            placeholder="<%= userData.phone_number %>">
+                            placeholder="08081552334">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-primary btn-sm">Save </button>
@@ -270,7 +212,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="whatsapp" type="number" class="form-control" id="fullName"
-                            placeholder="<%= userData.whatsapp %>">
+                            placeholder="">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-primary btn-sm">Save </button>
@@ -286,7 +228,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="instagram" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.instagram %>">
+                            placeholder="">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-primary btn-sm">Save </button>
@@ -302,7 +244,7 @@
                       <div class="row">
                         <div class="col-md-10">
                           <input name="facebook" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.facebook %>">
+                            placeholder="">
                         </div>
                         <div class="col">
                           <button type="submit" class="btn btn-primary btn-sm">Save </button>
@@ -405,10 +347,5 @@
             </div>
 
           </div><!-- End Bordered Tabs -->
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+    
+</div>

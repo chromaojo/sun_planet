@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
 const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 99999);
-const rand = rando + "FTL" + random;
+const rand = rando + "TtXxL" + random;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
@@ -15,71 +15,78 @@ const session = require('express-session');
 
 
 
-// To View All Reports
-const allRept = (req, res)=>{
-    
+// To View All Complain for one person
+const allComplain = (req, res) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re__report ORDER BY id DESC;
+      SELECT * FROM realEstate.re_complaint ORDER BY id DESC;
     `;
 
-        db.query(sql,  (err, results) => {
+        db.query(sql, [userId], (err, results) => {
             if (err) {
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
-                const userRept = results
+
+                const userComplain = results
                 const userData = userCookie
-                return res.render('report-my', { userData, userRept, info });
+                return res.render('complaint-admin', { userData, userComplain, info });
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
-const allMyRept = (req, res)=>{
-    
-    
+// To View All Complain for one person
+const allMyComplain = (req, res) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    const user_id = userCookie.user_id;
-    if (userCookie){
-        const sql = `SELECT * FROM realEstate.re__report WHERE user_id = ? ORDER BY id DESC;`;
+    const userId = userCookie.user_id
 
-        db.query(sql, [user_id], (err, results) => {
+    if (userCookie) {
+        const sql = `
+      SELECT * FROM realEstate.re_complaint WHERE user_id = ? ORDER BY id DESC;
+    `;
+
+        db.query(sql, [userId], (err, results) => {
             if (err) {
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
-                const userRept = results
+
+                const userComplain = results
                 const userData = userCookie
-                return res.render('report-my', { userData, userRept, info });
+                return res.render('complaints-client', { userData, userComplain, info });
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 
-const oneRept = (req, res, next)=>{
-    
+// To view only one Complain 
+
+const oneComplain = (req, res) => {
+
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
@@ -88,7 +95,7 @@ const oneRept = (req, res, next)=>{
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM realEstate.re_report WHERE id =?;
+      SELECT * FROM realEstate.re_complaint WHERE id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -97,11 +104,11 @@ const oneRept = (req, res, next)=>{
                 return res.status(500).send('Internal Server Error');
             }
             console.log('This is the dashboard Details : ', userData);
-            
+
             if (results) {
-                const userRept = results[0]
-                console.log('Repterties are ',userRept)
-                res.render('Rept-one', { userData, userRept, info });
+                const useComplain = results[0]
+                console.log('Complain Items ', useComplain)
+                res.render('Complain-one', { userData, useComplain, info });
             }
 
         })
@@ -110,61 +117,79 @@ const oneRept = (req, res, next)=>{
 
 
 
-// To Get report form 
-const createRepts = (req, res)=>{
-    
+// To Get Complain form 
+const createComplains = (req, res) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         return next();
-        
-    } else{
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 // To Post shipment form from the frontend 
-const createRept = (req, res, next) => {
+const createComplain = (req, res) => {
+    const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
 
-    const { title , description ,Rept_status, price, location } = req.body;
+    if (userData) {
+        try {
+            const sql = `
+            SELECT * FROM realEstate.re_property WHERE id = ?;
+          `;
 
-    
+            db.query(sql, [id], (err, results) => {
+                if (err) {
+                    console.log('Login Issues :', err);
+                    return res.status(500).send('Internal Server Error');
+                }
+                const {title ,  price, location } = results[0]
+                const pro_link ='/user/property-zZkKqQP/'+id;
+                const user_id = userData.user_id
+                const prop_id = random || rando
+                const picture = '/assets/img/card.jpg'
+                console.log('This is the propertyprice ',price);
+                db.query('INSERT INTO realEstate.re_complaint SET ?', { title , location, pro_link, price, user_id, picture, prop_id });
 
-    try {
-        db.query('INSERT INTO realEstate.re_report SET ?', { title , description ,Rept_status, price, location  });
+                res.redirect('/user/Complain')
+            })
 
-        res.json("Form Successfully Submitted")
-    } catch (error) {
-        console.log('Shipment Form Error :', error)
+        } catch (error) {
+            console.log('Archive Form Error :', error)
+        }
+
+    } else {
+        res.json('Added Successfully');
     }
 
-    res.json('Added Successfully');
 }
 
 
 // To get each User's Shipment Query 
-const UserLoggi = (req, res, next)=>{
-    
+const UserLoggi = (req, res, next) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         return next();
-        
-    } else{
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 
-// To delete a report content
+// To delete a Complain content
 
 
-const deleteRept = (req, res, next) => {
+const deleteComplain = (req, res, next) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
@@ -174,15 +199,15 @@ const deleteRept = (req, res, next) => {
         try {
             const id = req.params.id;
             // Perform the deletion
-            const sql = `DELETE FROM jvmc.re_report WHERE id = ?;`;
+            const sql = `DELETE FROM jvmc.re_complaint WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
-                    console.error('Error deleting report:', err);
+                    console.error('Error deleting Complain:', err);
                     return res.status(500).send('Internal Server Error');
                 }
                 // Check if any rows were affected
                 if (result.affectedRows === 0) {
-                    return res.status(404).send('report content not found');
+                    return res.status(404).send('Complain content not found');
                 }
 
             });
@@ -195,10 +220,10 @@ const deleteRept = (req, res, next) => {
 
 
     } else {
-        res.send('Cannot Delete This report')
+        res.send('Cannot Delete This Complain')
     }
 };
 
 
 
-module.exports = {oneRept, allRept, allMyRept, deleteRept, createRept}
+module.exports = { oneComplain, allComplain, allMyComplain, deleteComplain, createComplain }

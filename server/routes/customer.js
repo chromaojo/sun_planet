@@ -3,9 +3,12 @@ const route = express.Router();
 const mail = require('../config/mail');
 const path = require("path");
 const db = require('../config/db');
+
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
 const { allProp, oneProp } = require('../module/property');
+const { allMyComplain, allComplain } = require('../module/complaint');
+const { allMyRept, allRept } = require('../module/report');
 const { allSaved, oneSaved, createSaved } = require('../module/saved');
 const { allInvest, oneInvest } = require('../module/investment');
 const random = Math.floor(Math.random() * 99999);
@@ -14,7 +17,7 @@ const rand = rando + "rEs" + random;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
- 
+
 
 
 route.use(
@@ -26,6 +29,7 @@ route.use(
     })
 );
 route.use(express.json())
+route.use(express.urlencoded({ extended: true }));
 
 
 
@@ -96,7 +100,7 @@ route.post('/register', (req, res) => {
 // See All Properties 
 
 route.get('/dashboard', allProp, (req, res) => {
-    
+
 });
 
 
@@ -106,15 +110,47 @@ route.get('/property-zZkKqQP/:id', oneProp, (req, res) => {
 
 });
 
+
 // To gat Create Property
 route.get('/create/prop', (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-    const userData = userCookie 
-    res.render('property-create',{userData})
+    const userData = userCookie
+    res.render('prop-create', { userData })
+});
+
+// To gat Create Property
+route.post('/create/pXrRoPp', (req, res) => {
+
+    const {title, description, action, category} = req.body
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const userData = userCookie
+    res.json('The title is '+ title)
+    console.log('The title is '+title+ " And descript "+description)
+    // res.render('prop-create', { userData })
+});
+
+
+// To Read All Investments 
+route.get('/investments', allInvest, (req, res) => {
 
 });
+
+// To Read One Investment detail 
+route.get('/invest/:id', oneInvest, (req, res) => {
+
+    res.send('Route is okay')
+});
+
+// To To Get CReate Investment page
+route.get('/investe', UserLoggin, (req, res) => {
+    const userData  = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    
+    res.render('invest-create', { userData })
+});
+
 
 // User profile section
 route.get('/profile', UserLoggin, (req, res) => {
@@ -138,13 +174,25 @@ route.get('/profile', UserLoggin, (req, res) => {
         })
     }
 });
+
+
 // To Get all the saved Property details
 route.get('/save/:id', createSaved, (req, res) => {
 
 
 });
 
-// To Get all the saved Property details
+// To Get all my Report details
+route.get('/my-report', allMyRept, (req, res) => {
+
+});
+
+// To Get all my Report details
+route.get('/all-report', allRept, (req, res) => {
+
+});
+
+// To Get all my saved Property details
 route.get('/saved', allSaved, (req, res) => {
 
 
@@ -154,10 +202,10 @@ route.get('/saved', allSaved, (req, res) => {
 route.use('/edit', require('../routes/edit'));
 
 
-// To Read One Property detail 
-route.get('/invest/:id', oneInvest, (req, res) => {
+// To Get all my saved Property details
+route.get('/complaints', allMyComplain, (req, res) => {
 
-res.send('Route is okay')
+
 });
 
 

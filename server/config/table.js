@@ -79,6 +79,7 @@ route.get('/createProp', (req, res) => {
         title VARCHAR(255) NOT NULL,
         picture VARCHAR(155),
         description TEXT,
+        action ENUM('sale', 'lease', 'rent') NOT NULL,
         prop_type ENUM('land', 'building','shortlet','ware_house', 'apartment') NOT NULL,
         category ENUM('residential', 'commercial') NOT NULL,
         prop_status ENUM('active', 'rented', 'sold','leased') DEFAULT 'active',
@@ -183,10 +184,12 @@ route.get('/createComplain', (req, res) => {
       id INT AUTO_INCREMENT PRIMARY KEY,
       report_id VARCHAR(255) UNIQUE,
       name VARCHAR(255) NOT NULL,
-      number VARCHAR(255) NOT NULL,
+      aacount_id VARCHAR(255) NOT NULL,
+      number VARCHAR(255),
+      title VARCHAR(255),
       complain TEXT,
       status ENUM('pending', 'solve') DEFAULT 'pending',
-      user_id VARCHAR(255),
+      user_id VARCHAR(255) NOT NULL,
       date VARCHAR(255),
       time VARCHAR(255)
     );
@@ -220,7 +223,7 @@ route.get('/createInvestment', (req, res) => {
       picture VARCHAR(255) NOT NULL,
       status ENUM('ongoing', 'expired') DEFAULT 'ongoing',
       date VARCHAR(255),
-      time VARCHAR(255)
+      name VARCHAR(255)
     );
   `;
   const sqlTransaction = `

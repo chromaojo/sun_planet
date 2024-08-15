@@ -24,25 +24,18 @@
                   <div class="card">
                     <img src="/assets/img/card.jpg" class="card-img-top" alt="...">
                     <div class="card-body mt-2">
-                      <h5 class="card-title"> <%= trans.title.substring(0, 25)+( trans.title.length>25?'...': "") %></h5>
+                      <h5 class="card-title"> <%= trans.title.substring(0, 21)+( trans.title.length>21?'...': "") %></h5>
                       <h6 class="card-subtitle mb-2 text-muted"><span>Location : <%= trans.location %> <br>
                         <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
                           :'2-digit'}) %> ||
                           <%= new Date(trans.created_at).toLocaleTimeString() %></span></h6>
-                      <p class="card-text mb-3"><%= trans.description.substring(0, 69)+( trans.description.length>69?'...':
+                      <p class="card-text mb-3"><%= trans.description.substring(0, 73)+( trans.description.length>73?'...':
                           "") %>.</p> 
 
                       <a href="/user/save/<%= trans.id %>" class="btn btn-primary btn-sm">Archive</a>
                       <a href="#" class="card-link">Another link</a>
                     </div>
-                    <div class="card-body mt-3"> 
-                      <h5 class="card-title">
-                       
-                      </h5>
-                      <p class="card-text">
-                        
-                      </p>
-                    </div>
+                    
                   </div>
                 </a>
 

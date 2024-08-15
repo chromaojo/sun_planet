@@ -27,13 +27,13 @@
                 </div>
 
                 <div class="card-body">
-                    <h5 class="card-title">Title : <b>
-                            <%= userProp.title %>
-                        </b></h5>
+                  
 
                     <div class="row">
-                        <div class="col px-4">
-
+                        <div class="col-lg-4 mb-3">
+                            <h5 class="card-title">Title : <b>
+                                <%= userProp.title %>
+                            </b></h5>
                             <h5 class="card-title mt-3">Location : <span>
                                     <%= userProp.location %>
                                 </span></h5>
@@ -48,9 +48,9 @@
                                         Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
                                         month:'short', day :'2-digit'}) %></span></h5>
                         </div>
-                        <div class="col">
+                        <div class="col text-end">
                             <a href="/assets/img/card.jpg">
-                                <img src="/assets/img/card.jpg" class="card-img-top p-5" alt="Product picture">
+                                <img src="/assets/img/card.jpg"  width="75%" class="mb-4" alt="Product picture">
                             </a>
                         </div>
                     </div>
@@ -63,9 +63,9 @@
                                         <p>
                                             <%= line %>
                                         </p>
-                                        <% } %>
-                                            <% }); %>
-                                                <% } %>
+                                    <% } %>
+                                <% }); %>
+                            <% } %>
 
                         </div>
                     </div>
