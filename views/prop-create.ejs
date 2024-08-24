@@ -3,7 +3,7 @@
     <div class="col-lg-12">
 
       <div class="card">
-        <form action="/user/create/pXrRoPp" method="POST" >
+        <form action="/user/create/pXrRoPp" method="POST" enctype="multipart/form-data">
           <div class="card-body">
             <h5 class="card-title">Property Creator</h5>
             <div class="row">
@@ -15,7 +15,7 @@
                     aria-describedby="basic-addon1" required name="title">
                 </div>
               </div>
-              
+
               <!-- <div class="col">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Price</span>
@@ -41,15 +41,17 @@
               </div>
             </div>
             <div class="row mb-3">
-  
+
               <div class="col-sm-6">
                 <label for="inputNumber" class="col-sm-6 col-form-label">Choose Image</label>
-                <input class="form-control" type="file" id="formFile" multiple accept=".jpeg, .png, .jpg" required name="pixz">
-                
+                <input class="form-control" type="file" id="pixz" multiple accept=".jpeg, .png, .jpg" required
+                  name="pixz">
+
               </div>
               <div class="col"> <label for="inputNumber" class="col-sm-6 col-form-label">Action</label>
                 <select class="form-select" aria-label="Default select example" name="action">
-                  <option selected>Select Action</option> <hr>
+                  <option selected>Select Action</option>
+                  <hr>
                   <option value="sale">Sales</option>
                   <option value="lease">Lease</option>
                   <option value="rent">Rent</option>
@@ -60,7 +62,8 @@
 
               <div class="col"> <label for="inputNumber" class="col-sm-6 col-form-label">Property Type</label>
                 <select class="form-select" aria-label="Default select example" name="prop_type">
-                  <option selected>Select Property Type</option> <hr>
+                  <option selected>Select Property Type</option>
+                  <hr>
                   <option value="land">Land</option>
                   <option value="building">Building</option>
                   <option value="ware_house">Ware House</option>
@@ -70,18 +73,18 @@
               </div>
               <div class="col"> <label for="inputNumber" class="col-sm-6 col-form-label">Category</label>
                 <select class="form-select" aria-label="Default select example" name="category">
-                  <option selected>Select Category</option> <hr>
+                  <option selected>Select Category</option>
+                  <hr>
                   <option value="residential">Residential Property</option>
-                  <option value="cCommercial">Commercial Property</option>
+                  <option value="commercial">Commercial Property</option>
                 </select>
               </div>
             </div>
             <label for="inputNumber" class="col-sm-6 col-form-label">Details & Description of the Property</label>
-            <div class="quill-editor-default" >
-              <textarea name="description" id="" required>
-  
-                </textarea>
-            </div>
+
+            <textarea class="tinymce-editor" name="description" id="description">
+
+            </textarea><!-- End TinyMCE Editor -->
             <div>
               <button type="submit" class="btn btn-outline-primary mt-3">Send</button>
             </div>

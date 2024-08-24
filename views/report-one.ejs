@@ -1,0 +1,73 @@
+<div class="container p-2">
+    <% if (!userReport) { %>
+        <br> <br>
+        <h3 class="m-5 text-center mb-5">There is no recorded report at the moment</h3>
+        <% } else{%>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Report Details</h5>
+                    <p>Report Title : <%= userReport.title %>
+                    </p>
+
+                    <!-- Table with stripped rows -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                
+                                <th scope="col">Field</th>
+                                <th scope="col">Details</th>
+                                <!-- <th scope="col">Recommendation</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Opt</th> -->
+                            </tr>
+                        </thead>
+                        <% let count = 1 %>
+                        <tbody>
+                            <% reportCont.forEach(trans=> { %>
+                                <div class="border"> 
+                                    <tr class="text-center">
+                                        <td></td>
+                                        <td><h3 class="text-capitalize"><b>Report <%= count++ %></b></h3></td>
+                                    </tr>
+                                    <tr>  
+                                        <td>Activity</td>
+                                        <td><%= trans.activity %></td>      
+                                    </tr>
+                                    <tr>  
+                                        <td>Result</td>
+                                        <td><%= trans.result %></td>      
+                                    </tr>
+                                    <tr>  
+                                        <td>Recommendation </td>
+                                        <td><%= trans.recommendation %></td>      
+                                    </tr>
+                                    <tr>  
+                                        <td>Status </td>
+                                        <td><%= trans.status %></td>      
+                                    </tr>
+                                    <tr>  
+                                        <td><a href="" class="badge bg-danger ">Remove</a></td>
+                                        <td><a href="">Save</a></td>      
+                                    </tr>
+                                    <tr>
+                                        <td></td> <td><hr></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                                                      
+                                </div>
+                             <% }) %>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <% } %>
+</div>
+
+</div><!-- End Customers Card -->
+
+
+</div>

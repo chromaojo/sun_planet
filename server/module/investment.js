@@ -5,11 +5,33 @@ const path = require("path");
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
-const random = Math.floor(Math.random() * 99999);
-const rando = Math.floor(Math.random() * 99999);
+let random = Math.floor(Math.random() * 9990999999);
+let rando = Math.floor(Math.random() * 99999);
 const rand = rando + "FTL" + random;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const multer = require('multer');
+
+
+
+
+// Configure multer for file storage in 'prop' directory
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/invest/');
+        // cb(null, path.join(__dirname, 'prop'));
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        files: 2 // Limiting the number of files to 4
+    }
+}).array('pixz', 4);
 
 
 
@@ -81,51 +103,38 @@ const oneInvest = (req, res, next) => {
     }
 };
 
-// To upload Profile Picture 
-const uploadInvest = (req, res) => {
-
-    const imageP = '/' + req.file.path.replace(/\\/g, '/');
-    const imagePath = imageP.replace('/public', '');
-    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
-    const user_id = userData.user_id
-
-    const sql = `INSERT INTO jvmc.jvmc_month SET ?`;
-        const values = { month, prepared_by, month_id };
-    db.query(sql, values, (err, result) => {
-        if (err) {
-            console.error('Error storing account data:', err);
-            return res.status(500).send('Internal Profile Error');
-        }
-        console.log(`Image Path: ${imagePath}`);
-
-        res.send('Uploaded successfully !!!')
-    });
-
-
-};
-
 
 
 // To Post shipment form from the frontend 
-const createInvest = (req, res, next) => {
+const createInvest = (req, res) => {
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
-
-    const { title, description, Invest_status, price, location } = req.body;
-
+    let invest_id = random || rando
 
 
+   if(userData){
     try {
-        db.query('INSERT INTO realestate.re_investment SET ?', { title, description, Invest_status, price, location });
+        upload(req, res, function (err) {
+            if (err) {
+                return res.send('Error uploading files.');
+            }
+            const date = Date.now()
+            const { title , details, price } = req.body;  
+            const pixz = req.files.map(file => file.filename);
 
-        res.json("Form Successfully Submitted")
+            const picture = '/invest/'+pixz;
+          
+            db.query('INSERT INTO realEstate.re_investment SET ?', { title , details , invest_id, price , picture , date });
+           res.redirect('/user/investments');
+        });
+       
     } catch (error) {
-        console.log('Shipment Form Error :', error)
+        console.log('Property Form Error :', error)
     }
+   }
+   
 
-    res.json('Added Successfully');
 }
 
 

@@ -32,15 +32,15 @@
                     <form action="/user/complaints/xXPpRyds" method="post" class="php-email-form">
                       <div class="row gy-4">
                         <div class="col-md-12">
-                          <label for="name">Account Id</label>
-                          <input type="text" name="account_id" class="form-control" value="<%= userData.account_id %>"
-                            readonly>
+                          <label for="name">Report Title</label>
+                          <input type="text" name="title" class="form-control" placeholder="Enter A Title"
+                            >
                         </div>
   
                         <div class="col-md-6">
                           <label for="name">Full Name</label>
                           <input type="text" name="name" class="form-control"
-                            value="<%= userData.surname %> <%= userData.othername %>" required>
+                            value="<%= userData.surname %> <%= userData.othername %>" required readonly>
                         </div>
   
                         <div class="col-md-6 ">

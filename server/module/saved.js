@@ -75,7 +75,7 @@ const oneSaved = (req, res) => {
 
             if (results) {
                 const userSaved = results[0]
-                console.log('Saved Items ', userSaved)
+                console.log('Saved Items', userSaved)
                 res.render('Saved-one', { userData, userSaved, info });
             }
 
@@ -85,22 +85,8 @@ const oneSaved = (req, res) => {
 
 
 
-// To Get saved form 
-const createSaveds = (req, res) => {
-
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        return next();
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
-
 // To Post shipment form from the frontend 
-const createSaved = (req, res) => {
+const createSaved = (req, res, next) => {
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
@@ -117,15 +103,15 @@ const createSaved = (req, res) => {
                     console.log('Login Issues :', err);
                     return res.status(500).send('Internal Server Error');
                 }
-                const {title ,  price, location } = results[0]
+                const {title ,  price, location, picture, prop_id } = results[0]
                 const pro_link ='/user/property-zZkKqQP/'+id;
                 const user_id = userData.user_id
-                const prop_id = random || rando
-                const picture = '/assets/img/card.jpg'
+               
+                
                 console.log('This is the propertyprice ',price);
                 db.query('INSERT INTO realEstate.re_saved SET ?', { title , location, pro_link, price, user_id, picture, prop_id });
 
-                res.redirect('/user/saved')
+                return next();
             })
 
         } catch (error) {
@@ -167,7 +153,7 @@ const deleteSaved = (req, res, next) => {
         try {
             const id = req.params.id;
             // Perform the deletion
-            const sql = `DELETE FROM jvmc.re_saved WHERE id = ?;`;
+            const sql = `DELETE FROM realEstate.re_saved WHERE prop_id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
                     console.error('Error deleting saved:', err);
@@ -175,12 +161,13 @@ const deleteSaved = (req, res, next) => {
                 }
                 // Check if any rows were affected
                 if (result.affectedRows === 0) {
-                    return res.status(404).send('saved content not found');
+                    return res.status(404).send('saved content not deleted');
                 }
+                return next();  
 
             });
 
-            return next();
+            
         } catch (err) {
             console.error('Error handling /delete-task-content/:id route:', err);
             res.status(500).send('Internal Server Error');

@@ -1,47 +1,52 @@
-<section class="section"> Publish An Investment
+<section class="section"> Publish A Investment Plan <br>
   <div class="row">
     <div class="col-lg-12">
 
+
       <div class="card">
-        <form action="" method="POST">
+        <form action="/user/xXpPLliLZz" method="POST" enctype="multipart/form-data">
           <div class="card-body">
-            <h5 class="card-title">Investment</h5>
+            <h5 class="card-title text-center">Investment Creator Page</h5>
             <div class="row">
               <div class="col">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Title</span>
                   <input type="text" class="form-control" placeholder="A Suitable Title" aria-label="Username"
-                    aria-describedby="basic-addon1">
+                    aria-describedby="basic-addon1" required name="title">
                 </div>
               </div>
+
+              <!-- <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Price</span>
+                  <input type="number" class="form-control" placeholder="Investment Price" aria-label="Username"
+                    aria-describedby="basic-addon1" required>
+                </div>
+              </div> -->
+            </div>
+          
+            <div class="row mb-3">
               <div class="col">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Price</span>
-                  <input type="text" class="form-control" placeholder="Property Price" aria-label="Username"
-                    aria-describedby="basic-addon1">
+                  <input type="number" class="form-control" placeholder="Investment Price" aria-label="Username"
+                    aria-describedby="basic-addon1" required name="price">
                 </div>
               </div>
-            </div>
-            <div class="row mb-3">
-  
               <div class="col-sm-6">
-                <input class="form-control" type="file" id="formFile">
-                <label for="inputNumber" class="col-sm-6 col-form-label">Choose Image</label>
-              </div>
-              <div class="col">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1">Location</span>
-                  <input type="text" class="form-control" placeholder="Property Location" aria-label="Username"
-                    aria-describedby="basic-addon1">
-                </div>
+                
+                <input class="form-control" type="file" id="pixz"  accept=".jpeg, .png, .jpg" required
+                  name="pixz">
+                  <label for="inputNumber" class="col-sm-6 col-form-label">Choose Image</label>
+
               </div>
             </div>
-            <label for="inputNumber" class="col-sm-6 col-form-label">Details & Description of the Property</label>
-            <div class="quill-editor-default">
-              <textarea name="description" id="">
-  
-                </textarea>
-            </div>
+            
+            <label for="inputNumber" class="col-sm-6 col-form-label">Details of the Investment</label>
+
+            <textarea class="tinymce-editor" name="details" id="details">
+
+            </textarea><!-- End TinyMCE Editor -->
             <div>
               <button type="submit" class="btn btn-outline-primary mt-3">Send</button>
             </div>

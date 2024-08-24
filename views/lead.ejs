@@ -1,0 +1,140 @@
+<section class="section">
+
+  <div class="row">
+    <h5>Lead / Contacts</h5> <br>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">New Lead / Contact</h5>
+
+          <form action="/user/lead/KxkRTtyZx" method="POST">
+            <div class="input-group mb-2">
+              <input type="text" class="form-control" placeholder="Title" name="title" aria-label="Username">
+              <span class="input-group-text">&</span>
+              <input type="text" class="form-control" placeholder="Gender" name="gender" aria-label="Server">
+            </div>
+            <div class="input-group mb-2">
+              <input type="text" class="form-control" placeholder="Surname" required name="last_name"
+                aria-label="Username">
+              <span class="input-group-text">&</span>
+              <input type="text" class="form-control" placeholder="First Name" name="first_name" aria-label="Server">
+            </div>
+            <div class="input-group mb-2">
+              <input type="email" class="form-control" required placeholder="Email" name="email" aria-label="Email">
+              <span class="input-group-text">&</span>
+              <input type="number" class="form-control" required placeholder="Phone Number" name="phone_number"
+                aria-label="Server">
+            </div>
+            <div class="input-group mb-2">
+              <input type="text" class="form-control" placeholder="Company" name="company_name" aria-label="Username">
+              <span class="input-group-text">&</span>
+              <input type="text" class="form-control" placeholder="Location" name="location" aria-label="Server">
+            </div>
+            <div class="input-group mb-2">
+              <input type="text" class="form-control" placeholder="Job Title" name="job_title" aria-label="Username">
+              <span class="input-group-text">&</span>
+              <input type="text" class="form-control" placeholder="Industry" name="industry" aria-label="Server">
+            </div>
+
+            <div class="input-group mb-2">
+              <span class="input-group-text">Info</span>
+              <textarea class="form-control" aria-label="With textarea" name="info"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"> My Submitted Contacts</h5>
+          <% if (userLead=='' ) { %>
+            <br> <br>
+            <h3 class="m-5 text-center mb-5 text-capitalize">There is no Lead or Contact at the moment</h3>
+
+            <% } else{%>
+              <p class="text-capitalize">Every Contact or Lead Generated is made available here</p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <% let counter=1 %>
+                    <tr>
+                      <th scope="col">#</th>
+
+                      <th scope="col">Full Name</th>
+                      <th scope="col">Email Address</th>
+                      <th scope="col">Phone Number</th>
+                      <th scope="col">Job Title</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                  <% userLead.forEach(trans=> { %>
+                    <tr>
+
+                      <th scope="row">
+                        <%= counter++ %>
+                      </th>
+                      <td>
+                        <a href="/user/vVxYLead/ <%= trans.lead_id %>" class="text-dark">
+                          <%= trans.last_name %>
+                            <%= trans.first_name %>
+                        </a>
+
+                      </td>
+                      <td>
+                        <a href="/user/vVxYLead/ <%= trans.lead_id %>" class="text-dark">
+                          <%= trans.email %>
+                        </a>
+
+                      </td>
+                      <td>
+                        <a href="/user/vVxYLead/ <%= trans.lead_id %>" class="text-dark">
+                          <%= trans.phone_number %>
+                        </a>
+
+                      </td>
+                      <td>
+                        <a href="/user/vVxYLead/ <%= trans.lead_id %>" class="text-dark">
+                          <%= trans.job_title %>
+                        </a>
+
+                      </td>
+                      <td>
+                        <a href="/user/vVxYLead/ <%= trans.lead_id %>" class="text-dark">
+                          <% if ( trans.status==='new' ) { %>
+                            <span class="badge text-capitalize bg-info">
+                              <%= trans.status %> Lead
+                            </span>
+                            <% } else{ %>
+                              <span class="badge text-capitalize bg-success">
+                                <%= trans.status %>
+                              </span>
+                              <% } %>
+                        </a>
+                      </td>
+
+                    </tr>
+
+                    <% }) %>
+
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+              <% } %>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </div> <br>
+  <hr> <br>
+
+
+
+</section>

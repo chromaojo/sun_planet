@@ -27,13 +27,60 @@
                 </div>
 
                 <div class="card-body">
-                  
+                    <h5 class="card-title text-center"> <b class="text-capitalize">Title :
+                        <%= userProp.title %>
+                    </b></h5>
+
 
                     <div class="row">
-                        <div class="col-lg-4 mb-3">
-                            <h5 class="card-title">Title : <b>
-                                <%= userProp.title %>
-                            </b></h5>
+
+                        <div class="col text-end">
+
+                           <!-- Slides with indicators -->
+                           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                            
+                            <div class="carousel-inner">
+                                <% if (userProp.picture) { %>
+                                    <% let pixz = userProp.picture.split(',') %>
+                                    
+                                    <div class="carousel-item active" style="width: 790px; height: 390px;">
+                                        <a href="/prop/<%= pixz[0] %>">
+                                         <img src="/prop/<%= pixz[0] %>" class="d-block w-100" alt="Product Image">
+                                        </a>
+                                     </div>
+                                     <% let num = 0 %>
+                                     <% if (pixz.length > num) { %>
+                                        <% const pizzy = pixz.splice(1) %>
+                                        <% pizzy.forEach(trans=> { %>
+                                            <div class="carousel-item" style="width: 790px; height: 390px;">
+                                                <a href="/prop/<%= trans %>">
+                                                 <img src="<%= trans ? '/prop/'+trans : '/assets/img/card.jpg' %>" class="d-block w-100" alt="Product Image">
+                                                </a>
+                                             </div>
+                                        <% }) %>
+                                    <% } %>
+                                     
+                                    
+                                 
+                                <% } %>
+                                                                
+                            </div>
+
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+
+                        </div><!-- End Slides with indicators --> <br>
+                        </div>
+                        <div class="col-lg-3 mb-3">
+                           
                             <h5 class="card-title mt-3">Location : <span>
                                     <%= userProp.location %>
                                 </span></h5>
@@ -48,11 +95,8 @@
                                         Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
                                         month:'short', day :'2-digit'}) %></span></h5>
                         </div>
-                        <div class="col text-end">
-                            <a href="/assets/img/card.jpg">
-                                <img src="/assets/img/card.jpg"  width="75%" class="mb-4" alt="Product picture">
-                            </a>
-                        </div>
+
+
                     </div>
                     <div class="d-flex align-items-center">
 
@@ -60,21 +104,22 @@
                             <% if (userProp.description) { %>
                                 <% userProp.description.split('\n').forEach(function(line) { %>
                                     <% if (line.trim()) { %>
-                                        <p>
-                                            <%= line %>
-                                        </p>
-                                    <% } %>
-                                <% }); %>
-                            <% } %>
+
+                                        <%- line %>
+
+                                            <% } %>
+                                                <% }); %>
+                                                    <% } %> <br>
 
                         </div>
+
                     </div>
 
-                </div>
-                <% } %>
-            </div>
 
-</div><!-- End Customers Card -->
+                    <% } %>
+                </div>
+
+            </div><!-- End Customers Card -->
 
 
 </div>

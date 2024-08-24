@@ -22,6 +22,20 @@ route.get('/', AvoidIndex, (req, res) => {
     res.render('home-index', {info, layout: false})
 })
 
+// pricing 
+route.get('/pricing', AvoidIndex, (req, res) => {
+
+
+    res.render('home-pricing', {info, layout: false})
+})
+
+// About Section 
+route.get('/about', AvoidIndex, (req, res) => {
+
+
+    res.render('home-about', {info, layout: false})
+})
+
 
 // To register a new account 
 route.get('/register', (req, res) => {

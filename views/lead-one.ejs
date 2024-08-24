@@ -1,0 +1,148 @@
+<% if (!userLead) { %>
+    <br> <br>
+    <h3 class="m-5 text-center mb-5">There is no recorded Lead at the moment</h3>
+    <a href="/user/dashboard" class="btn btn-outline-danger ">Back To Menu</a>
+    <% } else{%>
+
+        <section class="section dashboard">
+            <div class="row">
+                <!-- Sales Card -->
+                <div class="col-xxl-12 col-md-12">
+                    <div class="card info-card sales-card">
+
+                        <div class="card-body">
+                            <h5 class="card-title">Lead <span>| Name</span></h5>
+
+                            <div class="d-flex align-items-center">
+                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-pen"></i>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>
+                                        <%= userLead.title %>  <%= userLead.last_name %>  <%= userLead.first_name %>
+                                    </h6>
+                                    <span class="text-success small pt-1 fw-bold">Status</span> <span
+                                        class="text-muted small pt-2 ps-1 text-capitalize"><%= userLead.status %> Lead / Contact</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div><!-- End Sales Card -->
+            </div>
+            <div class="row">
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+      
+                      <div class="card-body">
+                        <h5 class="card-title">Lead's <span>| Email Address</span></h5>
+      
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-cart"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6><%= userLead.email %> </h6>
+                            <span class="text-success small pt-1 fw-bold text-capitalize"><%= userLead.status %> </span> <span class="text-muted small pt-2 ps-1">Contact</span>
+      
+                          </div>
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div><!-- End Sales Card -->
+                  <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+      
+                      <div class="card-body">
+                        <h5 class="card-title">Lead's <span>| Phone Number</span></h5>
+      
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-telephone"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6><%= userLead.phone_number %> </h6>
+                            <span class="text-success small pt-1 fw-bold"><%= userLead.created_at %></span> <span class="text-muted small pt-2 ps-1"></span>
+      
+                          </div>
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div><!-- End Sales Card -->
+                <!-- Sales Card -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+      
+                      <div class="card-body">
+                        <h5 class="card-title">Lead's <span>| Job Title & Industry</span></h5>
+      
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-cart"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6><%= userLead.job_title %> | <%= userLead.industry %> </h6>
+                            <span class="text-success small pt-1 fw-bold text-capitalize">Company/ Organization </span> <span class="text-muted small pt-2 ps-1"><%= userLead.company_name %></span>
+      
+                          </div>
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div><!-- End Sales Card -->
+                   <!-- Sales Card -->
+                <div class="col-xxl-4 col-md-6">
+                    <div class="card info-card sales-card">
+      
+                      <div class="card-body">
+                        <h5 class="card-title">Lead's <span>| Location</span></h5>
+      
+                        <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-cart"></i>
+                          </div>
+                          <div class="ps-3">
+                            <h6><%= userLead.location %> </h6>
+                            <span class="text-success small pt-1 fw-bold text-capitalize"> Generated By </span> <span class="text-muted small pt-2 ps-1"><%= userLead.lead_by %></span>
+      
+                          </div>
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div><!-- End Sales Card -->
+ 
+                <!-- Sales Card -->
+                
+                
+
+            </div>
+            <div class="row">
+                <!-- Sales Card -->
+                <div class="col-xxl-12 col-md-12">
+                    <div class="card info-card sales-card">
+      
+                        <div class="card-body">
+                          <h5 class="card-title">Important<span>| Details</span></h5>
+        
+                          <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-cart"></i>
+                            </div>
+                            <div class="ps-3">
+                              <h6><%= userLead.info %> </h6>
+                              <span class="text-success small pt-1 fw-bold text-capitalize"> Generated By </span> <span class="text-muted small pt-2 ps-1"><%= userLead.lead_by %></span>
+        
+                            </div>
+                          </div>
+                        </div>
+        
+                      </div>
+                </div><!-- End Sales Card -->
+            </div>
+        </section>
+
+ <% } %>

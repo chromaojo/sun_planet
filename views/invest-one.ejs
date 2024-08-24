@@ -1,4 +1,4 @@
-<% if (userInvest.id==null) { %>
+<% if (!userInvest) { %>
     <br> <br>
     <h3 class="m-5 text-center mb-5">There is no recorded investment at the moment</h3>
     <a href="/user/dashboard" class="btn btn-outline-danger ">Back To Menu</a>
@@ -98,13 +98,11 @@
                             <h5 class="card-title">Investment<span>| Details</span></h5>
 
                             <div class="d-flex align-items-center">
-                                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                </div>
-                                <div class="ps-3">
-                                    <p class="text-muted small pt-2 ps-1 text-capitalize">
-                                        <%= userInvest.details %>
-                                    </p>
+                                
+                                <div class="ps-3 container">
+                                    <article class="text-muted small pt-2 ps-1 text-capitalize">
+                                        <%- userInvest.details %>
+                                    </article>
                                 </div>
                             </div>
                         </div>
@@ -114,4 +112,4 @@
             </div>
         </section>
 
-        <% } %>
+ <% } %>

@@ -16,23 +16,23 @@ const session = require('express-session');
 
 
 // To View All Reports
-const allRept = (req, res)=>{
-    
+const allRept = (req, res) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
       SELECT * FROM realEstate.re__report ORDER BY id DESC;
     `;
 
-        db.query(sql,  (err, results) => {
+        db.query(sql, (err, results) => {
             if (err) {
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userRept = results
                 const userData = userCookie
@@ -40,20 +40,20 @@ const allRept = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
-const allMyRept = (req, res)=>{
-    
-    
+const allMyRept = (req, res) => {
+
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
     const user_id = userCookie.user_id;
-    if (userCookie){
+    if (userCookie) {
         const sql = `SELECT * FROM realEstate.re__report WHERE user_id = ? ORDER BY id DESC;`;
 
         db.query(sql, [user_id], (err, results) => {
@@ -61,8 +61,8 @@ const allMyRept = (req, res)=>{
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userRept = results
                 const userData = userCookie
@@ -70,56 +70,66 @@ const allMyRept = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 
-const oneRept = (req, res, next)=>{
-    
-    const id = req.params.id;
+const oneRept = (req, res) => {
+
+    const report_id = req.params.report_id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
+    console.log('My Reort id is ' + report_id)
     const userData = userCookie
     if (!userCookie) {
         res.redirect('/logout');
     } else {
-        const sql = `
-      SELECT * FROM realEstate.re_report WHERE id =?;
+        db.query('SELECT * FROM realEstate.re__report WHERE report_id =?', [report_id], (err, result) => {
+            if (err) {
+                res.send('Errors viewing Report')
+                console.log('Viewing error ' + err)
+            }
+
+            const userReport = result[0]
+            const sql = `
+      SELECT * FROM realEstate.re__content WHERE report_id =?;
     `;
 
-        db.query(sql, [id], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-            console.log('This is the dashboard Details : ', userData);
-            
-            if (results) {
-                const userRept = results[0]
-                console.log('Repterties are ',userRept)
-                res.render('Rept-one', { userData, userRept, info });
-            }
+            db.query(sql, [report_id], (err, results) => {
+                if (err) {
+                    console.log('Report Viewing Issues :', err);
+                    return res.status(500).send('Internal Report Server Error');
+                }
 
-        })
+                if (results) {
+                    const reportCont = results
+                    console.log('Report Content are ', reportCont)
+                    console.log('User Report are ', userReport)
+                    res.render('report-one', { userData, reportCont, userReport, info });
+                }
+
+            })
+
+        });
     }
 };
 
 
 
 // To Get report form 
-const createRepts = (req, res)=>{
-    
+const createRepts = (req, res) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         return next();
-        
-    } else{
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
@@ -130,12 +140,12 @@ const createRept = (req, res, next) => {
 
     const userData = userCookie
 
-    const { title , description ,Rept_status, price, location } = req.body;
+    const { title, description, Rept_status, price, location } = req.body;
 
-    
+
 
     try {
-        db.query('INSERT INTO realEstate.re_report SET ?', { title , description ,Rept_status, price, location  });
+        db.query('INSERT INTO realEstate.re_report SET ?', { title, description, Rept_status, price, location });
 
         res.json("Form Successfully Submitted")
     } catch (error) {
@@ -147,15 +157,15 @@ const createRept = (req, res, next) => {
 
 
 // To get each User's Shipment Query 
-const UserLoggi = (req, res, next)=>{
-    
+const UserLoggi = (req, res, next) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         return next();
-        
-    } else{
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
@@ -172,22 +182,34 @@ const deleteRept = (req, res, next) => {
     if (userCookie) {
 
         try {
-            const id = req.params.id;
+            const report_id = req.params.report_id;
             // Perform the deletion
-            const sql = `DELETE FROM jvmc.re_report WHERE id = ?;`;
-            db.query(sql, [id], (err, result) => {
+            const sql = `DELETE FROM realEstate.re__content WHERE report_id = ?;`;
+            db.query(sql, [report_id], (err, result) => {
                 if (err) {
                     console.error('Error deleting report:', err);
                     return res.status(500).send('Internal Server Error');
                 }
-                // Check if any rows were affected
-                if (result.affectedRows === 0) {
-                    return res.status(404).send('report content not found');
-                }
+                
+                const sql = `DELETE FROM realEstate.re__report WHERE report_id = ?;`;
+                db.query(sql, [report_id], (err, result) => {
+                    if (err) {
+                        console.error('Error deleting report:', err);
+                        return res.status(500).send('Internal Server Error');
+                    }
+                    // Check if any rows were affected
+                    if (result.affectedRows === 0) {
+                        return res.status(404).send('report content not found');
+                    }
+
+
+                    return next();
+                });
+
+
 
             });
 
-            return next();
         } catch (err) {
             console.error('Error handling /delete-task-content/:id route:', err);
             res.status(500).send('Internal Server Error');
@@ -201,4 +223,4 @@ const deleteRept = (req, res, next) => {
 
 
 
-module.exports = {oneRept, allRept, allMyRept, deleteRept, createRept}
+module.exports = { oneRept, allRept, allMyRept, deleteRept, createRept }

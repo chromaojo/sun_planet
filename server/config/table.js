@@ -55,7 +55,7 @@ route.get('/createUser', (req, res) => {
             }
             console.log('Accounts Created Successfully');
 
-    
+
         });
         db.query(sqlSaved, (errSh) => {
             if (errSh) {
@@ -90,7 +90,7 @@ route.get('/createProp', (req, res) => {
         );
         `;
 
-        const sqlSaved = `
+    const sqlSaved = `
         CREATE TABLE IF NOT EXISTS realEstate.re_saved (
         id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
         prop_id INT UNIQUE,
@@ -105,7 +105,7 @@ route.get('/createProp', (req, res) => {
         );
         `;
 
- 
+
 
     db.query(sqlProp, (errRoles) => {
         if (errRoles) {
@@ -114,14 +114,14 @@ route.get('/createProp', (req, res) => {
         }
         console.log('Property Created Successfully');
 
-    }); 
+    });
     db.query(sqlSaved, (errAccounts) => {
         if (errAccounts) {
             console.log('Error creating accounts table:', errAccounts);
             return res.status(500).send('Internal Server Error');
         }
         console.log('Saved Table Created Successfully');
-        
+
     });
     res.send('Saved & Property Table Created Successfully');
 });
@@ -142,7 +142,7 @@ route.get('/createReport', (req, res) => {
     );
   `;
 
-  const sqlReportC = `
+    const sqlReportC = `
     CREATE TABLE IF NOT EXISTS realEstate.re__content (
       id INT PRIMARY KEY AUTO_INCREMENT,
       activity TEXT,
@@ -151,11 +151,11 @@ route.get('/createReport', (req, res) => {
       status ENUM('completed', 'in progress', 'not started', 'onhold'),
       progress ENUM('pending', 'finished') DEFAULT 'pending',
       report_id VARCHAR(255) NOT NULL,
-      FOREIGN KEY (report_id) REFERENCES jvmc.jvmc_report(report_id)
+      FOREIGN KEY (report_id) REFERENCES realEstate.re__report(report_id)
     );
   `;
 
- 
+
 
     db.query(sqlReport, (errRoles) => {
         if (errRoles) {
@@ -164,14 +164,14 @@ route.get('/createReport', (req, res) => {
         }
         console.log('Users Created Successfully');
 
-    }); 
+    });
     db.query(sqlReportC, (errAccounts) => {
         if (errAccounts) {
             console.log('Error creating accounts table:', errAccounts);
             return res.status(500).send('Internal Server Error');
         }
         // console.log('Saved Table Created Successfully');
-        
+
     });
     res.send('Report Table Created Successfully');
 });
@@ -195,9 +195,9 @@ route.get('/createComplain', (req, res) => {
     );
   `;
 
-  
 
- 
+
+
 
     db.query(sqlComplaint, (errRoles) => {
         if (errRoles) {
@@ -206,8 +206,8 @@ route.get('/createComplain', (req, res) => {
         }
         console.log('Users Created Successfully');
 
-    }); 
-    
+    });
+
     res.send('Complaint Table Created Successfully');
 });
 
@@ -226,8 +226,74 @@ route.get('/createInvestment', (req, res) => {
       name VARCHAR(255)
     );
   `;
-  const sqlTransaction = `
+    const sqlTransaction = `
     CREATE TABLE IF NOT EXISTS realEstate.re_transaction (
+        transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id VARCHAR(255),
+        payment_method VARCHAR(255),
+        transaction_date DATETIME,
+        amount DECIMAL(12, 2),
+        currency VARCHAR(10),
+        transaction_type ENUM('debit', 'credit'),
+        status ENUM('pending', 'completed', 'failed'),
+        description VARCHAR(255),
+        reference_number VARCHAR(255),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES re_users(user_id)
+    );
+  `;
+
+    db.query(sqlInvest, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Investment Created Successfully');
+
+    });
+    db.query(sqlTransaction, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log(' Transaction Created Successfully');
+
+    });
+
+    res.send('Investment Transaction Table Created Successfully');
+});
+
+route.get('/createLead', (req, res) => {
+
+    const sqlLead = `
+    CREATE TABLE IF NOT EXISTS realEstate.re_lead (
+        lead_id INT AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(20),
+        gender VARCHAR(20),
+        first_name VARCHAR(50) NOT NULL,
+        last_name VARCHAR(50) NOT NULL,
+        email VARCHAR(100) NOT NULL UNIQUE,
+        phone_number VARCHAR(20),
+        company_name VARCHAR(100),
+        job_title VARCHAR(100),
+        industry VARCHAR(100),
+        user_id VARCHAR(100),
+        lead_by VARCHAR(200),
+        info TEXT,
+        location VARCHAR(100),
+        product_service_interest VARCHAR(200),
+        recommendation TEXT,
+        status ENUM('new', 'follow-up', 'converted') DEFAULT 'new',
+        follow_comment TEXT,
+        assigned_to VARCHAR(100),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    );
+  `;
+  
+    const sqlInspect = `
+    CREATE TABLE IF NOT EXISTS realEstate.re_inspection (
       id INT AUTO_INCREMENT PRIMARY KEY,
       transaction_id VARCHAR(255) UNIQUE,
       name VARCHAR(255) NOT NULL,
@@ -241,24 +307,24 @@ route.get('/createInvestment', (req, res) => {
     );
   `;
 
-    db.query(sqlInvest, (errRoles) => {
+    db.query(sqlLead, (errRoles) => {
         if (errRoles) {
             console.log('Error creating roles table:', errRoles);
             return res.status(500).send('Internal Server Error');
         }
-        console.log('Investment Created Successfully');
+        console.log('Lead Created Successfully');
 
-    }); 
-    db.query(sqlTransaction, (errRoles) => {
-        if (errRoles) {
-            console.log('Error creating roles table:', errRoles);
-            return res.status(500).send('Internal Server Error');
-        }
-        console.log(' Transaction Created Successfully');
+    });
+    // db.query(sqlInspect, (errRoles) => {
+    //     if (errRoles) {
+    //         console.log('Error creating roles table:', errRoles);
+    //         return res.status(500).send('Internal Server Error');
+    //     }
+    //     console.log(' Transaction Created Successfully');
 
-    }); 
-    
-    res.send('Investment Transaction Table Created Successfully');
+    // });
+
+    res.send('Lead Table Created Successfully');
 });
 
 

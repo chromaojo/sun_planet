@@ -5,8 +5,8 @@ const path = require("path");
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
-const random = Math.floor(Math.random() * 99999);
-const rando = Math.floor(Math.random() * 99999);
+let random = Math.floor(Math.random() * 900999999);
+let rando = Math.floor(Math.random() * 99999899);
 const rand = rando + "TtXxL" + random;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -149,15 +149,15 @@ const createComplain = (req, res) => {
                     console.log('Login Issues :', err);
                     return res.status(500).send('Internal Server Error');
                 }
-                const {title ,  price, location } = results[0]
-                const pro_link ='/user/property-zZkKqQP/'+id;
+                const {title ,  name, complain, number } = req.body
+               
                 const user_id = userData.user_id
-                const prop_id = random || rando
-                const picture = '/assets/img/card.jpg'
-                console.log('This is the propertyprice ',price);
-                db.query('INSERT INTO realEstate.re_complaint SET ?', { title , location, pro_link, price, user_id, picture, prop_id });
+                let report_id = Math.floor(Math.random() * 9900999999);
+                const  aacount_id = userData.account_id
+                console.log('This is the Report number ',report_id);
+                db.query('INSERT INTO realEstate.re_complaint SET ?', { title , user_id,  name, complain, number,  aacount_id, report_id });
 
-                res.redirect('/user/Complain')
+                res.redirect('/user/complaints')
             })
 
         } catch (error) {
