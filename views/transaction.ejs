@@ -1,0 +1,59 @@
+<% let counter = 1; %>
+<section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Transactions Details</h5>
+            <p class="text-capitalize">Every Transaction can be seen on this section.</p>
+
+          <% if (!userTran) {%>
+            <h2 class="p-4 text-capitalize text-center mt-3">No Transaction at the moment</h2>
+            <% }else { %>
+               <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  
+                  <th scope="col">Email</th>
+                  <th scope="col">Product/ Service</th>
+                  <th scope="col">Price (NGN)</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                <% userTran.forEach(trans=> { %>
+                  <tr> 
+                      <th scope="row"><%= counter++ %></th>
+                      <td>
+                          <a href="">
+                              <%= trans.email %>
+                          </a>
+                      </td>
+                      <td>
+                         <a href="">
+                          <%= trans.role %>
+                         </a>
+                      </td>
+                      <td>
+                          <a href="">
+                              <span>*************</span>
+                          </a>
+                      </td>
+                  </tr>
+
+              <% }) %>
+                
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+          <% } %>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>

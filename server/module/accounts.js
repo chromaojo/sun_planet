@@ -9,6 +9,8 @@ const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 99999);
 const rand = rando + "FTL" + random;
 
+
+
 // username, surname, othername, phone_number, address
 
 // To create User and Account 
@@ -36,7 +38,7 @@ route.post('/register', (req, res) => {
                     //     },
                     //     to: email,
                     //     subject: "Welcome To Real Est Logistics",
-                    //     text: `Welcome to Real Est INT'L, \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
+                    //     text: `Welcome to Property Biz, \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
                     // }
                     // mail.sendIt(messages)
 

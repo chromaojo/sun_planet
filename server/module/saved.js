@@ -87,57 +87,59 @@ const oneSaved = (req, res) => {
 
 // To Post shipment form from the frontend 
 const createSaved = (req, res, next) => {
-    const id = req.params.id;
+    const prop_id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
 
     if (userData) {
-        try {
-            const sql = `
-            SELECT * FROM realEstate.re_property WHERE id = ?;
-          `;
 
-            db.query(sql, [id], (err, results) => {
-                if (err) {
-                    console.log('Login Issues :', err);
-                    return res.status(500).send('Internal Server Error');
-                }
-                const {title ,  price, location, picture, prop_id } = results[0]
-                const pro_link ='/user/property-zZkKqQP/'+id;
-                const user_id = userData.user_id
-               
+        const sql = `
+      SELECT * FROM realEstate.re_saved WHERE prop_id =?;
+    `;
+
+
+        db.query(sql, [prop_id], (err, results) => {
+            if (err) { console.log("Customized Error ", err); }
+
+            if (results.length > 0) {
+                return res.redirect('/user/saved');
                 
-                console.log('This is the propertyprice ',price);
-                db.query('INSERT INTO realEstate.re_saved SET ?', { title , location, pro_link, price, user_id, picture, prop_id });
+            }else{
+                try {
+                    const sql = `
+                    SELECT * FROM realEstate.re_property WHERE prop_id = ?;
+                  `;
+    
+                    db.query(sql, [prop_id], (err, results) => {
+                        if (err) {
+                            console.log('Login Issues :', err);
+                            return res.status(500).send('Internal Server Error');
+                        }
+                        const { title, price, id, location, picture, prop_id } = results[0]
+                        const pro_link = '/user/property-zZkKqQP/' + id;
+                        const user_id = userData.user_id
+                        const pikz =picture.split(',')[0]   
+    
+                        console.log('This is the propertyprice ', price);
+                        db.query('INSERT INTO realEstate.re_saved SET ?', { title, location, pro_link, price, user_id, picture:pikz, prop_id });
+    
+                        return next();
+                    })
+    
+                } catch (error) {
+                    console.log('Archive Form Error :', error)
+                }
+            }
+           
+        })
 
-                return next();
-            })
-
-        } catch (error) {
-            console.log('Archive Form Error :', error)
-        }
 
     } else {
         res.json('Added Successfully');
     }
 
 }
-
-
-// To get each User's Shipment Query 
-const UserLoggi = (req, res, next) => {
-
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        return next();
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
 
 
 // To delete a saved content
@@ -163,11 +165,11 @@ const deleteSaved = (req, res, next) => {
                 if (result.affectedRows === 0) {
                     return res.status(404).send('saved content not deleted');
                 }
-                return next();  
+                return next();
 
             });
 
-            
+
         } catch (err) {
             console.error('Error handling /delete-task-content/:id route:', err);
             res.status(500).send('Internal Server Error');

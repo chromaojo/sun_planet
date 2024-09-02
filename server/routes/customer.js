@@ -61,13 +61,13 @@ route.post('/register', (req, res) => {
 
                     // const messages = {
                     //     from: {
-                    //         name: 'realEstate INTERNATIONAL',
+                    //         name: 'Property Biz Software',
                     //         address: 'felixtemidayoojo@gmail.com',
                     //     },
                     //     to: email,
-                    //     subject: "Welcome To Real Est Logistics",
-                    //     text: `Welcome to Real Est INT'L, \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
-                    // }
+                    //     subject: "Welcome To Property Biz App",
+                    //     text: `<b> Dear New User, Welcome to Property Biz INT'L,</b> \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
+                    // } 
                     // mail.sendIt(messages)
 
                     // To create the account table into the user 
@@ -162,6 +162,15 @@ route.post('/create/pXrRoPp', createProp, (req, res) => {
    
 });
 
+// To gat Create Property
+route.get('/transactions', (req, res) => {
+
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    const userTran = ''
+    const userData = userCookie
+    res.render('transaction', { userData , userTran })
+});
 
 
 
