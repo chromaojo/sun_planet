@@ -69,6 +69,12 @@ route.get('/about', AvoidIndex, (req, res) => {
     res.render('home-about', {info, layout: false})
 })
 
+route.get('/contact', AvoidIndex, (req, res) => {
+
+
+    res.render('home-contact', {info, layout: false})
+})
+
 
 // To register a new account 
 route.get('/register', (req, res) => {

@@ -2027,8 +2027,20 @@ section,
 }
 
 /*--------------------------------------------------------------
-# Starter Section Section
+# Steez Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+.steeze {
+    margin-top: 140px;
+    background-image: url(../img/grass.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 140px 0px;
+    color: #fff;
+    position: relative;
+  
+}
+.steee{
+  background-color: #059652;
 }
