@@ -23,7 +23,7 @@ const allRept = (req, res) => {
 
     if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re__report ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc__report ORDER BY id DESC;
     `;
 
         db.query(sql, (err, results) => {
@@ -54,7 +54,7 @@ const allMyRept = (req, res) => {
     req.app.set('userData', userCookie);
     const user_id = userCookie.user_id;
     if (userCookie) {
-        const sql = `SELECT * FROM realEstate.re__report WHERE user_id = ? ORDER BY id DESC;`;
+        const sql = `SELECT * FROM sun_planet.spc__report WHERE user_id = ? ORDER BY id DESC;`;
 
         db.query(sql, [user_id], (err, results) => {
             if (err) {
@@ -88,7 +88,7 @@ const oneRept = (req, res) => {
     if (!userCookie) {
         res.redirect('/logout');
     } else {
-        db.query('SELECT * FROM realEstate.re__report WHERE report_id =?', [report_id], (err, result) => {
+        db.query('SELECT * FROM sun_planet.spc__report WHERE report_id =?', [report_id], (err, result) => {
             if (err) {
                 res.send('Errors viewing Report')
                 console.log('Viewing error ' + err)
@@ -96,7 +96,7 @@ const oneRept = (req, res) => {
 
             const userReport = result[0]
             const sql = `
-      SELECT * FROM realEstate.re__content WHERE report_id =?;
+      SELECT * FROM sun_planet.spc__content WHERE report_id =?;
     `;
 
             db.query(sql, [report_id], (err, results) => {
@@ -131,7 +131,7 @@ const createRept = (req, res, next) => {
 
 
     try {
-        db.query('INSERT INTO realEstate.re_report SET ?', { title, description, Rept_status, price, location });
+        db.query('INSERT INTO sun_planet.spc_report SET ?', { title, description, Rept_status, price, location });
 
         res.json("Form Successfully Submitted")
     } catch (error) {
@@ -156,14 +156,14 @@ const deleteRept = (req, res, next) => {
         try {
             const report_id = req.params.report_id;
             // Perform the deletion
-            const sql = `DELETE FROM realEstate.re__content WHERE report_id = ?;`;
+            const sql = `DELETE FROM sun_planet.spc__content WHERE report_id = ?;`;
             db.query(sql, [report_id], (err, result) => {
                 if (err) {
                     console.error('Error deleting report:', err);
                     return res.status(500).send('Internal Server Error');
                 }
                 
-                const sql = `DELETE FROM realEstate.re__report WHERE report_id = ?;`;
+                const sql = `DELETE FROM sun_planet.spc__report WHERE report_id = ?;`;
                 db.query(sql, [report_id], (err, result) => {
                     if (err) {
                         console.error('Error deleting report:', err);

@@ -45,7 +45,7 @@ const allInvest = (req, res) => {
 
     if (userCookie) {
         const sql = `
-      SELECT * FROM realestate.re_investment ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_investment ORDER BY id DESC;
     `;
 
         db.query(sql, (err, results) => {
@@ -59,6 +59,38 @@ const allInvest = (req, res) => {
                 const userInvest = results
                 const userData = userCookie
                 return res.render('invest-all', { userData, userInvest, info });
+            }
+
+        })
+
+
+    } else {
+        return res.status(401).redirect('/user/logout');
+    }
+};
+
+// To View All Invest
+const allAdInvest = (req, res) => {
+
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    req.app.set('userData', userCookie);
+
+    if (userCookie) {
+        const sql = `
+      SELECT * FROM sun_planet.spc_investment ORDER BY id DESC;
+    `;
+
+        db.query(sql, (err, results) => {
+            if (err) {
+                console.log('Login Issues :', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+
+            if (results) {
+                const userInvest = results
+                const userData = userCookie
+                return res.render('admin-invest-all', { userData, userInvest, info });
             }
 
         })
@@ -83,7 +115,7 @@ const oneInvest = (req, res, next) => {
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM realestate.re_investment WHERE id =?;
+      SELECT * FROM sun_planet.spc_investment WHERE id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -125,7 +157,7 @@ const createInvest = (req, res) => {
 
             const picture = '/invest/'+pixz;
           
-            db.query('INSERT INTO realEstate.re_investment SET ?', { title , details , invest_id, price , picture , date });
+            db.query('INSERT INTO sun_planet.spc_investment SET ?', { title , details , invest_id, price , picture , date });
            res.redirect('/user/investments');
         });
        
@@ -180,4 +212,4 @@ const deleteInvest = (req, res, next) => {
 
 
 
-module.exports = { oneInvest, allInvest, deleteInvest, createInvest }
+module.exports = { oneInvest, allInvest, allAdInvest, deleteInvest, createInvest }

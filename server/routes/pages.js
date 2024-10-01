@@ -8,12 +8,20 @@ const bcrypt = require('bcryptjs');
 const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 99999);
 const rand = rando + "rEs" + random;
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const { AvoidIndex, UserLoggin} = require('../auth/auth');
+const {regNew} = require('../module/accounts')
 
 
-
+route.use(
+    session({
+        secret: `Hidden_Key`,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: true }
+    })
+);
+route.use('/DxXTWwq', require('../module/payment'));
 
 // Home Page 
 route.get('/', AvoidIndex, (req, res) => {
@@ -27,6 +35,31 @@ route.get('/pricing', AvoidIndex, (req, res) => {
 
 
     res.render('home-pricing', {info, layout: false})
+})
+
+// Properties Section 
+
+route.get('/properties', AvoidIndex, (req, res) => {
+    const sql = `
+    SELECT * FROM realEstate.re_property ORDER BY id DESC;
+  `;
+  const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+      db.query(sql,  (err, results) => {
+          if (err) {
+              console.log('Login Issues :', err);
+              return res.status(500).send('Internal Server Error');
+          }
+        
+          
+          if (results) {
+              const userProp = results
+              const userData = userCookie
+              return res.render('home-prop', { userProp, info, layout: false})
+          }
+
+      })
+    
 })
 
 // About Section 
@@ -51,6 +84,9 @@ route.get('/register', (req, res) => {
         res.redirect('/login');
     }
 })
+
+
+ route.post('/XDcxXLQ/register', regNew)
 
 // Register new User
 
@@ -116,18 +152,23 @@ route.post('/nXcLl/login', async (req, res) => {
         delete ans.password
         const userWithAccount = ans
         
-
         res.cookie('user', JSON.stringify({ ...userWithAccount }));
-        // req.session.userId = result[0].user_id
+        
+       if (result[0].role === 'client') {
         res.redirect('/user/dashboard');
+       } else {
+        res.redirect('/admin/dashboard');
+       }
     });
 });
 
 // Logout route
 route.get('/logout', (req, res) => {
 
+    delete userCookie
     req.session.destroy((err) => {
         delete userData
+        delete userCookie
         res.clearCookie('user');
         if (err) {
             console.error(err);

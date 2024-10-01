@@ -23,7 +23,7 @@ const allTrans = (req, res)=>{
     
     if (userCookie){
         const sql = `
-      SELECT * FROM realEstate.re_transaction ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_transaction ORDER BY id DESC;
     `;
 
         db.query(sql,  (err, results) => {
@@ -61,7 +61,7 @@ const oneTrans = (req, res, next)=>{
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM realEstate.re_transaction WHERE id =?;
+      SELECT * FROM sun_planet.spc_transaction WHERE id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -108,7 +108,7 @@ const createTrans = (req, res, next) => {
     
 
     try {
-        db.query('INSERT INTO realEstate.re_transaction SET ?', { title , description ,Trans_status, price, location  });
+        db.query('INSERT INTO sun_planet.spc_transaction SET ?', { title , description ,Trans_status, price, location  });
 
         res.json("Form Successfully Submitted")
     } catch (error) {

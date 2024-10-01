@@ -19,7 +19,7 @@
                                     <%= new Date(userProp.created_at).toLocaleTimeString() %></a>
                         </li>
                         <li>
-                            <a href="/user/save/<%= userProp.id %>" class="dropdown-item"> <i
+                            <a href="/user/save/<%= userProp.prop_id %>" class="dropdown-item"> <i
                                     class="bi bi-folder-plus"></i>Archive It</a>
                         </li>
                         <li><a class="dropdown-item" href="#">Location : <%= userProp.location %></a></li>
@@ -34,7 +34,7 @@
 
                     <div class="row">
 
-                        <div class="col text-end">
+                        <div class="col-lg-9 text-end">
 
                            <!-- Slides with indicators -->
                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -44,7 +44,7 @@
                                     <% let pixz = userProp.picture.split(',') %>
                                     
                                     <div class="carousel-item active" style="width: 790px; height: 390px;">
-                                        <a href="/prop/<%= pixz[0] %>">
+                                        <a href="/prop/<%= pixz[0] %>" target="_blank">
                                          <img src="/prop/<%= pixz[0] %>" class="d-block w-100" alt="Product Image">
                                         </a>
                                      </div>
@@ -53,7 +53,7 @@
                                         <% const pizzy = pixz.splice(1) %>
                                         <% pizzy.forEach(trans=> { %>
                                             <div class="carousel-item" style="width: 790px; height: 390px;">
-                                                <a href="/prop/<%= trans %>">
+                                                <a href="/prop/<%= trans %>" target="_blank">
                                                  <img src="<%= trans ? '/prop/'+trans : '/assets/img/card.jpg' %>" class="d-block w-100" alt="Product Image">
                                                 </a>
                                              </div>
@@ -94,6 +94,12 @@
                             <h5 class="card-title"> <span>Created - <%= new
                                         Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
                                         month:'short', day :'2-digit'}) %></span></h5>
+                            <h5 class="card-title mt-1">
+                                <form action="/DxXTWwq/pay" method="POST">
+                                    <input type="number" value="<%= userProp.price %>" name="amount" hidden>
+                                    <button class="btn btn-outline-primary btn-sm">Pay Now</button>
+                                </form>
+                            </h5>
                         </div>
 
 

@@ -4,7 +4,8 @@ const app = express();
 const port = 8088;
 const expressLayouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
-
+const { AdminRoleBased, ClientRole } = require('./server/auth/auth');
+const session = require('express-session');
 
 
 
@@ -17,11 +18,23 @@ app.set('view engine', 'ejs');
 app.use(cookieParser());
 
 
+app.use(
+    session({
+        secret: `Hidden_Key`,
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: true }
+    })
+);
+
+
 app.use('/db', require('./server/config/table'));
 
 app.use('', require('./server/routes/pages'));
-app.use('/user', require('./server/routes/customer'));
-app.use('/admin', require('./server/routes/admin'));
+
+app.use('/admin', AdminRoleBased, require('./server/routes/admin'));
+app.use('/user', ClientRole, require('./server/routes/customer'));
+
 
 
 

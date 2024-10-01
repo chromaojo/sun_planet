@@ -33,7 +33,12 @@
                   </ul>
                 </div>
                 <div class="card-body">
-                  <a href="/user/reeport/<%=trans.report_id %>">
+                  <% if (userData.role ==='client') {%>
+                    <a href="/user/reeport/<%=trans.report_id %>">
+                  <% } else { %>
+                    <a href="/admin/reeport/<%=trans.report_id %>">
+                  <%} %>
+                  
                     <h5 class="card-title">Report Status <span>| <%= trans.progress %></span></h5>
 
                     <div class="d-flex align-items-center">

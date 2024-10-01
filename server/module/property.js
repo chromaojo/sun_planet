@@ -5,14 +5,13 @@ const path = require("path");
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const multer = require('multer');
-const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
 const random = Math.floor(Math.random() * 999999);
 const rando = Math.floor(Math.random() * 99999);
 const rand = rando + "FTL" + random;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
- 
+
 // MiDDLE WARES 
 // Configure multer for file storage in 'prop' directory
 const storage = multer.diskStorage({
@@ -38,23 +37,22 @@ const upload = multer({
 
 
 // To View All Properties
-const allProp = (req, res)=>{
-    
+const allProp = (req, res, next) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_property ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
     `;
 
-        db.query(sql,  (err, results) => {
+        db.query(sql, (err, results) => {
             if (err) {
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userProp = results
                 const userData = userCookie
@@ -62,24 +60,54 @@ const allProp = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
-        return res.status(401).redirect('/user/logout');
+
+
+    } else {
+        return res.status(401).redirect('/logout');
+    }
+};
+// To View All Properties
+const allAdProp = (req, res, next) => {
+
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    req.app.set('userData', userCookie);
+    if (userCookie) {
+        const sql = `
+      SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
+    `;
+
+        db.query(sql, (err, results) => {
+            if (err) {
+                console.log('Login Issues :', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+
+            if (results) {
+                const userProp = results
+                const userData = userCookie
+                return res.render('admin-index', { userData, userProp, info });
+            }
+
+        })
+
+
+    } else {
+        return res.status(401).redirect('/logout');
     }
 };
 
 // To View All Commercial Properties
-const allComProp = (req, res)=>{
-    
+const allComProp = (req, res) => {
+
     const category = 'commercial'
-    
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_property WHERE category = ? ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_property WHERE category = ? ORDER BY id DESC;
     `;
 
         db.query(sql, [category], (err, results) => {
@@ -87,8 +115,8 @@ const allComProp = (req, res)=>{
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userProp = results
                 const userData = userCookie
@@ -96,32 +124,32 @@ const allComProp = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 // To View All Residentioal Properties
-const allResProp = (req, res)=>{
-    
+const allResProp = (req, res) => {
+
     const category = 'residential'
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_property ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
     `;
 
-        db.query(sql, [category] ,(err, results) => {
+        db.query(sql, [category], (err, results) => {
             if (err) {
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userProp = results
                 const userData = userCookie
@@ -129,22 +157,22 @@ const allResProp = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 // To View All shortlet Properties
-const allShortProp = (req, res)=>{
+const allShortProp = (req, res) => {
     const prop_type = 'shortlet'
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_property WHERE prop_type = ? ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_property WHERE prop_type = ? ORDER BY id DESC;
     `;
 
         db.query(sql, [prop_type], (err, results) => {
@@ -152,8 +180,8 @@ const allShortProp = (req, res)=>{
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userProp = results
                 const userData = userCookie
@@ -161,22 +189,22 @@ const allShortProp = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 // To View All Rented Properties
-const allRentProp = (req, res)=>{
+const allRentProp = (req, res) => {
     const action = 'rent'
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_property WHERE action = ? ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_property WHERE action = ? ORDER BY id DESC;
     `;
 
         db.query(sql, [action], (err, results) => {
@@ -184,8 +212,8 @@ const allRentProp = (req, res)=>{
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userProp = results
                 const userData = userCookie
@@ -193,22 +221,22 @@ const allRentProp = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 // To View All Lease Properties
-const allLeaseProp = (req, res)=>{
+const allLeaseProp = (req, res) => {
     const action = 'lease'
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_property WHERE action = ? ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_property WHERE action = ? ORDER BY id DESC;
     `;
 
         db.query(sql, [action], (err, results) => {
@@ -216,8 +244,8 @@ const allLeaseProp = (req, res)=>{
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userProp = results
                 const userData = userCookie
@@ -225,22 +253,22 @@ const allLeaseProp = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
 
 // To View All sSale Properties
-const allSaleProp = (req, res)=>{
+const allSaleProp = (req, res) => {
     const action = 'sale'
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
-    
-    if (userCookie){
+
+    if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_property WHERE action = ? ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_property WHERE action = ? ORDER BY id DESC;
     `;
 
         db.query(sql, [action], (err, results) => {
@@ -248,8 +276,8 @@ const allSaleProp = (req, res)=>{
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-          
-            
+
+
             if (results) {
                 const userProp = results
                 const userData = userCookie
@@ -257,9 +285,9 @@ const allSaleProp = (req, res)=>{
             }
 
         })
-        
-        
-    } else{
+
+
+    } else {
         return res.status(401).redirect('/user/logout');
     }
 };
@@ -269,8 +297,8 @@ const allSaleProp = (req, res)=>{
 
 // To view only one property 
 
-const oneProp = (req, res)=>{
-    
+const oneProp = (req, res) => {
+
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
@@ -279,7 +307,7 @@ const oneProp = (req, res)=>{
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM realEstate.re_property WHERE id =?;
+      SELECT * FROM sun_planet.spc_property WHERE id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -288,10 +316,10 @@ const oneProp = (req, res)=>{
                 return res.status(500).send('Internal Server Error');
             }
             console.log('This is the dashboard Details : ', userData);
-            
+
             if (results) {
                 const userProp = results[0]
-                console.log('Properties are ',userProp)
+                console.log('Properties are ', userProp)
                 res.render('prop-one', { userData, userProp, info });
             }
 
@@ -299,7 +327,36 @@ const oneProp = (req, res)=>{
     }
 };
 
+// To view Admin Prop 
+const oneAdProp = (req, res) => {
 
+    const id = req.params.id;
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    const userData = userCookie
+    if (!userCookie) {
+        res.redirect('/logout');
+    } else {
+        const sql = `
+      SELECT * FROM sun_planet.spc_property WHERE id =?;
+    `;
+
+        db.query(sql, [id], (err, results) => {
+            if (err) {
+                console.log('Login Issues :', err);
+                return res.status(500).send('Internal Server Error');
+            }
+            console.log('This is the dashboard Details : ', userData);
+
+            if (results) {
+                const userProp = results[0]
+                console.log('Properties are ', userProp)
+                res.render('admin-prop-one', { userData, userProp, info });
+            }
+
+        })
+    }
+};
 
 
 
@@ -314,29 +371,30 @@ const createProp = (req, res) => {
             if (err) {
                 return res.send('Error uploading files.');
             }
-    
- 
-            const { title , description, prop_type, category, action , price, location } = req.body;
-           
+
+
+            const { title, description, prop_type, category, action, price, location } = req.body;
+
             let prop_id = rando || random
             const pixz = req.files.map(file => file.filename);
-            const prop_status ='active'
-            const picture = pixz;
+
+            const prop_status = 'active';
+            const picture = '' + pixz + "";
 
             // Now you can handle the name, age, address, and pictures array
             // For example, save them to a database, send to another API, etc.
 
-            db.query('INSERT INTO realEstate.re_property SET ?', { title, prop_id, picture , description, prop_type, category, action ,prop_status, price, location });
-           res.redirect('/user/dashboard')
+            db.query('INSERT INTO sun_planet.spc_property SET ?', { title, prop_id, picture, description, prop_type, category, action, prop_status, price, location });
+            res.redirect('/user/dashboard')
         });
-       
+
     } catch (error) {
         console.log('Property Form Error :', error)
     }
-   
+
 }
 
- 
+
 
 
 // To delete a property content
@@ -351,21 +409,18 @@ const deleteProp = (req, res, next) => {
 
         try {
             const id = req.params.id;
+          
             // Perform the deletion
-            const sql = `DELETE FROM jvmc.re_property WHERE id = ?;`;
+            const sql = `DELETE FROM sun_planet.spc_property WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
-                    console.error('Error deleting Property:', err);
-                    return res.status(500).send('Internal Server Error');
+                   
+                    return res.status(500).send('Error deleting Property');
                 }
-                // Check if any rows were affected
-                if (result.affectedRows === 0) {
-                    return res.status(404).send('property content not found');
-                }
-
+                res.redirect('/admin/props')
             });
 
-            return next();
+            
         } catch (err) {
             console.error('Error handling /delete-task-content/:id route:', err);
             res.status(500).send('Internal Server Error');
@@ -379,4 +434,4 @@ const deleteProp = (req, res, next) => {
 
 
 
-module.exports = {oneProp, allProp, deleteProp, createProp, allLeaseProp, allSaleProp, allRentProp, allShortProp, allResProp, allComProp}
+module.exports = { oneProp, oneAdProp, allProp, allAdProp, deleteProp, createProp, allLeaseProp, allSaleProp, allRentProp, allShortProp, allResProp, allComProp }

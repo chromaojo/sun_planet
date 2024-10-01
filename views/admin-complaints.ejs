@@ -1,0 +1,64 @@
+<div class="container-fluid register ">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title"> Complaints / Enquiry Section</h5>
+      <% if (userComplain=='' ) { %>
+        <br> <br>
+        <h3 class="m-5 text-center mb-5">There is no complaint / inquiry at the moment</h3>
+
+        <% } else{%>
+          <p class="text-capitalize">Every Complaint / enquiry history is made available here</p>
+
+          <!-- Table with stripped rows -->
+          <table class="table datatable">
+            <thead>
+              <% let counter=1 %>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Report Id</th>
+                  <th scope="col">Phone Number</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+              <% userComplain.forEach(trans=> { %>
+                <tr>
+                  <th scope="row">
+                    <%= counter++ %>
+                  </th>
+                  <td>
+                    <%= trans.name %>
+                  </td>
+                  <td>
+                    <%= trans.report_id %>
+                  </td>
+                  <td>
+                    <%= trans.number %>
+                  </td>
+                  <td>
+                    <%= trans.title %>
+                  </td>
+                  <td>
+                    <% if ( trans.status==='pending' ) { %>
+                      <span class="badge bg-warning">Processing...</span>
+                      <% } else{ %>
+                        <span class="badge bg-success">Resolved</span>
+                        <% } %>
+                  </td>
+                </tr>
+
+                <% }) %>
+
+            </tbody>
+          </table>
+          <!-- End Table with stripped rows -->
+        <% } %>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,27 +10,28 @@ route.get('/createUser', (req, res) => {
 
 
     const sqlUsers = `
-        CREATE TABLE IF NOT EXISTS realestate.re_users (
+        CREATE TABLE IF NOT EXISTS sun_planet.spc_users (
         id INT PRIMARY KEY AUTO_INCREMENT,
         user_id VARCHAR(255) UNIQUE,
         email VARCHAR(255) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        role ENUM('admin', 'staff', 'agent', 'client') DEFAULT 'client'
+        role ENUM('admin', 'client') DEFAULT 'client'
         );
         `;
 
     const sqlAccounts = `
-        CREATE TABLE IF NOT EXISTS realestate.re_accounts (
+        CREATE TABLE IF NOT EXISTS sun_planet.spc_accounts (
         account_id VARCHAR(255) UNIQUE PRIMARY KEY,
         account_balance INT DEFAULT 0,
         total_spent INT DEFAULT 0,
+        current_rent INT DEFAULT 0,
         phone_number VARCHAR(255),
         whatsapp VARCHAR(255),
         instagram VARCHAR(255),
         facebook VARCHAR(255),
         linkedin VARCHAR(255),
         about TEXT,
-        role ENUM('admin', 'staff', 'agent', 'client') DEFAULT 'client'
+        acct_type ENUM('admin', 'investor', 'tenant', 'client') DEFAULT 'client',
         profilePix VARCHAR(255),
         surname VARCHAR(255),
         othername VARCHAR(255),
@@ -38,7 +39,7 @@ route.get('/createUser', (req, res) => {
         address VARCHAR(255),
         email VARCHAR(255) NOT NULL UNIQUE,
         user_id VARCHAR(255) UNIQUE,
-        FOREIGN KEY (user_id) REFERENCES re_users(user_id)
+        FOREIGN KEY (user_id) REFERENCES spc_users(user_id)
         );
         `;
     db.query(sqlUsers, (errRoles) => {
@@ -57,30 +58,21 @@ route.get('/createUser', (req, res) => {
 
 
         });
-        db.query(sqlSaved, (errSh) => {
-            if (errSh) {
-                console.log('Error creating property table:', errShipments);
-                return res.status(500).send('Internal Server Error');
-            }
-            console.log(' Archive / Saved Table Created Successfully');
-
-            res.send(' Archive / Saved Tables Created Successfully');
-        });
+       
     });
 });
 
 route.get('/createProp', (req, res) => {
 
-
     const sqlProp = `
-        CREATE TABLE IF NOT EXISTS realEstate.re_property (
+        CREATE TABLE IF NOT EXISTS sun_planet.spc_property (
         id INT PRIMARY KEY AUTO_INCREMENT,
         prop_id INT UNIQUE,
         title VARCHAR(255) NOT NULL,
         picture VARCHAR(155),
         description TEXT,
-        action ENUM('sale', 'lease', 'rent') NOT NULL,
-        prop_type ENUM('land', 'building','shortlet','ware_house', 'apartment') NOT NULL,
+        action ENUM('buy','rent') NOT NULL,
+        prop_type ENUM('shortlet','apartment') NOT NULL,
         category ENUM('residential', 'commercial') NOT NULL,
         prop_status ENUM('active', 'rented', 'sold','leased') DEFAULT 'active',
         price DECIMAL(10, 2) NOT NULL,
@@ -91,21 +83,19 @@ route.get('/createProp', (req, res) => {
         `;
 
     const sqlSaved = `
-        CREATE TABLE IF NOT EXISTS realEstate.re_saved (
+        CREATE TABLE IF NOT EXISTS sun_planet.spc_saved (
         id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
-        prop_id INT UNIQUE,
-        title VARCHAR(255) NOT NULL,
-        price VARCHAR(255) ,
+        prop_id INT NOT NULL,
+        title VARCHAR(255) UNIQUE,
+        price VARCHAR(255),
         location VARCHAR(255),
         pro_link VARCHAR(65) NOT NULL,
         date VARCHAR(65),
         user_id VARCHAR(255), 
         picture VARCHAR(255) NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES re_users(user_id)
+        FOREIGN KEY (user_id) REFERENCES spc_users(user_id)
         );
         `;
-
-
 
     db.query(sqlProp, (errRoles) => {
         if (errRoles) {
@@ -113,24 +103,22 @@ route.get('/createProp', (req, res) => {
             return res.status(500).send('Internal Server Error');
         }
         console.log('Property Created Successfully');
-
     });
+
     db.query(sqlSaved, (errAccounts) => {
         if (errAccounts) {
             console.log('Error creating accounts table:', errAccounts);
             return res.status(500).send('Internal Server Error');
         }
         console.log('Saved Table Created Successfully');
-
     });
     res.send('Saved & Property Table Created Successfully');
 });
 
 route.get('/createReport', (req, res) => {
 
-
     const sqlReport = `
-    CREATE TABLE IF NOT EXISTS realEstate.re__report (
+    CREATE TABLE IF NOT EXISTS sun_planet.spc__report (
       id INT AUTO_INCREMENT PRIMARY KEY,
       report_id VARCHAR(255) UNIQUE,
       title VARCHAR(255) NOT NULL,
@@ -143,7 +131,7 @@ route.get('/createReport', (req, res) => {
   `;
 
     const sqlReportC = `
-    CREATE TABLE IF NOT EXISTS realEstate.re__content (
+    CREATE TABLE IF NOT EXISTS sun_planet.spc__content (
       id INT PRIMARY KEY AUTO_INCREMENT,
       activity TEXT,
       result TEXT,
@@ -151,11 +139,9 @@ route.get('/createReport', (req, res) => {
       status ENUM('completed', 'in progress', 'not started', 'onhold'),
       progress ENUM('pending', 'finished') DEFAULT 'pending',
       report_id VARCHAR(255) NOT NULL,
-      FOREIGN KEY (report_id) REFERENCES realEstate.re__report(report_id)
+      FOREIGN KEY (report_id) REFERENCES sun_planet.spc__report(report_id)
     );
   `;
-
-
 
     db.query(sqlReport, (errRoles) => {
         if (errRoles) {
@@ -180,7 +166,7 @@ route.get('/createComplain', (req, res) => {
 
 
     const sqlComplaint = `
-    CREATE TABLE IF NOT EXISTS realEstate.re_complaint (
+    CREATE TABLE IF NOT EXISTS sun_planet.spc_complaint (
       id INT AUTO_INCREMENT PRIMARY KEY,
       report_id VARCHAR(255) UNIQUE,
       name VARCHAR(255) NOT NULL,
@@ -214,7 +200,7 @@ route.get('/createComplain', (req, res) => {
 route.get('/createInvestment', (req, res) => {
 
     const sqlInvest = `
-    CREATE TABLE IF NOT EXISTS realEstate.re_investment (
+    CREATE TABLE IF NOT EXISTS sun_planet.spc_investment (
       id INT AUTO_INCREMENT PRIMARY KEY,
       invest_id VARCHAR(255) UNIQUE,
       title VARCHAR(255) NOT NULL,
@@ -227,7 +213,7 @@ route.get('/createInvestment', (req, res) => {
     );
   `;
     const sqlTransaction = `
-    CREATE TABLE IF NOT EXISTS realEstate.re_transaction (
+    CREATE TABLE IF NOT EXISTS sun_planet.spc_transaction (
         transaction_id INT AUTO_INCREMENT PRIMARY KEY,
         user_id VARCHAR(255),
         payment_method VARCHAR(255),
@@ -240,7 +226,7 @@ route.get('/createInvestment', (req, res) => {
         reference_number VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES re_users(user_id)
+        FOREIGN KEY (user_id) REFERENCES spc_users(user_id)
     );
   `;
 
@@ -267,7 +253,7 @@ route.get('/createInvestment', (req, res) => {
 route.get('/createLead', (req, res) => {
 
     const sqlLead = `
-    CREATE TABLE IF NOT EXISTS realEstate.re_lead (
+    CREATE TABLE IF NOT EXISTS sun_planet.spc_lead (
         lead_id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(20),
         gender VARCHAR(20),
@@ -293,7 +279,7 @@ route.get('/createLead', (req, res) => {
   `;
   
     const sqlInspect = `
-    CREATE TABLE IF NOT EXISTS realEstate.re_inspection (
+    CREATE TABLE IF NOT EXISTS sun_planet.spc_inspection (
       id INT AUTO_INCREMENT PRIMARY KEY,
       transaction_id VARCHAR(255) UNIQUE,
       name VARCHAR(255) NOT NULL,

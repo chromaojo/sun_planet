@@ -3,21 +3,21 @@ const route = express.Router();
 const mail = require('../config/mail');
 const path = require("path");
 const db = require('../config/db');
+const multer = require('multer');
 const bcrypt = require('bcryptjs');
-const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
-const { allMyLead, allLead, oneLead, createLead } = require('../module/lead');
-const { allProp, oneProp, createProp, allSaleProp, allRentProp, allLeaseProp, allShortProp, allComProp, allResProp } = require('../module/property');
-const { allMyComplain, allComplain, createComplain } = require('../module/complaint');
+const { UserLoggin } = require('../auth/auth');
+const {eachUser, editUser, allUser }=require('../module/user')
+const { allMyAdLead, oneLead, createLead } = require('../module/lead');
+const { allAdProp, oneAdProp, createProp, deleteProp } = require('../module/property');
+const { allComplain, createComplain } = require('../module/complaint');
 const { allMyRept, allRept, oneRept, deleteRept } = require('../module/report');
-const { allSaved, oneSaved, createSaved, deleteSaved } = require('../module/saved');
-const { allInvest, oneInvest, createInvest } = require('../module/investment');
-const random = Math.floor(Math.random() * 99999);
-const rando = Math.floor(Math.random() * 99999);
-const rand = rando + "REA" + random;
+const { allAdSaved, createSaved, deleteSaved } = require('../module/saved');
+const { allAdInvest, oneInvest, createInvest } = require('../module/investment');
+let random = Math.floor(Math.random() * 99999999 / 13.9);
+let rando = Math.floor(Math.random() * 99999);
+const rand = rando + "rEs" + random;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const { features } = require('process');
-
 
 
 
@@ -30,77 +30,97 @@ route.use(
         cookie: { secure: true }
     })
 );
+
+
 route.use(express.json())
+route.use(express.urlencoded({ extended: true }));
 
 
 
-// To get all the users for the admin
-route.get('/users', UserLoggin, (req, res) => {
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-    const userData = userCookie
-    const userId = req.params.userId;
-    
 
-    const sql = `
-      SELECT * FROM realEstate.re_users;
-    `;
 
-    db.query(sql, [userId], (err, results) => {
-        if (err) {
-            console.log('Error retrieving shipments:', err);
-            return res.status(500).send('Internal Server Error');
+
+
+// Register new user 
+route.post('/register', (req, res) => {
+    const { email, password, password1, surname, othername, username, address, phone_number } = req.body;
+
+    db.query('SELECT email FROM sun_planet.spc_users WHERE email = ?', [email], async (error, result) => {
+        if (error) { console.log("Customized Error ", error); }
+        if (result.length > 0) {
+            return res.status(401).json({
+                message: 'Email Already Taken'
+            })
+        } else if (password == password1) {
+            const user_id = 'rE' + random + 'sT'
+            const hashedPassword = await bcrypt.hash(password, 10);
+            db.query('INSERT INTO sun_planet.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
+                if (error) {
+                    console.log('A Registeration Error Occured ', error);
+                } else {
+
+                    const messages = {
+                        from: {
+                            name: 'Sun Planet Co',
+                            address: 'felixtemidayoojo@gmail.com',
+                        },
+                        to: email,
+                        subject: "Welcome To Sun Planet Company",
+                        text: `<b> Dear New User, Welcome to Sun Planet Co ,</b> \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
+                    } 
+                    mail.sendIt(messages)
+
+                    // To create the account table into the user 
+                    db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [email], async (error, result) => {
+                        if (error) {
+
+                            return res.status(500).json({
+                                message: 'Internal Server Error'
+                            });
+                        } else {
+                            db.query('INSERT INTO sun_planet.spc_accounts SET ?', { user_id: result[0].user_id, email: email, account_id: rand, account_balance: 0, surname: surname, othername: othername, username: username, address: address, phone_number: phone_number });
+                        }
+                    });
+
+
+                    return res.redirect('/login');
+                }
+
+            });
+
+
+        } else {
+            return res.redirect('/register');
         }
-        res.clearCookie('userAll');
-        req.app.set('userAll', results)
-        // res.json(results);
-        const userAll = req.app.get('userAll');
-        console.log("All Admin user detail is", userAll)
-        res.render('user', { userData, userAll })
-    });
+
+    })
+
 });
 
+// The Users Section
 
+
+// To get all users 
+route.get('/users', allUser, (req, res) => {
+
+});
 
 // To get each user detail 
-route.get('/users/:user_id', UserLoggin, (req, res) => {
-    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    const user_id = req.params.user_id;
+route.get('/uzer/:user_id', eachUser, (req, res) => {
 
-    // Retrieve user data from the database based on userId
-    const sql = `
-      SELECT * FROM realEstate.re_users WHERE user_id = ?;
-    `;
-
-    db.query(sql, [user_id], (err, results) => {
-        if (err) {
-            console.log('Error retrieving user data:', err);
-            return res.status(500).send('Internal Server Error');
-        }
-        // Check if user exists
-        if (results.length === 0) {
-            return res.status(404).send('User not found');
-        }
-        res.clearCookie('userOne');
-        
-        res.cookie('userOne', JSON.stringify({ ...results }));
-        // res.json(results);
-        
-        const userO = req.cookies.userOne ? JSON.parse(req.cookies.userOne) : null;
-        const userOne = userO
-        console.log(' UserOne details is', userOne)
-        res.render('user-edit', { userData, userOne })
-    });
 });
 
+
+
 // To edit each users role for the admin
-route.post('/users/:userId/edit', UserLoggin, (req, res) => {
-    const userId = req.params.userId;
+route.post('/:user_id/edit', UserLoggin, (req, res) => {
+    const userId = req.params.user_id;
     const newRole = req.body.role; // Assuming the role is sent in the request body
 
     // Update user role in the database
     const sql = `
-      UPDATE realEstate.re_users
+      UPDATE sun_planet.spc_users
       SET role = ?
       WHERE user_id = ?;
     `;
@@ -116,48 +136,73 @@ route.post('/users/:userId/edit', UserLoggin, (req, res) => {
 });
 
 
-// Added features 
 // Dashboard route
+route.get('/dashboard', async(req, res) => {
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    const lan = 'land';
+    const build = 'building';
+    const short = 'shortlet';
+
+    const property = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC`;
+        db.query(sqls, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const land = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+        db.query(sqls,[lan], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const building = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+        db.query(sqls,[build], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const shortlet = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+        db.query(sqls,[short], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const investment = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_investment ORDER BY id DESC`;
+        db.query(sqls, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const complain = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_complaint ORDER BY id DESC`;
+        db.query(sqls, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    
+    res.render('dashboard',{userData, property, building, shortlet, land, investment, complain})
+});
 // See All Properties 
 
-route.get('/dashboard', allProp, (req, res) => {
+route.get('/props', allAdProp, (req, res) => {
 
 });
 
-// To get shortlet Property 
-route.get('/dashbord/shortlet', allShortProp, (req, res) => {
-
+route.get('/del-prop/:id', deleteProp, (req, res) => {
 
 });
 
-// To get residential Property detail 
-route.get('/dashbord/res', allResProp, (req, res) => {
 
-
-});
-// To get commercial Property detail 
-route.get('/dashbord/comm', allComProp, (req, res) => {
-
-
-});
-
-// To Read For sale Property detail 
-route.get('/dashbord/sale', allSaleProp, (req, res) => {
-
-});
-
-// To Read For lease Property detail 
-route.get('/dashbord/lease', allLeaseProp, (req, res) => {
-
-});
-
-// To Read For rent Property detail 
-route.get('/dashbord/rent', allRentProp, (req, res) => {
-
-});
 
 // To Read One Property detail 
-route.get('/property-zZkKqQP/:id', oneProp, (req, res) => {
+route.get('/property-zZkKqQP/:id', oneAdProp, (req, res) => {
 
 
 });
@@ -174,17 +219,46 @@ route.get('/create/prop', (req, res) => {
 
 // To gat Create Property
 route.post('/create/pXrRoPp', createProp, (req, res) => {
-    
-   
+
+
 });
 
+// To gat Create Property
+route.get('/transactions', (req, res) => {
+
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const userId = userCookie.user_id
+    const sql = `
+    SELECT * FROM sun_planet.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
+  `;
+
+    db.query(sql, [userId], (err, results) => {
+        if (err) {
+            console.log('Login Issues :', err);
+            return res.status(500).send('Internal Server Error');
+        }
+
+
+        if (results) {
+
+            const userTran = results
+
+            const userData = userCookie
+            return res.render('transaction', { userData, userTran })
+
+        }
+
+    })
+
+});
 
 
 
 // To Read All Investments 
-route.get('/investments', allInvest, (req, res) => {
+route.get('/investments', allAdInvest, (req, res) => {
 
 });
+
 
 // To Read One Investment detail 
 route.get('/invest/:id', oneInvest, (req, res) => {
@@ -194,16 +268,16 @@ route.get('/invest/:id', oneInvest, (req, res) => {
 
 // To To Get CReate Investment page
 route.get('/investe', UserLoggin, (req, res) => {
-    const userData  = req.cookies.user ? JSON.parse(req.cookies.user) : null;
- 
-    
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+
     res.render('invest-create', { userData })
 });
 
 // To Post Investment 
 route.post('/xXpPLliLZz', createInvest, (req, res) => {
-    
-   
+
+
 });
 
 
@@ -215,12 +289,12 @@ route.get('/profile', UserLoggin, (req, res) => {
     if (!userCookie) {
         res.redirect('/login');
     } else {
-        const user = db.query('SELECT * FROM realEstate.re_users WHERE email = ?', [userData.email], async (error, result) => {
+        const user = db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
             if (error) {
                 console.log(" Login Error :", error);
-                return res.redirect('/user/logout');
+                return res.redirect('/admin/logout');
             }
             if (result) {
                 res.render('profile', { userData, });
@@ -231,42 +305,45 @@ route.get('/profile', UserLoggin, (req, res) => {
 });
 
 
-// To Get all the saved Property details
+// To create Saved Properties
 route.get('/save/:id', createSaved, (req, res) => {
 
-    res.redirect('/user/saved')
+    res.redirect('/admin/saved')
 });
 
 
 // To Get all the saved Property details
 route.get('/delet/:id', deleteSaved, (req, res) => {
 
-    res.redirect('/user/saved')
+    res.redirect('/admin/saved')
 });
+
+
+// Report Section 
 
 // To Get all my Report details
 route.get('/my-report', allMyRept, (req, res) => {
 
 });
 
-// To Get all my Report details
+// To Get one Report details
 route.get('/reeport/:report_id', oneRept, (req, res) => {
 
 });
 
-// To Get all my Report details
+// To delete a Report details
 route.get('/delRep/:report_id', deleteRept, (req, res) => {
-res.redirect('/user/my-report')
+    res.redirect('/admin/my-report')
 });
 
 
-// To Get all my Report details
+// To Get all Report list
 route.get('/all-report', allRept, (req, res) => {
 
 });
 
 // To Get all my saved Property details
-route.get('/saved', allSaved, (req, res) => {
+route.get('/saved', allAdSaved, (req, res) => {
 
 
 });
@@ -275,23 +352,19 @@ route.get('/saved', allSaved, (req, res) => {
 route.use('/edit', require('../routes/edit'));
 
 
-// To Get all my saved Property details
-route.get('/complaints', allMyComplain, (req, res) => {
+// To Get all my Complain details
+route.get('/complaints', allComplain, (req, res) => {
 });
 
-// To Get all my saved Property details
+// To post all my Complain details
 route.post('/complaints/xXPpRyds', createComplain, (req, res) => {
-    
 
-});
-// To Get all saved Property details
-route.get('/mYlead', allLead, (req, res) => {
-    
 
 });
 
-// To Get all my saved Property details
-route.get('/mYlead/wWwCcYtT', allMyLead, (req, res) => {
+
+// To Get all my lead details
+route.get('/mYlead/wWwCcYtT', allMyAdLead, (req, res) => {
 
 
 });
@@ -302,10 +375,11 @@ route.get('/vVxYLead/:id', oneLead, (req, res) => {
 });
 
 
-// To Get all my saved Property details
+// To Get all my Lead details
 route.post('/lead/KxkRTtyZx', createLead, (req, res) => {
-    
-  
+    res.redirect('/admin/mYlead/wWwCcYtT');
+
+
 });
 
 
@@ -327,7 +401,5 @@ route.get('/logout', (req, res) => {
 
 
 
+
 module.exports = route;
-
-
-

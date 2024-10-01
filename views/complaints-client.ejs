@@ -1,5 +1,3 @@
-
-
 <section class="section">
 
   <div class="row">
@@ -15,7 +13,7 @@
             - Seek clarification or information about company offerings <br>
             - Provide feedback or suggestions for improvement
           </p>
-  
+
           <!-- Basic Modal -->
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
             Make A Complaint Or Enqiry
@@ -33,16 +31,15 @@
                       <div class="row gy-4">
                         <div class="col-md-12">
                           <label for="name">Report Title</label>
-                          <input type="text" name="title" class="form-control" placeholder="Enter A Title"
-                            >
+                          <input type="text" name="title" class="form-control" placeholder="Enter A Title">
                         </div>
-  
+
                         <div class="col-md-6">
                           <label for="name">Full Name</label>
                           <input type="text" name="name" class="form-control"
                             value="<%= userData.surname %> <%= userData.othername %>" required readonly>
                         </div>
-  
+
                         <div class="col-md-6 ">
                           <label for="number">Active Phone Number</label>
                           <input type="number" class="form-control" name="number" placeholder="Your Phone number"
@@ -53,19 +50,19 @@
                             required></textarea>
                         </div>
                       </div>
-  
+
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">Send</button></form>
-  
+
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-  
+
                 </div>
               </div>
             </div>
           </div><!-- End Basic Modal-->
-  
+
         </div>
       </div>
     </div>
@@ -82,58 +79,59 @@
           <% if (userComplain=='' ) { %>
             <br> <br>
             <h3 class="m-5 text-center mb-5">There is no complaint / inquiry at the moment</h3>
-  
-            <% } else{%>
-          <p class="text-capitalize">Every Complaint / enquiry history is made available here</p>
 
-          <!-- Table with stripped rows -->
-          <table class="table datatable">
-            <thead>
-              <% let counter = 1 %>
-              <tr>
-                <th scope="col">#</th>
-                
-                <th scope="col">Full Name</th>
-                <th scope="col">Report Id</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Title</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-              <% userComplain.forEach(trans=> { %>
-                  <tr> 
-                      <th scope="row"><%= counter++ %></th>
+            <% } else{%>
+              <p class="text-capitalize">Every Complaint / enquiry history is made available here</p>
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <% let counter=1 %>
+                    <tr>
+                      <th scope="col">#</th>
+
+                      <th scope="col">Full Name</th>
+                      <th scope="col">Report Id</th>
+                      <th scope="col">Phone Number</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <% userComplain.forEach(trans=> { %>
+                    <tr>
+                      <th scope="row">
+                        <%= counter++ %>
+                      </th>
                       <td>
                         <%= trans.name %>
                       </td>
                       <td>
-                        <%= trans.report_id %> 
+                        <%= trans.report_id %>
                       </td>
                       <td>
                         <%= trans.number %>
                       </td>
                       <td>
-                          <%= trans.title %>
+                        <%= trans.title %>
                       </td>
                       <td>
-                        <% if ( trans.status ==='pending' ) { %>
+                        <% if ( trans.status==='pending' ) { %>
                           <span class="badge bg-warning">Processing...</span>
-                        <% } else{ %>
-                        <span class="badge bg-success">Resolved</span>
-                        <% } %>
+                          <% } else{ %>
+                            <span class="badge bg-success">Resolved</span>
+                            <% } %>
                       </td>
-                  </tr>
+                    </tr>
 
-              <% }) %>
-              
-            </tbody>
-          </table>
-          <!-- End Table with stripped rows -->
-          <% } %>
-          
-         
+                    <% }) %>
+
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+              <% } %>
+
+
 
         </div>
       </div>

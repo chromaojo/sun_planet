@@ -33,10 +33,17 @@
                           <small>Price: <%= trans.price %> NGN</small> <br>
                           <small class="card-text">
                           Location: <%= trans.location %>
-                          </small>
-                          <small class="mt-2">
-                            <a href="/user/delet/<%= trans.prop_id %>" class="badge bg-danger">Remove From Archive</a>
-                          </small>
+                          </small> <br>
+                          <span class="mt-2 mb-2">
+                            <a href="/admin/delet/<%= trans.prop_id %>" class="badge bg-danger">Remove From Archive</a>
+                          </span> <br>
+                          <div class="mt-4">
+                            <form action="/DxXTWwq/pay" method="POST">
+                              <input type="number" value="<%= trans.price %>" name="amount" hidden>
+                              <button class="btn btn-outline-primary btn-sm">Pay Now</button>
+                          </form>
+                          </div>
+                          
                         </div>
                       </div>
                       <div class="col text-center">
@@ -61,7 +68,7 @@
       <div class="card info-card revenue-card">
         <div class="card-body">
           <h5 class="card-title">Profile <span>| Updated</span></h5>
-          <a href="/user/profile">
+          <a href="/admin/profile">
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-person"></i>
@@ -80,7 +87,7 @@
       <div class="card info-card revenue-card">
         <div class="card-body">
           <h5 class="card-title">Complain Or Request <span>| This Month</span></h5>
-          <a href="/user/complaints">
+          <a href="/admin/complaints">
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-pen"></i>
@@ -99,7 +106,7 @@
       <div class="card info-card revenue-card">
         <div class="card-body">
           <h5 class="card-title">Investment <span>| This Month</span></h5>
-          <a href="/user/investments">
+          <a href="/admin/investments">
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                 <i class="bi bi-briefcase-fill"></i>

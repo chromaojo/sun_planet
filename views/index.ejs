@@ -7,7 +7,7 @@
 
     <!-- Left side columns -->
     <div class="col-lg-8">
-      <div class="row overflow-auto" style="height: 109vh;">
+      <div class="row overflow-auto" style="height: 147vh;">
 
         <!-- Sales Card -->
 
@@ -23,19 +23,11 @@
 
                 <a href="/user/property-zZkKqQP/<%= trans.id %>" class="text-dark">
                   <div class="card">
-                    <div class="container-fluid"> <br>
-                      <% if (trans.picture) { %>
-                        <% let pixz=trans.picture.split(',') %>
-
-                          <img src="<%= pixz ? '/prop/'+pixz[0] : '/assets/img/card.jpg' %>" class="d-block w-100"
-                            alt="Property Image">
-
-                          <% } %>
-                    </div>
+                   
                     <div class="card-body mt-2">
-                      <h5 class="card-title">
+                      <h5 class="card-title text-center text-capitalize">
                         <b>
-                          <%= trans.title.substring(0, 21)+( trans.title.length>21?'...': "") %>
+                          <%= trans.title.substring(0, 30)+( trans.title.length>30?'...': "") %>
                         </b>
                       </h5>
                       <h6 class="card-subtitle mb-2 text-muted"><span><br>
@@ -50,8 +42,17 @@
                       </p>
 
                       <a href="/user/save/<%= trans.prop_id %>" class="btn btn-primary btn-sm">Archive</a>
-                      <a href="#" class="card-link">Another link</a>
+                      
                     </div>
+                    <div class="container-fluid text-center"> <br>
+                      <% if (trans.picture) { %>
+                        <% let pixz=trans.picture.split(',') %>
+                        <a href="/user/property-zZkKqQP/<%= trans.id %>" class="text-dark">
+                          <img src="<%= pixz ? '/prop/'+pixz[0] : '/assets/img/card.jpg' %>" class="d-b" width="75%"
+                            alt="Property Image"> <br>
+                          </a> <br>
+                          <% } %>
+                    </div> 
 
                   </div>
                 </a>

@@ -1,0 +1,63 @@
+<div class="pagetitle">
+  <h1>Dashboard - Properties</h1> <br>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+  <div class="row overflow-auto" style="height: 147vh;">
+
+    <!-- Sales Card -->
+
+    <% if (userProp=='' ) { %>
+      <br> <br>
+      <h3 class="m-5 text-center mb-5">There is no property at the moment</h3>
+
+      <% } else{%>
+        <% userProp.forEach(trans=> { %>
+
+          <div class="col-xxl-6 col-xl-12">
+            <!-- /assets/img/card.jpg -->
+
+            <a href="/admin/property-zZkKqQP/<%= trans.id %>" class="text-dark">
+              <div class="card">
+               
+                <div class="card-body mt-2">
+                  <h5 class="card-title text-center text-capitalize">
+                    <b>
+                      <%= trans.title.substring(0, 30)+( trans.title.length>30?'...': "") %>
+                    </b>
+                  </h5>
+                  <h6 class="card-subtitle mb-2 text-muted"><span><br>
+                      <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
+                        :'2-digit'}) %> ||
+                        <%= new Date(trans.created_at).toLocaleTimeString() %>
+                    </span></h6>
+                  <p class="card-text mb-3 text-capitalize">
+                    <%= trans.category %> Property.
+                  </p>
+                  <p class=" text-capitalize">Location : <%= trans.location %>
+                  </p>
+
+                  <a href="/admin/save/<%= trans.prop_id %>" class="btn btn-primary btn-sm">Archive</a>
+                  <a href="/admin/del-prop/<%= trans.id %>" class="btn btn-outline-danger btn-sm">Delete</a>
+                  
+                </div>
+                <div class="container-fluid text-center"> <br>
+                  <% if (trans.picture) { %>
+                    <% let pixz=trans.picture.split(',') %>
+                    <a href="/admin/property-zZkKqQP/<%= trans.id %>" class="text-dark">
+                      <img src="<%= pixz ? '/prop/'+pixz[0] : '/assets/img/card.jpg' %>" class="d-b" width="75%"
+                        alt="Property Image"> <br>
+                      </a> <br>
+                      <% } %>
+                </div> 
+
+              </div>
+            </a>
+
+          </div><!-- End Customers Card -->
+
+          <% }) %>
+            <% } %>
+
+  </div>
+</section>

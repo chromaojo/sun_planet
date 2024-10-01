@@ -25,19 +25,16 @@ const allComplain = (req, res) => {
         const sql = `
       SELECT * FROM realEstate.re_complaint ORDER BY id DESC;
     `;
-
-        db.query(sql, [userId], (err, results) => {
+        db.query(sql, (err, results) => {
             if (err) {
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-
-
             if (results) {
 
                 const userComplain = results
                 const userData = userCookie
-                return res.render('complaint-admin', { userData, userComplain, info });
+                return res.render('admin-complaints', { userData, userComplain, info });
             }
 
         })
@@ -117,21 +114,7 @@ const oneComplain = (req, res) => {
 
 
 
-// To Get Complain form 
-const createComplains = (req, res) => {
-
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        return next();
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
-
-// To Post shipment form from the frontend 
+// To Post Complain form from the frontend 
 const createComplain = (req, res) => {
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;

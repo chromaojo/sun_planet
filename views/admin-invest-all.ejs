@@ -1,0 +1,169 @@
+<div class="pagetitle">
+  <h1>Admin - Investment </h1> <br>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+  <div class="row">
+
+    <!-- Left side columns -->
+    <div class="col-lg-8">
+      <div class="row">
+
+        <!-- Sales Card -->
+
+        <% if (userInvest=='' ) { %>
+          <br> <br>
+          <h3 class="m-5 text-center mb-5">There is no investment in the Archive</h3>
+
+          <% } else{%>
+            <% userInvest.forEach(trans=> { %>
+
+              <div class="col-xxl-12 col-xl-12">
+
+
+                
+                  <div class="card info-card customers-card">
+
+                    <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                          <h6>Filter</h6>
+                        </li>
+
+                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                      </ul>
+                    </div>
+
+                    <a href="/admin/invest/<%= trans.id %>">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <%= trans.time %> <span>|| <%= trans.price %> NGN</span>
+                      </h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-briefcase-fill"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>
+                            <%= trans.title %>
+                          </h6>
+                          <span class="text-danger small pt-1 fw-bold text-capitalize">
+                            <%= trans.status %>
+                          </span> <span class="text-muted small pt-2 ps-1">
+                            <%= trans.date %>
+                          </span>
+
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  </div>
+                
+              </div>
+
+
+              <!-- Customers Card -->
+
+              <% }) %>
+                <% } %>
+
+      </div>
+    </div><!-- End Left side columns -->
+
+    <!-- Right side columns -->
+    <div class="col-lg-4">
+
+      <div class="card info-card revenue-card">
+        <div class="card-body">
+          <h5 class="card-title">Complain Or Request <span>| This Month</span></h5>
+          <a href="/admin/complaints">
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-pen"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Complaints</h6>
+                <span class="text-success small pt-1 fw-bold">Complaint |</span> <span class="text-muted small pt-2 ps-1">|
+                  Requests</span>
+
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">New Report | Today</h5>
+          
+          <!-- Vertically centered Modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+            Create New Report
+          </button>
+          <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Report Creation &nbsp; <div class="spinner-border text-primary p-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div><!-- End Growing spinner -->
+                </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="card p-4">
+                    <form action="/Report/XxGghTtH" method="POST" class="php-email-form">
+                      <div class="row gy-4">
+        
+                        <div class="col-md-12">
+                          <label for="">Name</label>
+                          <input type="text" name="name" class="form-control" readonly value="<%= userData.surname %> <%= userData.othername %> ">
+                        </div>
+        
+                        <div class="col-md-12 ">
+                          <label for="">Title</label>
+                          <input type="text" class="form-control" name="email" placeholder="Report Title" required>
+                        </div>        
+                      </div>
+                    
+                  </div>
+        
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary">Save changes</button></form>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Vertically centered Modal-->
+      <div class="card info-card revenue-card">
+        <div class="card-body">
+          <h5 class="card-title">Profile <span>| Updated</span></h5>
+          <a href="/admin/profile">
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-person"></i>
+              </div>
+              <div class="ps-3">
+                <h6>My Profile</h6>
+                <span class="text-success small pt-1 fw-bold">Click |</span> <span class="text-muted small pt-2 ps-1">|
+                  Check</span>
+
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- End Right side columns -->
+
+  </div>
+</section>

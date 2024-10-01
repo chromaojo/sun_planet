@@ -26,7 +26,7 @@ const allLead = (req, res) => {
 
     if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_lead ORDER BY id DESC;
+      SELECT * FROM sun_planet.spc_lead ORDER BY id DESC;
     `;
 
         db.query(sql, (err, results) => {
@@ -51,6 +51,7 @@ const allLead = (req, res) => {
 };
 
 
+
 // To View All My Lead
 const allMyLead = (req, res) => {
 
@@ -60,7 +61,7 @@ const allMyLead = (req, res) => {
 
     if (userCookie) {
         const sql = `
-      SELECT * FROM realEstate.re_lead WHERE user_id = ? ORDER BY lead_id DESC;
+      SELECT * FROM sun_planet.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
     `;
 
         db.query(sql, [user_id], (err, results) => {
@@ -74,6 +75,39 @@ const allMyLead = (req, res) => {
                 const userLead = results
                 const userData = userCookie
                 return res.render('lead', { userData, userLead, info });
+            }
+
+        })
+
+
+    } else {
+        return res.status(401).redirect('/user/logout');
+    }
+};
+
+// To View All My Lead
+const allMyAdLead = (req, res) => {
+
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    req.app.set('userData', userCookie);
+    const user_id = userCookie.user_id;
+
+    if (userCookie) {
+        const sql = `
+      SELECT * FROM sun_planet.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
+    `;
+
+        db.query(sql, [user_id], (err, results) => {
+            if (err) {
+                console.log('Login Issues :', err);
+                return res.status(500).send('Internal Server Error');
+            }
+
+
+            if (results) {
+                const userLead = results
+                const userData = userCookie
+                return res.render('admin-lead', { userData, userLead, info });
             }
 
         })
@@ -98,7 +132,7 @@ const oneLead = (req, res, next) => {
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM realEstate.re_lead WHERE lead_id =?;
+      SELECT * FROM sun_planet.spc_lead WHERE lead_id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -123,7 +157,7 @@ const oneLead = (req, res, next) => {
 
 
 // To Post Lead form from the frontend 
-const createLead = (req, res) => {
+const createLead = (req, res, next) => {
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
@@ -138,8 +172,8 @@ const createLead = (req, res) => {
         
         const lead_by = userData.surname + ' ' + userData.othername
 
-        db.query('INSERT INTO realEstate.re_lead SET ?', { first_name, last_name, title, gender, email, phone_number, company_name, job_title, industry, info, location, user_id, lead_by });
-        res.redirect('/user/mYlead/wWwCcYtT')
+        db.query('INSERT INTO sun_planet.spc_lead SET ?', { first_name, last_name, title, gender, email, phone_number, company_name, job_title, industry, info, location, user_id, lead_by });
+       return next();
 
     } catch (error) {
         console.log('Lead Form Error :', error)
@@ -190,4 +224,4 @@ const deleteLead = (req, res, next) => {
 
 
 
-module.exports = { oneLead, allLead, allMyLead, deleteLead, createLead }
+module.exports = { oneLead, allLead, allMyAdLead, allMyLead, deleteLead, createLead }

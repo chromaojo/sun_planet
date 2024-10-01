@@ -1,0 +1,128 @@
+<div class="pagetitle">
+  <h1>Properties - Admin Archive</h1> <br>
+</div><!-- End Page Title -->
+
+<section class="section dashboard"> <b>You currently have <%= userSaved.length %> properties in the archive</b>
+  <div class="row">
+
+    <!-- Left side columns -->
+    <div class="col-lg-8">
+      <div class="row">
+
+        <!-- Sales Card -->
+
+        <% if (userSaved=='' ) { %>
+          <br> <br>
+          <h3 class="m-5 text-center mb-5">There is no property in the Archive</h3>
+
+          <% } else{%>
+            <% userSaved.forEach(trans=> { %>
+
+              <div class="col-xxl-6 col-xl-12">
+
+                <a href="<%= trans.pro_link %>" class="text-dark">
+                  <div class="card">
+                    <div class="row">
+                     
+                      <div class="col-7 pt-2">
+                        <div class="card-body">
+
+                          <h5 class="card-title">
+                            <%= trans.title.substring(0, 15)+( trans.title.length>15?'...': "") %>
+                          </h5>
+                          <small>Price: <%= trans.price %> NGN</small> <br>
+                          <small class="card-text">
+                          Location: <%= trans.location %>
+                          </small> <br>
+                          <span class="mt-2 mb-2">
+                            <a href="/admin/delet/<%= trans.prop_id %>" class="badge bg-danger">Remove From Archive</a>
+                          </span> <br>
+                          <div class="mt-4">
+                            <form action="/DxXTWwq/pay" method="POST">
+                              <input type="number" value="<%= trans.price %>" name="amount" hidden>
+                              <button class="btn btn-outline-primary btn-sm">Pay Now</button>
+                          </form>
+                          </div>
+                          
+                        </div>
+                      </div>
+                      <div class="col text-center">
+                        <img src="<%= trans.picture ? '/prop/'+trans.picture : 'assets/img/card.jpg' %>" width="100%" class="p-3 pt-4" alt="property picture">
+                      </div>
+                    </div>
+
+                  </div>
+                </a>
+
+              </div><!-- End Customers Card -->
+
+              <% }) %>
+                <% } %>
+
+      </div>
+    </div><!-- End Left side columns -->
+
+    <!-- Right side columns -->
+    <div class="col-lg-4">
+
+      <div class="card info-card revenue-card">
+        <div class="card-body">
+          <h5 class="card-title">Profile <span>| Updated</span></h5>
+          <a href="/admin/profile">
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-person"></i>
+              </div>
+              <div class="ps-3">
+                <h6>My Profile</h6>
+                <span class="text-success small pt-1 fw-bold">Click |</span> <span class="text-muted small pt-2 ps-1">|
+                  Check</span>
+
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="card info-card revenue-card">
+        <div class="card-body">
+          <h5 class="card-title">Complain Or Request <span>| This Month</span></h5>
+          <a href="/admin/complaints">
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-pen"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Complaints</h6>
+                <span class="text-success small pt-1 fw-bold">Complaint |</span> <span class="text-muted small pt-2 ps-1">|
+                  Requests</span>
+
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="card info-card revenue-card">
+        <div class="card-body">
+          <h5 class="card-title">Investment <span>| This Month</span></h5>
+          <a href="/admin/investments">
+            <div class="d-flex align-items-center">
+              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i class="bi bi-briefcase-fill"></i>
+              </div>
+              <div class="ps-3">
+                <h6>Investment</h6>
+                <span class="text-success small pt-1 fw-bold">Click |</span> <span class="text-muted small pt-2 ps-1">|
+                  Check</span>
+
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    
+    </div><!-- End Right side columns -->
+
+  </div>
+</section>

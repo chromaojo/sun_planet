@@ -17,7 +17,7 @@ route.post('/surname', UserLoggin, async (req, res) => {
     if (surname) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET surname = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET surname = ?  WHERE email = ?';
             let values = [surname, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -41,8 +41,8 @@ route.post('/surname', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM realestate.re_users u
-            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+            FROM sun_planet.spc_users u
+            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -87,7 +87,7 @@ route.post('/username', UserLoggin, async (req, res) => {
     if (username) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET username = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET username = ?  WHERE email = ?';
             let values = [username, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -111,8 +111,8 @@ route.post('/username', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM realestate.re_users u
-            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+            FROM sun_planet.spc_users u
+            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -155,7 +155,7 @@ route.post('/other', UserLoggin, async (req, res) => {
     if (othername) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET othername = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET othername = ?  WHERE email = ?';
             let values = [othername, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -179,8 +179,8 @@ route.post('/other', UserLoggin, async (req, res) => {
                     a.username,
                     a.address,
                     a.email as account_email
-                FROM realestate.re_users u
-                LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+                FROM sun_planet.spc_users u
+                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
                 `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -223,7 +223,7 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
     if (phone_number) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET phone_number = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET phone_number = ?  WHERE email = ?';
             let values = [phone_number, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -247,8 +247,8 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM realestate.re_users u
-            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+            FROM sun_planet.spc_users u
+            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -291,7 +291,7 @@ route.post('/whatsapp', UserLoggin, async (req, res) => {
     if (whatsapp) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET whatsapp = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET whatsapp = ?  WHERE email = ?';
             let values = [whatsapp, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -315,8 +315,8 @@ route.post('/whatsapp', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM realestate.re_users u
-            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+            FROM sun_planet.spc_users u
+            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -359,7 +359,7 @@ route.post('/facebook', UserLoggin, async (req, res) => {
     if (facebook) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET facebook = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET facebook = ?  WHERE email = ?';
             let values = [facebook, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -383,8 +383,8 @@ route.post('/facebook', UserLoggin, async (req, res) => {
                 a.username,
                 a.address,
                 a.email as account_email
-            FROM realestate.re_users u
-            LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+            FROM sun_planet.spc_users u
+            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -427,7 +427,7 @@ route.post('/address', UserLoggin, async (req, res) => {
     if (address) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET address = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET address = ?  WHERE email = ?';
             let values = [address, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
@@ -451,8 +451,8 @@ route.post('/address', UserLoggin, async (req, res) => {
                     a.username,
                     a.address,
                     a.email as account_email
-                FROM realestate.re_users u
-                LEFT JOIN realestate.re_accounts a ON u.user_id = a.user_id
+                FROM sun_planet.spc_users u
+                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
                 `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
@@ -496,7 +496,7 @@ route.post('/password', UserLoggin, async (req, res) => {
     if (password) {
         try {
             const userData = req.app.get('userData');
-            let updateUsername = 'UPDATE realestate.re_accounts SET password = ?  WHERE email = ?';
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET password = ?  WHERE email = ?';
             let values = [password, userData.email];
 
             db.query(updateUsername, values, (error, result) => {
