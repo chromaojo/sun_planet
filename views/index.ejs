@@ -13,28 +13,25 @@
 
         <% if (userProp=='' ) { %>
           <br> <br>
-          <h3 class="m-5 text-center mb-5">There is no property at the moment</h3>
+          <h3 class="m-5 text-center mb-2">There is no property at the moment</h3>
 
           <% } else{%>
             <% userProp.forEach(trans=> { %>
 
               <div class="col-xxl-6 col-xl-12">
-                <!-- /assets/img/card.jpg -->     
+                  
                   <div class="card info-card sales-card">
-
                     <div class="filter">
                       <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
-                          <h6>Filter</h6>
+                          <h6>Option</h6>
                         </li>
-    
                         <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                        <li><a class="dropdown-item" href="#">Confirm </a></li>
+                        <li><a class="dropdown-item" href="/user/save/<%= trans.prop_id %>">Add To Archive</a></li>
                       </ul>
                     </div>
-    
                     <div class="card-body">
                       <h5 class="card-title text-capitalize"><%= trans.property_type %><span> |  <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
                         :'2-digit'}) %> ||
@@ -43,7 +40,6 @@
     
                       <div class="d-flex align-items-center">
                         <a href="/user/save/<%= trans.prop_id %>" class="btn ">
-
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                           <i class="bi bi-house-door"></i>
                         </div></a>
@@ -62,16 +58,9 @@
                     </div>
     
                   </div>
-                  
-                  
-                  
-                 
-               
-
               </div><!-- End Customers Card -->
-
               <% }) %>
-                <% } %>
+              <% } %>
 
       </div>
     </div><!-- End Left side columns -->
