@@ -41,7 +41,7 @@ route.get('/pricing', AvoidIndex, (req, res) => {
 
 route.get('/properties', AvoidIndex, (req, res) => {
     const sql = `
-    SELECT * FROM realEstate.re_property ORDER BY id DESC;
+    SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
   `;
   const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
@@ -65,13 +65,11 @@ route.get('/properties', AvoidIndex, (req, res) => {
 // About Section 
 route.get('/about', AvoidIndex, (req, res) => {
 
-
     res.render('home-about', {info, layout: false})
 })
 
 route.get('/contact ', AvoidIndex, (req, res) => {
 
-    
     res.render('home-contact ', {info, layout: false})
 })
 
@@ -123,8 +121,8 @@ route.post('/nXcLl/login', async (req, res) => {
          a.username,
          a.address,
          a.email as account_email
-       FROM realEstate.re_users u
-       LEFT JOIN realEstate.re_accounts a ON u.user_id = a.user_id
+       FROM sun_planet.spc_users u
+       LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
        WHERE u.email = ?;
      `;
     db.query(sqlGetUserWithAccount, [email], async (error, result) => {
