@@ -4,7 +4,6 @@
         <h3 class="m-5 text-center mb-5">There is no recorded property at the moment</h3>
         <% } else{%>
             <div class="card info-card customers-card">
-
                 <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -28,78 +27,84 @@
 
                 <div class="card-body">
                     <h5 class="card-title text-center"> <b class="text-capitalize">Title :
-                        <%= userProp.title %>
-                    </b></h5>
+                            <%= userProp.property_name %>
+                        </b></h5>
 
 
                     <div class="row">
 
                         <div class="col-lg-9 text-end">
 
-                           <!-- Slides with indicators -->
-                           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                            
-                            <div class="carousel-inner">
-                                <% if (userProp.picture) { %>
-                                    <% let pixz = userProp.picture.split(',') %>
-                                    
-                                    <div class="carousel-item active" style="width: 790px; height: 390px;">
-                                        <a href="/prop/<%= pixz[0] %>" target="_blank">
-                                         <img src="/prop/<%= pixz[0] %>" class="d-block w-100" alt="Product Image">
-                                        </a>
-                                     </div>
-                                     <% let num = 0 %>
-                                     <% if (pixz.length > num) { %>
-                                        <% const pizzy = pixz.splice(1) %>
-                                        <% pizzy.forEach(trans=> { %>
-                                            <div class="carousel-item" style="width: 790px; height: 390px;">
-                                                <a href="/prop/<%= trans %>" target="_blank">
-                                                 <img src="<%= trans ? '/prop/'+trans : '/assets/img/card.jpg' %>" class="d-block w-100" alt="Product Image">
+                            <!-- Slides with indicators -->
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+                                <div class="carousel-inner">
+                                    <% if (userProp.picture) { %>
+                                        <% let pixz=userProp.picture.split(',') %>
+
+                                            <div class="carousel-item active" style="width: 790px; height: 390px;">
+                                                <a href="/prop/<%= pixz[0] %>" target="_blank">
+                                                    <img src="/prop/<%= pixz[0] %>" class="d-block w-100"
+                                                        alt="Product Image">
                                                 </a>
-                                             </div>
-                                        <% }) %>
-                                    <% } %>
-                                     
-                                    
-                                 
-                                <% } %>
-                                                                
-                            </div>
+                                            </div>
+                                            <% let num=0 %>
+                                                <% if (pixz.length> num) { %>
+                                                    <% const pizzy=pixz.splice(1) %>
+                                                        <% pizzy.forEach(trans=> { %>
+                                                            <div class="carousel-item"
+                                                                style="width: 790px; height: 390px;">
+                                                                <a href="/prop/<%= trans %>" target="_blank">
+                                                                    <img src="<%= trans ? '/prop/'+trans : '/assets/img/card.jpg' %>"
+                                                                        class="d-block w-100" alt="Product Image">
+                                                                </a>
+                                                            </div>
+                                                            <% }) %>
+                                                                <% } %>
 
-                            <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
 
-                        </div><!-- End Slides with indicators --> <br>
+
+                                                                    <% } %>
+
+                                </div>
+
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+
+                            </div><!-- End Slides with indicators --> <br>
                         </div>
-                        <div class="col-lg-3 mb-3">
-                           
-                            <h5 class="card-title mt-3">Location : <span>
-                                    <%= userProp.location %>
+                        <div class="col-lg-3 mb-2">
+                            
+                            <h5 class="card-title text-capitalize"><i class="bi bi-geo-alt-fill"></i> <span>
+                                    <%= userProp.address %>, <%= userProp.city %>, <%= userProp.state %>
                                 </span></h5>
-                            <h5 class="card-title mt-3 text-capitalize">property category : <span>
-                                    <%= userProp.category %>
+                            <h5 class="card-title text-capitalize"><i class="bi bi-house-door"></i> <span>
+                                 <%= userProp.size_in_sqft %> Sqft <%= userProp.property_type %></span>
+                            </h5>
+                            <h5 class="card-title"> <i class="bi bi-currency-exchange"></i> <span>
+                                    <%= userProp.rent_price %> NGN
                                 </span></h5>
-                            <h5 class="card-title"> Price :<span>
-                                    <%= userProp.price %> NGN
-                                </span></h5>
+                            <h5 class="card-title"> <i class="bi bi-door-open"></i><span>  <%= userProp.bedrooms %> Bdrm
+                                </span> | Bathroom :<span>
+                                    <%= userProp.bathrooms %> </span>
+                            </h5>
+                                
 
-                            <h5 class="card-title"> <span>Created - <%= new
+                            <h5 class="card-title"><i class="bi bi-calendar3"></i> <span> <%= new
                                         Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
                                         month:'short', day :'2-digit'}) %></span></h5>
-                            <h5 class="card-title mt-1">
-                                <form action="/DxXTWwq/pay" method="POST">
-                                    <input type="number" value="<%= userProp.price %>" name="amount" hidden>
-                                    <button class="btn btn-outline-primary btn-sm">Pay Now</button>
-                                </form>
+                             <h5 class="card-title text-capitalize"> <i class="bi bi-diamond-half"></i><span> <%= userProp.number_of_units %> Unit
+                                <%= userProp.lease_status %> </span>
                             </h5>
+                            
                         </div>
 
 

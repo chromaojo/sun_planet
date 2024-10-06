@@ -7,7 +7,7 @@ const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
 const { allMyLead, allLead, oneLead, createLead } = require('../module/lead');
-const { allProp, oneProp, createProp, allSaleProp, allRentProp, allLeaseProp, allShortProp, allComProp, allResProp } = require('../module/property');
+const { allProp, oneProp, createProp } = require('../module/property');
 const { allMyComplain, allComplain, createComplain } = require('../module/complaint');
 const { allMyRept, allRept, oneRept, deleteRept } = require('../module/report');
 const { allSaved, oneSaved, createSaved, deleteSaved } = require('../module/saved');
@@ -37,55 +37,15 @@ route.use(express.urlencoded({ extended: true }));
 
 
 
-
-
-
-
-// Register new user 
-
-
-
-// The Properties Section 
-
-
-// Dashboard route
 // See All Properties 
 
 route.get('/dashboard', allProp, (req, res) => {
 
 });
 
-// To get shortlet Property 
-route.get('/dashbord/shortlet', allShortProp, (req, res) => {
 
 
-});
 
-// To get residential Property detail 
-route.get('/dashbord/res', allResProp, (req, res) => {
-
-
-});
-// To get commercial Property detail 
-route.get('/dashbord/comm', allComProp, (req, res) => {
-
-
-});
-
-// To Read For sale Property detail 
-route.get('/dashbord/sale', allSaleProp, (req, res) => {
-
-});
-
-// To Read For lease Property detail 
-route.get('/dashbord/lease', allLeaseProp, (req, res) => {
-
-});
-
-// To Read For rent Property detail 
-route.get('/dashbord/rent', allRentProp, (req, res) => {
-
-});
 
 // To Read One Property detail 
 route.get('/property-zZkKqQP/:id', oneProp, (req, res) => {

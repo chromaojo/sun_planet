@@ -122,17 +122,17 @@ const oneSaved = (req, res) => {
 const createSaved = (req, res, next) => {
     const prop_id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
     const userData = userCookie
+    const user_id = userData.user_id;
 
     if (userData) {
 
         const sql = `
-      SELECT * FROM sun_planet.spc_saved WHERE prop_id =?;
+      SELECT * FROM sun_planet.spc_saved WHERE user_id = ? AND prop_id =?;
     `;
 
 
-        db.query(sql, [prop_id], (err, results) => {
+        db.query(sql, [user_id, prop_id], (err, results) => {
             if (err) { console.log("Customized Error ", err); }
 
             if (results.length > 0) {
@@ -150,18 +150,17 @@ const createSaved = (req, res, next) => {
                             console.log('Login Issues :', err);
                             return res.status(500).send('Internal Server Error');
                         }
-                        const { title, price, id, location, picture, prop_id } = results[0]
+                        const { property_name, rent_price, property_type, id, city, state, picture, prop_id } = results[0]
                         const pro_link = '/user/property-zZkKqQP/' + id;
-                        const user_id = userData.user_id
-                        console.log('The title is '+title);
-                        const pikz =picture.split(',')[0]  
                         
+                        const user_id = userData.user_id
+                        const pikz =picture.split(',')[0]  
+                        const address = city+ ', ' + state
 
-                        db.query('INSERT INTO sun_planet.spc_saved SET ?', { title, location, pro_link, price, user_id, picture:pikz, prop_id });
+                        db.query('INSERT INTO sun_planet.spc_saved SET ?', { property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
     
                         return next();
                     })
-    
                 } catch (error) {
                     console.log('Archive Form Error :', error)
                 }

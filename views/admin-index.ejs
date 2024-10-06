@@ -3,61 +3,60 @@
 </div><!-- End Page Title -->
 
 <section class="section dashboard">
-  <div class="row overflow-auto" style="height: 147vh;">
+  <div class="container-fluid overflow-auto" style="height: 147vh;">
 
     <!-- Sales Card -->
 
     <% if (userProp=='' ) { %>
-      <br> <br>
-      <h3 class="m-5 text-center mb-5">There is no property at the moment</h3>
+      <br> 
+      <h3 class="m-5 text-center mb-2">There is no property at the moment</h3>
 
       <% } else{%>
         <% userProp.forEach(trans=> { %>
 
           <div class="col-xxl-6 col-xl-12">
-            <!-- /assets/img/card.jpg -->
-
-            <a href="/admin/property-zZkKqQP/<%= trans.id %>" class="text-dark">
-              <div class="card">
-               
-                <div class="card-body mt-2">
-                  <h5 class="card-title text-center text-capitalize">
-                    <b>
-                      <%= trans.title.substring(0, 30)+( trans.title.length>30?'...': "") %>
-                    </b>
-                  </h5>
-                  <h6 class="card-subtitle mb-2 text-muted"><span><br>
-                      <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
-                        :'2-digit'}) %> ||
-                        <%= new Date(trans.created_at).toLocaleTimeString() %>
-                    </span></h6>
-                  <p class="card-text mb-3 text-capitalize">
-                    <%= trans.category %> Property.
-                  </p>
-                  <p class=" text-capitalize">Location : <%= trans.location %>
-                  </p>
-
-                  <a href="/admin/save/<%= trans.prop_id %>" class="btn btn-primary btn-sm">Archive</a>
-                  <a href="/admin/del-prop/<%= trans.id %>" class="btn btn-outline-danger btn-sm">Delete</a>
-                  
+              
+              <div class="card info-card sales-card">
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Option</h6>
+                    </li>
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">Confirm </a></li>
+                    <li><a class="dropdown-item" href="/admin/save/<%= trans.prop_id %>">Add To Archive</a></li>
+                  </ul>
                 </div>
-                <div class="container-fluid text-center"> <br>
-                  <% if (trans.picture) { %>
-                    <% let pixz=trans.picture.split(',') %>
+                <div class="card-body">
+                  <h5 class="card-title text-capitalize"><%= trans.property_type %><span> |  <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
+                    :'2-digit'}) %> ||
+                    <%= new Date(trans.created_at).toLocaleTimeString() %>
+                </span></h6></span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <a href="/admin/save/<%= trans.prop_id %>" class="btn ">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-exclude"></i>    
+                    </div></a>
                     <a href="/admin/property-zZkKqQP/<%= trans.id %>" class="text-dark">
-                      <img src="<%= pixz ? '/prop/'+pixz[0] : '/assets/img/card.jpg' %>" class="d-b" width="75%"
-                        alt="Property Image"> <br>
-                      </a> <br>
-                      <% } %>
-                </div> 
+                    <div class="ps-3">
+                      <h6>
+                        <%= trans.property_name.substring(0, 39)+( trans.property_name.length>39?'...': "") %>
+                      </h6>
+                      <span class="text-success small pt-1 fw-bold"><%= trans.city %> , <%= trans.state %> </span> <span class="text-muted small pt-2 ps-1">
+                        <%= trans.rent_price %> NGN
+                      </span>
+
+                    </div>
+                  </a>
+                  </div>
+                </div>
 
               </div>
-            </a>
-
           </div><!-- End Customers Card -->
-
           <% }) %>
-            <% } %>
+          <% } %>
 
   </div>
 </section>

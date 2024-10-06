@@ -28,11 +28,11 @@
                         <div class="card-body">
 
                           <h5 class="card-title">
-                            <%= trans.title.substring(0, 15)+( trans.title.length>15?'...': "") %>
+                            <%= trans.property_name.substring(0, 15)+( trans.property_name.length>15?'...': "") %>
                           </h5>
-                          <small>Price: <%= trans.price %> NGN</small> <br>
+                          <small>Price: <%= trans.rent_price %> NGN</small> <br>
                           <small class="card-text">
-                          Location: <%= trans.location %>
+                          Location: <%= trans.address %>
                           </small> <br>
                           <span class="mt-2 mb-2">
                             <a href="/admin/delet/<%= trans.prop_id %>" class="badge bg-danger">Remove From Archive</a>
@@ -50,7 +50,6 @@
                         <img src="<%= trans.picture ? '/prop/'+trans.picture : 'assets/img/card.jpg' %>" width="100%" class="p-3 pt-4" alt="property picture">
                       </div>
                     </div>
-
                   </div>
                 </a>
 

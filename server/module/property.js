@@ -97,200 +97,7 @@ const allAdProp = (req, res, next) => {
     }
 };
 
-// To View All Commercial Properties
-const allComProp = (req, res) => {
 
-    const category = 'commercial'
-
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property WHERE category = ? ORDER BY id DESC;
-    `;
-
-        db.query(sql, [category], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('index', { userData, userProp, info });
-            }
-
-        })
-
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
-
-// To View All Residentioal Properties
-const allResProp = (req, res) => {
-
-    const category = 'residential'
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
-    `;
-
-        db.query(sql, [category], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('index', { userData, userProp, info });
-            }
-
-        })
-
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
-
-// To View All shortlet Properties
-const allShortProp = (req, res) => {
-    const prop_type = 'shortlet'
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property WHERE prop_type = ? ORDER BY id DESC;
-    `;
-
-        db.query(sql, [prop_type], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('index', { userData, userProp, info });
-            }
-
-        })
-
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
-
-// To View All Rented Properties
-const allRentProp = (req, res) => {
-    const action = 'rent'
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property WHERE action = ? ORDER BY id DESC;
-    `;
-
-        db.query(sql, [action], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('index', { userData, userProp, info });
-            }
-
-        })
-
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
-
-// To View All Lease Properties
-const allLeaseProp = (req, res) => {
-    const action = 'lease'
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property WHERE action = ? ORDER BY id DESC;
-    `;
-
-        db.query(sql, [action], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('index', { userData, userProp, info });
-            }
-
-        })
-
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
-
-// To View All sSale Properties
-const allSaleProp = (req, res) => {
-    const action = 'sale'
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
-
-    if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property WHERE action = ? ORDER BY id DESC;
-    `;
-
-        db.query(sql, [action], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('index', { userData, userProp, info });
-            }
-
-        })
-
-
-    } else {
-        return res.status(401).redirect('/user/logout');
-    }
-};
 
 
 
@@ -373,19 +180,19 @@ const createProp = (req, res) => {
             }
 
 
-            const { title, description, prop_type, category, action, price, location } = req.body;
+            const { property_name, lease_status, description, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, } = req.body;
 
-            let prop_id = rando || random
+
+            const prop_id = Math.floor(Math.random() * 999999);
+            const country = 'Nigeria'
             const pixz = req.files.map(file => file.filename);
-
-            const prop_status = 'active';
             const picture = '' + pixz + "";
 
             // Now you can handle the name, age, address, and pictures array
             // For example, save them to a database, send to another API, etc.
 
-            db.query('INSERT INTO sun_planet.spc_property SET ?', { title, prop_id, picture, description, prop_type, category, action, prop_status, price, location });
-            res.redirect('/user/dashboard')
+            db.query('INSERT INTO sun_planet.spc_property SET ?', { property_name, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
+            res.redirect('/admin/props')
         });
 
     } catch (error) {
@@ -434,4 +241,4 @@ const deleteProp = (req, res, next) => {
 
 
 
-module.exports = { oneProp, oneAdProp, allProp, allAdProp, deleteProp, createProp, allLeaseProp, allSaleProp, allRentProp, allShortProp, allResProp, allComProp }
+module.exports = { oneProp, oneAdProp, allProp, allAdProp, deleteProp, createProp }

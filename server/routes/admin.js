@@ -140,9 +140,9 @@ route.post('/:user_id/edit', UserLoggin, (req, res) => {
 route.get('/dashboard', async(req, res) => {
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-    const lan = 'land';
-    const build = 'building';
-    const short = 'shortlet';
+    // const lan = 'land';
+    // const build = 'building';
+    // const short = 'shortlet';
 
     const property = await new Promise((resolve, reject) => {
         const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC`;
@@ -151,43 +151,43 @@ route.get('/dashboard', async(req, res) => {
             resolve(results);
         });
     });
-    const land = await new Promise((resolve, reject) => {
-        const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
-        db.query(sqls,[lan], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
-        });
-    });
-    const building = await new Promise((resolve, reject) => {
-        const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
-        db.query(sqls,[build], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
-        });
-    });
-    const shortlet = await new Promise((resolve, reject) => {
-        const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
-        db.query(sqls,[short], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
-        });
-    });
-    const investment = await new Promise((resolve, reject) => {
-        const sqls = `SELECT * FROM sun_planet.spc_investment ORDER BY id DESC`;
-        db.query(sqls, (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
-        });
-    });
-    const complain = await new Promise((resolve, reject) => {
-        const sqls = `SELECT * FROM sun_planet.spc_complaint ORDER BY id DESC`;
-        db.query(sqls, (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
-        });
-    });
+    // const land = await new Promise((resolve, reject) => {
+    //     const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+    //     db.query(sqls,[lan], (err, results) => {
+    //         if (err) return reject(err);
+    //         resolve(results);
+    //     });
+    // });
+    // const building = await new Promise((resolve, reject) => {
+    //     const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+    //     db.query(sqls,[build], (err, results) => {
+    //         if (err) return reject(err);
+    //         resolve(results);
+    //     });
+    // });
+    // const shortlet = await new Promise((resolve, reject) => {
+    //     const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+    //     db.query(sqls,[short], (err, results) => {
+    //         if (err) return reject(err);
+    //         resolve(results);
+    //     });
+    // });
+    // const investment = await new Promise((resolve, reject) => {
+    //     const sqls = `SELECT * FROM sun_planet.spc_investment ORDER BY id DESC`;
+    //     db.query(sqls, (err, results) => {
+    //         if (err) return reject(err);
+    //         resolve(results);
+    //     });
+    // });
+    // const complain = await new Promise((resolve, reject) => {
+    //     const sqls = `SELECT * FROM sun_planet.spc_complaint ORDER BY id DESC`;
+    //     db.query(sqls, (err, results) => {
+    //         if (err) return reject(err);
+    //         resolve(results);
+    //     });
+    // });
     
-    res.render('dashboard',{userData, property, building, shortlet, land, investment, complain})
+    res.render('dashboard',{userData, property})
 });
 // See All Properties 
 

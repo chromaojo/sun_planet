@@ -7,17 +7,17 @@
 
     <!-- Left side columns -->
     <div class="col-lg-8">
-      <div class="row overflow-auto" style="height: 147vh;">
+      <div class="container-fluid overflow-auto" style="height: 147vh;">
 
         <!-- Sales Card -->
-
+    
         <% if (userProp=='' ) { %>
-          <br> <br>
+          <br> 
           <h3 class="m-5 text-center mb-2">There is no property at the moment</h3>
-
+    
           <% } else{%>
             <% userProp.forEach(trans=> { %>
-
+    
               <div class="col-xxl-6 col-xl-12">
                   
                   <div class="card info-card sales-card">
@@ -41,7 +41,7 @@
                       <div class="d-flex align-items-center">
                         <a href="/user/save/<%= trans.prop_id %>" class="btn ">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                          <i class="bi bi-house-door"></i>
+                          <i class="bi bi-exclude"></i>    
                         </div></a>
                         <a href="/user/property-zZkKqQP/<%= trans.id %>" class="text-dark">
                         <div class="ps-3">
@@ -61,7 +61,7 @@
               </div><!-- End Customers Card -->
               <% }) %>
               <% } %>
-
+    
       </div>
     </div><!-- End Left side columns -->
 
