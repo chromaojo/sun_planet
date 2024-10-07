@@ -68,10 +68,11 @@ route.get('/createProp', (req, res) => {
         CREATE TABLE IF NOT EXISTS sun_planet.spc_property (
             id INT AUTO_INCREMENT PRIMARY KEY,
             property_name VARCHAR(100) NOT NULL,        -- Name or title of the property
+            youtube VARCHAR(255),
             address VARCHAR(255) NOT NULL,              -- Full address of the property
             city VARCHAR(100) NOT NULL,                 -- City where the property is located
-            state VARCHAR(100) NOT NULL,                -- State/Province
-            country VARCHAR(100) NOT NULL,              -- Country of the property
+            state VARCHAR(100),                -- State/Province
+            country VARCHAR(100),              -- Country of the property
             postal_code VARCHAR(20),                    -- ZIP or Postal Code
             property_type ENUM('apartment', 'house', 'office', 'commercial', 'land') NOT NULL, 
                                                  -- Type of property
@@ -158,7 +159,7 @@ route.get('/createReport', (req, res) => {
             console.log('Error creating roles table:', errRoles);
             return res.status(500).send('Internal Server Error');
         }
-        console.log('Users Created Successfully');
+        console.log('Report Created Successfully');
 
     });
     db.query(sqlReportC, (errAccounts) => {
@@ -200,7 +201,7 @@ route.get('/createComplain', (req, res) => {
             console.log('Error creating roles table:', errRoles);
             return res.status(500).send('Internal Server Error');
         }
-        console.log('Users Created Successfully');
+        console.log('omplaint Created Successfully');
 
     });
 

@@ -151,13 +151,13 @@ const createSaved = (req, res, next) => {
                             return res.status(500).send('Internal Server Error');
                         }
                         const { property_name, rent_price, property_type, id, city, state, picture, prop_id } = results[0]
-                        const pro_link = '/user/property-zZkKqQP/' + id;
+                        const prop_link = '/admin/property-zZkKqQP/' + id;
                         
                         const user_id = userData.user_id
                         const pikz =picture.split(',')[0]  
                         const address = city+ ', ' + state
 
-                        db.query('INSERT INTO sun_planet.spc_saved SET ?', { property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
+                        db.query('INSERT INTO sun_planet.spc_saved SET ?', { prop_link, property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
     
                         return next();
                     })

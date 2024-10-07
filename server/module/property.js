@@ -123,7 +123,9 @@ const oneProp = (req, res) => {
                 return res.status(500).send('Internal Server Error');
             }
             console.log('This is the dashboard Details : ', userData);
-
+            if(results.length < 1){
+                res.send('The Property is not available')
+            }
             if (results) {
                 const userProp = results[0]
                 console.log('Properties are ', userProp)

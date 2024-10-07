@@ -36,7 +36,7 @@ const allRept = (req, res) => {
             if (results) {
                 const userRept = results
                 const userData = userCookie
-                return res.render('report-my', { userData, userRept, info });
+                return res.render('admin-report', { userData, userRept, info });
             }
 
         })
