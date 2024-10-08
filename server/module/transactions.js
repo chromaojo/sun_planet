@@ -13,6 +13,40 @@ const session = require('express-session');
 
 
 
+const myTrans = async (req, res)=>{
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const userId = userCookie.user_id
+    const notice = await new Promise((resolve, reject) => {
+        
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [userId], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const sql = `
+    SELECT * FROM sun_planet.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
+  `;
+
+    db.query(sql, [userId], (err, results) => {
+        if (err) {
+            console.log('Login Issues :', err);
+            return res.status(500).send('Internal Server Error');
+        }
+
+
+        if (results) {
+
+            const userTran = results
+
+            const userData = userCookie
+            return res.render('transaction', { userData, userTran, notice })
+
+        }
+
+    })
+}
+
 
 
 // To View All Properties
@@ -161,4 +195,4 @@ const deleteTrans = (req, res, next) => {
 
 
 
-module.exports = {oneTrans, allTrans, deleteTrans, createTrans}
+module.exports = {oneTrans, allTrans, deleteTrans, createTrans , myTrans}

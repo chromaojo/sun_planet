@@ -6,12 +6,14 @@ const db = require('../config/db');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
+const {myTrans, }=require('../module/transactions')
 const {eachUser, editUser, allUser }=require('../module/user')
+const {allMyNotice, deleteNotice, } = require('../module/notification')
 const { allMyAdLead, oneLead, createLead } = require('../module/lead');
 const { allAdProp, oneAdProp, createProp, deleteProp } = require('../module/property');
 const { allComplain, createComplain } = require('../module/complaint');
 const { allMyRept, allRept, oneRept, deleteRept } = require('../module/report');
-const { allAdSaved, createSaved, deleteSaved } = require('../module/saved');
+const { allAdSaved, createSaved, deleteSaved , createSavedAdmin } = require('../module/saved');
 const { allAdInvest, oneInvest, createInvest } = require('../module/investment');
 let random = Math.floor(Math.random() * 99999999 / 13.9);
 let rando = Math.floor(Math.random() * 99999);
@@ -98,6 +100,13 @@ route.post('/register', (req, res) => {
 
 });
 
+
+// To get notifications 
+route.get('/notif', allMyNotice, (req, res) => {
+
+});
+
+
 // The Users Section
 
 
@@ -139,7 +148,7 @@ route.post('/:user_id/edit', UserLoggin, (req, res) => {
 // Dashboard route
 route.get('/dashboard', async(req, res) => {
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
+    const user_id = userData.user_id;
     // const lan = 'land';
     // const build = 'building';
     // const short = 'shortlet';
@@ -147,6 +156,13 @@ route.get('/dashboard', async(req, res) => {
     const property = await new Promise((resolve, reject) => {
         const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC`;
         db.query(sqls, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+      const notice = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls,[user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
         });
@@ -187,7 +203,8 @@ route.get('/dashboard', async(req, res) => {
     //     });
     // });
     
-    res.render('dashboard',{userData, property})
+    console.log("The Last 3 is", notice)
+    res.render('dashboard',{userData, property, notice})
 });
 // See All Properties 
 
@@ -209,12 +226,19 @@ route.get('/property-zZkKqQP/:id', oneAdProp, (req, res) => {
 
 
 // To gat Create Property
-route.get('/create/prop', (req, res) => {
+route.get('/create/prop', async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
     const userData = userCookie
-    res.render('prop-create', { userData })
+    const notice = await new Promise((resolve, reject) => {
+        const userId = userCookie.user_id
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [userId], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    res.render('prop-create', { userData, notice })
 });
 
 // To gat Create Property
@@ -223,34 +247,8 @@ route.post('/create/pXrRoPp', createProp, (req, res) => {
 
 });
 
-// To gat Create Property
-route.get('/transactions', (req, res) => {
-
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    const userId = userCookie.user_id
-    const sql = `
-    SELECT * FROM sun_planet.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
-  `;
-
-    db.query(sql, [userId], (err, results) => {
-        if (err) {
-            console.log('Login Issues :', err);
-            return res.status(500).send('Internal Server Error');
-        }
-
-
-        if (results) {
-
-            const userTran = results
-
-            const userData = userCookie
-            return res.render('transaction', { userData, userTran })
-
-        }
-
-    })
-
-});
+// To gat my Transactions
+route.get('/transactions', myTrans);
 
 
 
@@ -267,11 +265,18 @@ route.get('/invest/:id', oneInvest, (req, res) => {
 });
 
 // To To Get CReate Investment page
-route.get('/investe', UserLoggin, (req, res) => {
+route.get('/investe', UserLoggin, async (req, res) => {
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const notice = await new Promise((resolve, reject) => {
+        const userId = userData.user_id
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [userId], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
 
-
-    res.render('invest-create', { userData })
+    res.render('invest-create', { userData, notice })
 });
 
 // To Post Investment 
@@ -282,13 +287,21 @@ route.post('/xXpPLliLZz', createInvest, (req, res) => {
 
 
 // User profile section
-route.get('/profile', UserLoggin, (req, res) => {
+route.get('/profile', UserLoggin, async (req, res) => {
     const userData = req.app.get('userData');
-    const userCookie = userData
-    console.log('Here is my Dashboard Data', userCookie);
+    const userCookie = userData;
+    const user_id = userCookie.user_id
+    
     if (!userCookie) {
         res.redirect('/login');
     } else {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls,[user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
         const user = db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
@@ -297,7 +310,9 @@ route.get('/profile', UserLoggin, (req, res) => {
                 return res.redirect('/admin/logout');
             }
             if (result) {
-                res.render('profile', { userData, });
+               
+                console.log(" Notice is :", notice);
+                res.render('profile', { userData, notice });
             }
 
         })
@@ -306,7 +321,7 @@ route.get('/profile', UserLoggin, (req, res) => {
 
 
 // To create Saved Properties
-route.get('/save/:id', createSaved, (req, res) => {
+route.get('/save/:id', createSavedAdmin, (req, res) => {
 
     res.redirect('/admin/saved')
 });

@@ -2,11 +2,10 @@
 
   <div class="row">
     <h5>Lead / My Contacts</h5> <br>
-    <div class="col-lg-4">
+    <div class="col-lg-7">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">New Lead / Contact</h5>
-
           <form action="/admin/lead/KxkRTtyZx" method="POST">
             <div class="input-group mb-2">
               <input type="text" class="form-control" placeholder="Title" name="title" aria-label="Username">
@@ -23,7 +22,7 @@
               <input type="email" class="form-control" required placeholder="Email" name="email" aria-label="Email">
               <span class="input-group-text">&</span>
               <input type="number" class="form-control" required placeholder="Phone Number" name="phone_number"
-                aria-label="Server">
+              min="0" aria-label="Server">
             </div>
             <div class="input-group mb-2">
               <input type="text" class="form-control" placeholder="Company" name="company_name" aria-label="Username">
@@ -35,7 +34,6 @@
               <span class="input-group-text">&</span>
               <input type="text" class="form-control" placeholder="Industry" name="industry" aria-label="Server">
             </div>
-
             <div class="input-group mb-2">
               <span class="input-group-text">Info</span>
               <textarea class="form-control" aria-label="With textarea" name="info"></textarea>
@@ -45,7 +43,21 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">How To Generate leads</h5>
+          <div class="container">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum eum libero iure. Dignissimos nam, accusamus ut quos, facilis nulla doloribus harum quod nesciunt tempore debitis doloremque numquam. Iusto, impedit est!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <br>
+  <div class="row"><h5>My Leads</h5> <br>
+    <div class="col-md-12">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title"> My Submitted Contacts</h5>
@@ -132,7 +144,7 @@
       </div>
 
     </div>
-  </div> <br>
+  </div>
   <hr> <br>
 
 

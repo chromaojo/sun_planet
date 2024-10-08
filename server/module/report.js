@@ -16,12 +16,20 @@ const session = require('express-session');
 
 
 // To View All Reports
-const allRept = (req, res) => {
+const allRept = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
+    const userId = userCookie.user_id;
 
     if (userCookie) {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
         const sql = `
       SELECT * FROM sun_planet.spc__report ORDER BY id DESC;
     `;
@@ -31,12 +39,10 @@ const allRept = (req, res) => {
                 console.log('Login Issues :', err);
                 return res.status(500).send('Internal Server Error');
             }
-
-
             if (results) {
                 const userRept = results
                 const userData = userCookie
-                return res.render('admin-report', { userData, userRept, info });
+                return res.render('admin-report', { userData, userRept, notice, info });
             }
 
         })
@@ -47,13 +53,20 @@ const allRept = (req, res) => {
     }
 };
 
-const allMyRept = (req, res) => {
+const allMyRept = async (req, res) => {
 
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
     const user_id = userCookie.user_id;
     if (userCookie) {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
         const sql = `SELECT * FROM sun_planet.spc__report WHERE user_id = ? ORDER BY id DESC;`;
 
         db.query(sql, [user_id], (err, results) => {
@@ -62,11 +75,10 @@ const allMyRept = (req, res) => {
                 return res.status(500).send('Internal Server Error');
             }
 
-
             if (results) {
                 const userRept = results
                 const userData = userCookie
-                return res.render('report-my', { userData, userRept, info });
+                return res.render('report-my', { userData, userRept, info, notice });
             }
 
         })

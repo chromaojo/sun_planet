@@ -16,12 +16,21 @@ const session = require('express-session');
 
 
 // To View All Complain for one person
-const allComplain = (req, res) => {
+const allComplain = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
+    const userId = userCookie.user_id;
 
     if (userCookie) {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
         const sql = `
       SELECT * FROM sun_planet.spc_complaint ORDER BY id DESC;
     `;
@@ -34,7 +43,7 @@ const allComplain = (req, res) => {
 
                 const userComplain = results
                 const userData = userCookie
-                return res.render('admin-complaints', { userData, userComplain, info });
+                return res.render('admin-complaints', { userData, notice , userComplain, info });
             }
 
         })
@@ -46,13 +55,22 @@ const allComplain = (req, res) => {
 };
 
 // To View All Complain for one person
-const allMyComplain = (req, res) => {
+const allMyComplain = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
     const userId = userCookie.user_id
 
+
+
     if (userCookie) {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
         const sql = `
       SELECT * FROM sun_planet.spc_complaint WHERE user_id = ? ORDER BY id DESC;
     `;
@@ -68,7 +86,7 @@ const allMyComplain = (req, res) => {
 
                 const userComplain = results
                 const userData = userCookie
-                return res.render('complaints-client', { userData, userComplain, info });
+                return res.render('complaints-client', { userData, notice,  userComplain, info });
             }
 
         })

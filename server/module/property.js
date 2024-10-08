@@ -37,59 +37,57 @@ const upload = multer({
 
 
 // To View All Properties
-const allProp = (req, res, next) => {
+const allProp = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
     if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
-    `;
 
-        db.query(sql, (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('index', { userData, userProp, info });
-            }
-
-        })
-
-
+    const notice = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [user_id], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const userProp = await new Promise((resolve, reject) => {
+        const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC;`;
+        db.query(sqls, [user_id], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    
+    const userData = userCookie
+    return res.render('admin-index', { userData, userProp, info , notice });
     } else {
         return res.status(401).redirect('/logout');
     }
 };
 // To View All Properties
-const allAdProp = (req, res, next) => {
+const allAdProp = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const user_id = userCookie.user_id;
     req.app.set('userData', userCookie);
     if (userCookie) {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
-    `;
-
-        db.query(sql, (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-
-
-            if (results) {
-                const userProp = results
-                const userData = userCookie
-                return res.render('admin-index', { userData, userProp, info });
-            }
-
-        })
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+        const userProp = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC;`;
+            db.query(sqls,  (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+        
+        const userData = userCookie
+        return res.render('admin-index', { userData, userProp, info , notice });
 
 
     } else {
@@ -98,72 +96,68 @@ const allAdProp = (req, res, next) => {
 };
 
 
-
-
-
-
 // To view only one property 
 
-const oneProp = (req, res) => {
+const oneProp = async (req, res) => {
 
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
+    const user_id = userCookie.user_id;
     const userData = userCookie
     if (!userCookie) {
         res.redirect('/logout');
     } else {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property WHERE id =?;
-    `;
 
-        db.query(sql, [id], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-            console.log('This is the dashboard Details : ', userData);
-            if(results.length < 1){
-                res.send('The Property is not available')
-            }
-            if (results) {
-                const userProp = results[0]
-                console.log('Properties are ', userProp)
-                res.render('prop-one', { userData, userProp, info });
-            }
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+        const userProps = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
+            db.query(sqls, [id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+      
+        const userProp = userProps[0];
+        return res.render('prop-one', { userData, userProp, info , notice });
 
-        })
     }
 };
 
 // To view Admin Prop 
-const oneAdProp = (req, res) => {
+const oneAdProp = async (req, res) => {
 
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
+    const user_id = userCookie.user_id;
     const userData = userCookie
     if (!userCookie) {
         res.redirect('/logout');
     } else {
-        const sql = `
-      SELECT * FROM sun_planet.spc_property WHERE id =?;
-    `;
 
-        db.query(sql, [id], (err, results) => {
-            if (err) {
-                console.log('Login Issues :', err);
-                return res.status(500).send('Internal Server Error');
-            }
-            console.log('This is the dashboard Details : ', userData);
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+        const userProps = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
+            db.query(sqls, [id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+      
+        const userProp = userProps[0];
+        return res.render('admin-prop-one', { userData, userProp, info , notice });
 
-            if (results) {
-                const userProp = results[0]
-                console.log('Properties are ', userProp)
-                res.render('admin-prop-one', { userData, userProp, info });
-            }
-
-        })
     }
 };
 
@@ -218,18 +212,18 @@ const deleteProp = (req, res, next) => {
 
         try {
             const id = req.params.id;
-          
+
             // Perform the deletion
             const sql = `DELETE FROM sun_planet.spc_property WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
-                   
+
                     return res.status(500).send('Error deleting Property');
                 }
                 res.redirect('/admin/props')
             });
 
-            
+
         } catch (err) {
             console.error('Error handling /delete-task-content/:id route:', err);
             res.status(500).send('Internal Server Error');

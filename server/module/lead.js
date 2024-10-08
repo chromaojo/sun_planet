@@ -53,13 +53,21 @@ const allLead = (req, res) => {
 
 
 // To View All My Lead
-const allMyLead = (req, res) => {
+const allMyLead = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
     const user_id = userCookie.user_id;
 
     if (userCookie) {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
         const sql = `
       SELECT * FROM sun_planet.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
     `;
@@ -74,7 +82,7 @@ const allMyLead = (req, res) => {
             if (results) {
                 const userLead = results
                 const userData = userCookie
-                return res.render('lead', { userData, userLead, info });
+                return res.render('lead', { userData, userLead, info, notice });
             }
 
         })
@@ -86,13 +94,20 @@ const allMyLead = (req, res) => {
 };
 
 // To View All My Lead
-const allMyAdLead = (req, res) => {
+const allMyAdLead = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
     const user_id = userCookie.user_id;
 
     if (userCookie) {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
         const sql = `
       SELECT * FROM sun_planet.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
     `;
@@ -107,7 +122,7 @@ const allMyAdLead = (req, res) => {
             if (results) {
                 const userLead = results
                 const userData = userCookie
-                return res.render('admin-lead', { userData, userLead, info });
+                return res.render('admin-lead', { userData, userLead, info, notice });
             }
 
         })
@@ -122,7 +137,7 @@ const allMyAdLead = (req, res) => {
 
 // To view only one Lead 
 
-const oneLead = (req, res, next) => {
+const oneLead = async(req, res) => {
 
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -131,6 +146,14 @@ const oneLead = (req, res, next) => {
     if (!userCookie) {
         res.redirect('/logout');
     } else {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
         const sql = `
       SELECT * FROM sun_planet.spc_lead WHERE lead_id =?;
     `;
@@ -145,7 +168,7 @@ const oneLead = (req, res, next) => {
             if (results) {
                 const userLead = results[0]
                 console.log('Lead are ', userLead)
-                res.render('lead-one', { userData, userLead, info });
+                res.render('lead-one', { userData, userLead, info ,notice });
             }
 
         })

@@ -1,0 +1,51 @@
+<div class="card">
+    <% let counter = 1; %>
+    <div class="card-body">
+        <h5 class="card-title">Recent Activity <span>| Notifications</span></h5>
+
+
+        <!-- Table with stripped rows -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title </th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <% notice.forEach(trans=> { %>
+                    <tr> 
+                        <th scope="row"><%= counter++ %></th>
+                        <td>
+                            <a href="#" class="text-dark ">
+                                <%= trans.title %>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="text-dark ">
+                                <%= trans.content %>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="text-dark ">
+                                <%= new Date(trans.created_at).toLocaleString('en-GB',{ year : 'numeric', month:'short', day :'2-digit'}) %>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="#" class="text-dark ">
+                                <%= new Date(trans.created_at).toLocaleTimeString() %>
+                            </a>
+                        </td>                  
+                    </tr>
+                <% }) %>
+               
+            </tbody>
+        </table>
+        <!-- End Table with stripped rows -->
+
+    </div>
+</div>

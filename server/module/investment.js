@@ -38,12 +38,21 @@ const upload = multer({
 
 
 // To View All Invest
-const allInvest = (req, res) => {
+const allInvest = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
 
     if (userCookie) {
+
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
         const sql = `
       SELECT * FROM sun_planet.spc_investment ORDER BY id DESC;
     `;
@@ -58,7 +67,7 @@ const allInvest = (req, res) => {
             if (results) {
                 const userInvest = results
                 const userData = userCookie
-                return res.render('invest-all', { userData, userInvest, info });
+                return res.render('invest-all', { userData, userInvest, info, notice });
             }
 
         })
@@ -70,12 +79,21 @@ const allInvest = (req, res) => {
 };
 
 // To View All Invest
-const allAdInvest = (req, res) => {
+const allAdInvest = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
+    const userId = userCookie.user_id;
 
     if (userCookie) {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
         const sql = `
       SELECT * FROM sun_planet.spc_investment ORDER BY id DESC;
     `;
@@ -90,7 +108,7 @@ const allAdInvest = (req, res) => {
             if (results) {
                 const userInvest = results
                 const userData = userCookie
-                return res.render('admin-invest-all', { userData, userInvest, info });
+                return res.render('admin-invest-all', { userData, userInvest, notice });
             }
 
         })
@@ -158,7 +176,12 @@ const createInvest = (req, res) => {
             const picture = '/invest/'+pixz;
           
             db.query('INSERT INTO sun_planet.spc_investment SET ?', { title , details , invest_id, price , picture , date });
-           res.redirect('/user/investments');
+           
+           if (userCookie.role ==='client') {
+            res.redirect('/user/investments');
+           } else {
+            res.redirect('/admin/investments');
+           }
         });
        
     } catch (error) {

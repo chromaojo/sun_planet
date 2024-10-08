@@ -6,7 +6,12 @@ const AvoidIndex = (req, res, next)=>{
     
     if (userCookie){
         
-        return res.status(401).redirect('/login');
+        // return res.status(401).redirect('/login');
+        if (userCookie.role === 'client') {
+            res.redirect('/user/dashboard');
+           } else {
+            res.redirect('/admin/dashboard');
+           }
         
     } else{
         return next();

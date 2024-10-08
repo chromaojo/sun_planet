@@ -325,5 +325,37 @@ route.get('/createLead', (req, res) => {
 });
 
 
+route.get('/createNotice', (req, res) => {
+
+
+  const sqlNotice = `
+  CREATE TABLE IF NOT EXISTS sun_planet.spc_notification (
+    id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    title VARCHAR(255),
+    content TEXT,
+    time VARCHAR(255),
+    status ENUM('read', 'unread') DEFAULT 'unread',
+    link VARCHAR(115),
+    user_id VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES sun_planet.spc_users(user_id)
+  );
+  `;
+
+    db.query(sqlNotice, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Notification Created Successfully');
+
+    });
+
+    res.send('Notification Table Created Successfully');
+});
+
+
+
+
 
 module.exports = route;

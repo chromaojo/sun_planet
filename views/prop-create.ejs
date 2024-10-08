@@ -16,6 +16,13 @@
                 </div>
               </div>
 
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Youtube</span>
+                  <input type="text" class="form-control" placeholder="Youtube Link if available" aria-label="Username"
+                    aria-describedby="basic-addon1" name="property_name">
+                </div>
+              </div>
               
             </div>
             <div class="row mb-3">
@@ -42,25 +49,26 @@
               </div>
             </div>
             <div class="row mb-3">
-              <div class="col">
-                <div class="input-group mb-3">
-                  <span class="input-group-text" id="basic-addon1">Size </span>
-                  <input type="number" class="form-control" placeholder="Enter Size in SqFt" aria-label="Username"
-                    aria-describedby="basic-addon1" required name="size_in_sqft">
-                </div>
-              </div>
+              
               <div class="col">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Bedroom(s)</span>
                   <input type="number" class="form-control" placeholder="Number Of Bedrooms" aria-label="Username"
-                    aria-describedby="basic-addon1" required name="bedrooms">
+                   min="0" aria-describedby="basic-addon1" required name="bedrooms">
                 </div>
               </div>
               <div class="col">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Bathrooms</span>
                   <input type="number" class="form-control" placeholder="Number Of Bathrooms" aria-label="Username"
-                    aria-describedby="basic-addon1" required name="bathrooms">
+                  min="0"  aria-describedby="basic-addon1" required name="bathrooms">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Size </span>
+                  <input type="number" class="form-control" placeholder="Enter Size in SqFt" aria-label="Username"
+                  min="0" aria-describedby="basic-addon1" required name="size_in_sqft">
                 </div>
               </div>
             </div>
@@ -69,14 +77,14 @@
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Unit(s)</span>
                   <input type="number" class="form-control" placeholder="Available Units/ Quantity"
-                    aria-label="Username" aria-describedby="basic-addon1" required name="number_of_units">
+                  min="0"  aria-label="Username" aria-describedby="basic-addon1" required name="number_of_units">
                 </div>
               </div>
               <div class="col">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Price</span>
                   <input type="Number" class="form-control" placeholder="Property Unit Price" aria-label="Username"
-                    aria-describedby="basic-addon1" required name="rent_price">
+                  min="0" aria-describedby="basic-addon1" required name="rent_price">
                 </div>
               </div>
             </div>
