@@ -6,7 +6,8 @@ const db = require('../config/db');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
-const {myTrans, }=require('../module/transactions')
+const {myTrans, }=require('../module/transactions') 
+const { createRent,allRent}=require('../module/rent')
 const {eachUser, editUser, allUser }=require('../module/user')
 const {allMyNotice, deleteNotice, } = require('../module/notification')
 const { allMyAdLead, oneLead, createLead } = require('../module/lead');
@@ -250,6 +251,8 @@ route.post('/create/pXrRoPp', createProp, (req, res) => {
 // To gat my Transactions
 route.get('/transactions', myTrans);
 
+// To gat All rent
+route.get('/all-rent', allRent);
 
 
 // To Read All Investments 

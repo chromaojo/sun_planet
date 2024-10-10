@@ -50,6 +50,7 @@ const allRent = async (req, res) => {
             resolve(results);
         });
     });
+
     const userRent = await new Promise((resolve, reject) => {
 
         const sqls = `SELECT * FROM sun_planet.spc_rent ORDER BY id DESC;`;
@@ -60,41 +61,43 @@ const allRent = async (req, res) => {
     });
     
     const userData = userCookie
-    return res.render('index', { userData, userRent, info , notice });
+    return res.render('rent', { userData, userRent, info , notice });
     } else {
         return res.status(401).redirect('/logout');
     }
 };
+
+
 // To View All Renterties
-const allAdRent = async (req, res) => {
+// const allAdRent = async (req, res) => {
 
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    const user_id = userCookie.user_id;
-    req.app.set('userData', userCookie);
-    if (userCookie) {
-        const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
-            });
-        });
-        const userRent = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_rent ORDER BY id DESC;`;
-            db.query(sqls,  (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
-            });
-        });
+//     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+//     const user_id = userCookie.user_id;
+//     req.app.set('userData', userCookie);
+//     if (userCookie) {
+//         const notice = await new Promise((resolve, reject) => {
+//             const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+//             db.query(sqls, [user_id], (err, results) => {
+//                 if (err) return reject(err);
+//                 resolve(results);
+//             });
+//         });
+//         const userRent = await new Promise((resolve, reject) => {
+//             const sqls = `SELECT * FROM sun_planet.spc_rent ORDER BY id DESC;`;
+//             db.query(sqls,  (err, results) => {
+//                 if (err) return reject(err);
+//                 resolve(results);
+//             });
+//         });
         
-        const userData = userCookie
-        return res.render('admin-index', { userData, userRent, info , notice });
+//         const userData = userCookie
+//         return res.render('admin-index', { userData, userRent, info , notice });
 
 
-    } else {
-        return res.status(401).redirect('/logout');
-    }
-};
+//     } else {
+//         return res.status(401).redirect('/logout');
+//     }
+// };
 
 
 // To view only one property 
@@ -238,4 +241,4 @@ const deleteRent = (req, res, next) => {
 
 
 
-module.exports = { oneRent, oneAdRent, allRent, allAdRent, deleteRent, createRent }
+module.exports = { oneRent, oneAdRent, allRent, deleteRent, createRent }
