@@ -6,6 +6,7 @@ const db = require('../config/db');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
+const {allMyNotice} = require('../module/notification')
 const { allMyLead, allLead, oneLead, createLead } = require('../module/lead');
 const { allProp, oneProp, createProp } = require('../module/property');
 const { allMyComplain, allComplain, createComplain } = require('../module/complaint');
@@ -55,10 +56,18 @@ route.get('/property-zZkKqQP/:id', oneProp, (req, res) => {
 
 
 // To gat Create Property
-route.get('/transactions', (req, res) => {
+route.get('/transactions', async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const userId = userCookie.user_id
+    const notice = await new Promise((resolve, reject) => {
+        
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [userId], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
     const sql = `
     SELECT * FROM sun_planet.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
   `;
@@ -75,7 +84,7 @@ route.get('/transactions', (req, res) => {
             const userTran = results
 
             const userData = userCookie
-            return res.render('transaction', { userData, userTran })
+            return res.render('transaction', { userData, userTran, notice })
 
         }
 
@@ -99,13 +108,21 @@ route.get('/invest/:id', oneInvest, (req, res) => {
 
 
 // User profile section
-route.get('/profile', UserLoggin, (req, res) => {
+route.get('/profile', UserLoggin, async (req, res) => {
     const userData = req.app.get('userData');
     const userCookie = userData
     console.log('Here is my Dashboard Data', userCookie);
     if (!userCookie) {
         res.redirect('/login');
     } else {
+        const notice = await new Promise((resolve, reject) => {
+            const user_id =userData.user_id
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
         const user = db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
@@ -114,7 +131,7 @@ route.get('/profile', UserLoggin, (req, res) => {
                 return res.redirect('/user/logout');
             }
             if (result) {
-                res.render('profile', { userData, });
+                res.render('profile', { userData, notice , });
             }
 
         })
@@ -195,6 +212,10 @@ route.post('/lead/KxkRTtyZx', createLead, (req, res) => {
 
 });
 
+// To get all my notification 
+route.get('/notif', allMyNotice, (req, res) => {
+
+});
 
 
 // Logout route

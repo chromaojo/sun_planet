@@ -3,7 +3,11 @@
     <div class="card-body">
         <h5 class="card-title">Recent Activity <span>| Notifications</span></h5>
 
-
+        <% if (notice=='' ) { %>
+            <br> 
+            <h3 class="m-5 text-center mb-2 p-3">There is no notification at the moment</h3>
+      
+            <% } else{%>
         <!-- Table with stripped rows -->
         <table class="table table-hover">
             <thead>
@@ -46,6 +50,6 @@
             </tbody>
         </table>
         <!-- End Table with stripped rows -->
-
+<% } %>
     </div>
 </div>

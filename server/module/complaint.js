@@ -86,7 +86,7 @@ const allMyComplain = async (req, res) => {
 
                 const userComplain = results
                 const userData = userCookie
-                return res.render('complaints-client', { userData, notice,  userComplain, info });
+                return res.render('complaints-client', { userData, notice, userComplain, info });
             }
 
         })

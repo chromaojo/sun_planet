@@ -21,7 +21,7 @@
               <%= userData.othername %>
           </h2>
           <h3>
-           @ <%= userData.username %>
+            @ <%= userData.username %>
           </h3>
           <div class="social-links mt-2">
             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -34,9 +34,7 @@
       <div class="card">
         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
           <h5 class="card-title">About</h5>
-          <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus.
-            Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet
-            perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
+          <p class="small fst-italic"><%- userData.about %></p>
         </div>
       </div>
 
@@ -71,94 +69,42 @@
 
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
 
-
-
               <div class="row">
-                <div class="card bg-light m-auto p-2">
-                  <div class="col-md-10 p-3  icon-box" data-aos="fade-up">
-                    <div class="row">
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-card-checklist"></i> <b class="title"> <a href="">Full Name :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.surname %>
-                                <%= userData.othername %>
-                            </b>
-                        </div>
-                      </div>
+                <div class="card p-3">
+                  <div class="card-body">
+                    <h5 class="card-title">Account Details</h5>
 
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-telephone"></i> <b class="title"> <a href="">Phone Number :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.phone_number %>
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
-
-                    </div>
-                    <div class="row">
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-envelope"></i> <b class="title"> <a href="">Email Address :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.email %>
-                            </b>
-                        </div>
-                      </div>
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-card-checklist"></i> <b class="title"> <a href="">Account Id :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.account_id %>
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-                    <div class="row">
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-pen"></i> <b class="title"> <a href="">Username :</a></b>
-                            <b class="description text-dark">
-                              <%= userData.username %>
-                            </b>
-                        </div>
-                      </div>
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-map"></i> <b class="title"> <a href="">Address :</a></b> <br>
-                            <b class="description text-dark">
-                              <%= userData.address %>
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-                    <div class="row">
-                      <div class="col mb-4">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-envelope"></i> <b class="title"> <a href="">User Role :</a></b>
-                            <b class="description text-dark capitalize">
-                              Esteemed <%= userData.role %>
-                            </b>
-                        </div>
-                      </div>
-                      <div class="col mb-3">
-                        <div class="icon"><a href="/user/edit">
-                            <i class="bi bi-card-checklist"></i> <b class="title"> <a href="">Account Balance :</a></b>
-                            <b class="description text-dark ">
-                              <%= userData.account_balance %> NGN
-                            </b>
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
+                    <!-- List group With Icons -->
+                    <ul class="list-group">
+                      <li class="list-group-item text-capitalize"><i class="bi bi-pen me-1 text-info"></i> Name : <%-
+                          userData.surname %> <%- userData.othername %> </li>
+                      <li class="list-group-item text-capitalize"><i class="bi bi-bank me-1 text-success"></i> Account
+                        Id : <%- userData.account_id %></li>
+                      <li class="list-group-item text-capitalize"><i class="bi bi-cash me-1 text-success"></i> Account
+                        Balance : <%- userData.account_balance %> NGN</li>
+                      <li class="list-group-item text-capitalize"><i class="bi bi-cash-stack me-1 text-success"></i>
+                        Total Amount : <%- userData.total_spent %> NGN</li>
+                      <li class="list-group-item text-capitalize"><i class="bi bi-house-fill me-1 text-primary"></i>
+                        Address : <%- userData.address %> </li>
+                      <li class="list-group-item text-capitalize"><i class="bi bi-phone me-1 text-success"></i> Phone
+                        Number : <%- userData.phone_number %> </li>
+                      <li class="list-group-item"><i class="bi bi-envelope me-1 text-success"></i> Email
+                        : <%- userData.email %> </li>
+                      <li class="list-group-item text-capitalize"><i class="bi bi-whatsapp me-1 text-success"></i>
+                        Whatsapp : <%- userData.whatsapp %></li>
+                      <li class="list-group-item text-capitalize"><i
+                          class="bi bi-star me-1 text-capitalize text-info"></i> Account Type : <%- userData.userData_type %>
+                      </li>
+                     
+                      <li class="list-group-item text-capitalize"><i class="bi bi-instagram me-1 text-success"></i>
+                        instagram : <%- userData.instagram %></li>
+                      <li class="list-group-item text-capitalize"><i class="bi bi-linkedin me-1 text-success"></i>
+                        Linkedin : <%- userData.linkedin %></li>
+                    </ul><!-- End List group With Icons -->
 
                   </div>
-
-                </div>
+                </div> 
+                
               </div>
 
             </div>
@@ -309,15 +255,20 @@
                     </div>
                   </div>
                 </form>
-
-
-                <div class="row mb-3">
-                  <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                <form action="/user/edit/about" method="POST">
+                  <div class="row mb-3">
+                  <label for="about" class="col-md-4 col-lg-3 col-form-label">About </label>
                   <div class="col-md-8 col-lg-9">
                     <textarea name="about" class="form-control" id="about"
-                      style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                      style="height: 100px"> <%- userData.about %></textarea>
+                      <button type="submit" class="btn btn-primary btn-sm">Save</button>
                   </div>
+                 
                 </div>
+                </form>
+
+
+                
 
 
 

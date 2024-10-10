@@ -133,7 +133,7 @@ route.post('/:user_id/edit', UserLoggin, (req, res) => {
       SET role = ?
       WHERE user_id = ?;
     `;
-
+  
     db.query(sql, [newRole, userId], (err, results) => {
         if (err) {
             console.log('Error updating user role:', err);

@@ -1,17 +1,17 @@
-<div class="container-fluid register d-flex">
+<div class="container-fluid register ">
     <div class="container">
-        <div class="row" data-aos="fade-up">
+        <div class="row d-flex" data-aos="fade-up">
             <div class="col-md-2"></div>
-            <div class="col-md-9 p-5 ">
+            <div class="col-md-9 p-3">
                 <!-- Add A Carousel for the form  -->
-                <h1 class="mb-3 text-center"> <b>User's Role Allocation</b></h1>
-                <h3 class="mb-5 text-center"><small>Edit User Role</small> </h3>
-                <div class="container">
+                <h1 class="mb-3 text-center"> <b>User's Account Detail</b></h1>
+                
+                <div class="container"><h3 class="mb-5 text-center">Edit User Role</h3>
                     <div class="card border p-4">
                         <form action="/admin/<%= userOne.user_id %>/edit" method="POST">
                             <div class="form-group">
                                 <span>Email Address:</span>
-                                <input type="text" class="form-control" value=" Email : <%= userOne.email %>">
+                                <input type="text" class="form-control" value=" Email : <%= userOne.email %>" readonly>
                             </div>
                             <div class="form-group">
                                 <span>Role :</span> <i class="text-capitalize"><%= userOne.role %></i>
@@ -19,7 +19,7 @@
                                     <option value=""></option>
                                     <option value="admin">Administrator</option>
                                     <option value="client">Client</option>
-                                    <option value="staff">Staff</option>
+                                    <!-- <option value="staff">Staff</option> -->
                                 </select> <br>
                             </div>
                             <button type="submit" class="btn btn-outline-primary w-100">Done</button>
@@ -29,7 +29,30 @@
                 </div>
             </div>
         </div>
+    </div> 
+    <div class="container p-3">
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Account Details</h5>
 
+              <!-- List group With Icons -->
+              <ul class="list-group">
+                <li class="list-group-item text-capitalize"><i class="bi bi-pen me-1 text-info"></i> Name : <%- acct.surname %> <%- acct.othername %> </li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-bank me-1 text-success"></i> Account Id : <%- acct.account_id %></li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-cash me-1 text-success"></i> Account Balance : <%- acct.account_balance %> NGN</li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-cash-stack me-1 text-success"></i> Total Amount : <%- acct.total_spent %> NGN</li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-house-fill me-1 text-primary"></i> Address : <%- acct.address %> </li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-phone me-1 text-success"></i> Phone Number : <%- acct.phone_number %> </li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-envelope me-1 text-success"></i> Email : <%- acct.email %> </li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-whatsapp me-1 text-success"></i> Whatsapp : <%- acct.whatsapp %></li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-star me-1 text-capitalize text-info"></i> Account Type : <%- acct.acct_type %></li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-star me-1 text-capitalize text-success"></i> About : <%- acct.about %></li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-instagram me-1 text-success"></i> instagram : <%- acct.instagram %></li>
+                <li class="list-group-item text-capitalize"><i class="bi bi-linkedin me-1 text-success"></i> Linkedin : <%- acct.linkedin %></li>
+              </ul><!-- End List group With Icons -->
+
+            </div>
+          </div>
     </div>
 
 

@@ -29,7 +29,7 @@ route.post('/surname', UserLoggin, async (req, res) => {
                 const sqlGetUserWithAccount = `
             SELECT 
                 u.user_id,
-                u.password,
+                a.acct_type
                 u.email,
                 u.role,
                 a.account_id,
@@ -37,6 +37,12 @@ route.post('/surname', UserLoggin, async (req, res) => {
                 a.account_balance,
                 a.phone_number,
                 a.surname,
+                a.whatsapp,
+                a.linkedin,
+                a.about,
+                a.facebook,
+                a.instagram,
+                a.current_rent,
                 a.othername,
                 a.username,
                 a.address,
@@ -78,8 +84,6 @@ route.post('/surname', UserLoggin, async (req, res) => {
     }
 });
 
-
-
 // To Update Username
 route.post('/username', UserLoggin, async (req, res) => {
     //  
@@ -99,7 +103,7 @@ route.post('/username', UserLoggin, async (req, res) => {
                 const sqlGetUserWithAccount = `
             SELECT 
                 u.user_id,
-                u.password,
+                a.acct_type
                 u.email,
                 u.role,
                 a.account_id,
@@ -107,10 +111,15 @@ route.post('/username', UserLoggin, async (req, res) => {
                 a.account_balance,
                 a.phone_number,
                 a.surname,
+                a.whatsapp,
+                a.linkedin,
+                a.about,
+                a.facebook,
+                a.instagram,
+                a.current_rent,
                 a.othername,
                 a.username,
                 a.address,
-                a.email as account_email
             FROM sun_planet.spc_users u
             LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
@@ -167,7 +176,7 @@ route.post('/other', UserLoggin, async (req, res) => {
                 const sqlGetUserWithAccount = `
                 SELECT 
                     u.user_id,
-                    u.password,
+                    a.acct_type
                     u.email,
                     u.role,
                     a.account_id,
@@ -175,6 +184,12 @@ route.post('/other', UserLoggin, async (req, res) => {
                     a.account_balance,
                     a.phone_number,
                     a.surname,
+                    a.whatsapp,
+                    a.linkedin,
+                    a.about,
+                    a.facebook,
+                    a.instagram,
+                    a.current_rent,
                     a.othername,
                     a.username,
                     a.address,
@@ -220,6 +235,7 @@ route.post('/other', UserLoggin, async (req, res) => {
 route.post('/phone_number', UserLoggin, async (req, res) => {
     //  
     const { phone_number } = req.body;
+
     if (phone_number) {
         try {
             const userData = req.app.get('userData');
@@ -234,19 +250,24 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
             SELECT 
-                u.user_id,
-                u.password,
-                u.email,
-                u.role,
-                a.account_id,
-                a.total_spent,
-                a.account_balance,
-                a.phone_number,
-                a.surname,
-                a.othername,
-                a.username,
-                a.address,
-                a.email as account_email
+            u.user_id,
+            a.acct_type
+            u.email,
+            u.role,
+            a.account_id,
+            a.total_spent,
+            a.account_balance,
+            a.phone_number,
+            a.surname,
+            a.whatsapp,
+            a.linkedin,
+            a.about,
+            a.facebook,
+            a.instagram,
+            a.current_rent,
+            a.othername,
+            a.username,
+            a.address,
             FROM sun_planet.spc_users u
             LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
@@ -284,10 +305,11 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
     }
 });
 
-// To Update Phone Number 
+// To Update Whatsapp Number 
 route.post('/whatsapp', UserLoggin, async (req, res) => {
     //  
     const { whatsapp } = req.body;
+
     if (whatsapp) {
         try {
             const userData = req.app.get('userData');
@@ -303,7 +325,7 @@ route.post('/whatsapp', UserLoggin, async (req, res) => {
                 const sqlGetUserWithAccount = `
             SELECT 
                 u.user_id,
-                u.password,
+                a.acct_type
                 u.email,
                 u.role,
                 a.account_id,
@@ -311,6 +333,12 @@ route.post('/whatsapp', UserLoggin, async (req, res) => {
                 a.account_balance,
                 a.phone_number,
                 a.surname,
+                a.whatsapp,
+                a.linkedin,
+                a.about,
+                a.facebook,
+                a.instagram,
+                a.current_rent,
                 a.othername,
                 a.username,
                 a.address,
@@ -353,6 +381,80 @@ route.post('/whatsapp', UserLoggin, async (req, res) => {
 });
 
 // To Update Phone Number 
+route.post('/about', UserLoggin, async (req, res) => {
+    //  
+    const { about } = req.body;
+
+    if (about) {
+        try {
+            const userData = req.app.get('userData');
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET about = ?  WHERE email = ?';
+            let values = [about, userData.email];
+
+            db.query(updateUsername, values, (error, result) => {
+                if (error) {
+                    console.log('An Update Error Occurred ', error);
+                    res.status(500).send({ message: 'An Update Error Occurred' });
+                }
+                console.log('Updated successfully !', result)
+                const sqlGetUserWithAccount = `
+                SELECT 
+                  u.user_id,
+                  u.password,
+                  u.email,
+                  u.role,
+                  a.account_id,
+                  a.total_spent,
+                  a.account_balance,
+                  a.phone_number,
+                  a.surname,
+                  a.whatsapp,
+                  a.linkedin,
+                  a.about,
+                  a.facebook,
+                  a.instagram,
+                  a.current_rent,
+                  a.othername,
+                  a.username,
+                  a.address,
+                  a.email as account_email
+                FROM sun_planet.spc_users u
+                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                WHERE u.email = ?;
+              `;
+                db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
+                    if (error) { 
+                        return res.status(500).json({
+                            message: 'Internal Error Uploading About'
+                        });
+                    }
+
+                    if (result.length === 0) {
+                        return res.status(401).json({
+                            message: 'Invalid Data or Fields'
+                        });
+                    }
+
+                    delete userData
+                    req.app.set('userData', result[0])
+                    const userWithAccount = result[0];
+                    res.clearCookie('user');
+                    res.cookie('user', JSON.stringify(userWithAccount));
+                    res.redirect('/user/profile');
+
+                });
+
+            });
+        } catch (err) {
+            console.error('Error Loading Update:', err);
+            res.status(500).send('Error Loading Update');
+        }
+    } else {
+        res.redirect('/user/edit');
+    }
+});
+
+// To Update Facebook 
 route.post('/facebook', UserLoggin, async (req, res) => {
     //  
     const { facebook } = req.body;
@@ -371,7 +473,7 @@ route.post('/facebook', UserLoggin, async (req, res) => {
                 const sqlGetUserWithAccount = `
             SELECT 
                 u.user_id,
-                u.password,
+                a.acct_type
                 u.email,
                 u.role,
                 a.account_id,
@@ -379,6 +481,12 @@ route.post('/facebook', UserLoggin, async (req, res) => {
                 a.account_balance,
                 a.phone_number,
                 a.surname,
+                a.whatsapp,
+                a.linkedin,
+                a.about,
+                a.facebook,
+                a.instagram,
+                a.current_rent,
                 a.othername,
                 a.username,
                 a.address,
@@ -439,7 +547,7 @@ route.post('/address', UserLoggin, async (req, res) => {
                 const sqlGetUserWithAccount = `
                 SELECT 
                     u.user_id,
-                    u.password,
+                    a.acct_type
                     u.email,
                     u.role,
                     a.account_id,
@@ -447,6 +555,12 @@ route.post('/address', UserLoggin, async (req, res) => {
                     a.account_balance,
                     a.phone_number,
                     a.surname,
+                    a.whatsapp,
+                    a.linkedin,
+                    a.about,
+                    a.facebook,
+                    a.instagram,
+                    a.current_rent,
                     a.othername,
                     a.username,
                     a.address,
@@ -492,7 +606,7 @@ route.post('/address', UserLoggin, async (req, res) => {
 // Make the password edit send a mail to the Email 
 route.post('/password', UserLoggin, async (req, res) => {
     //  
-    const { old_password , new_password } = req.body;
+    const { old_password, new_password } = req.body;
     if (password) {
         try {
             const userData = req.app.get('userData');
@@ -505,15 +619,15 @@ route.post('/password', UserLoggin, async (req, res) => {
                     res.status(500).send({ message: 'An Update Error Occurred' });
                 }
                 const messages = {
-                        from: {
-                            name: 'FASTTRAC INTERNATIONAL',
-                            address: 'felixtemidayoojo@gmail.com',
-                        },
-                        to: userData.email,
-                        subject: "FASTTRAC LOGISTICS",
-                        text: `Dear Esteemed User ${userData.username}, \n \n Your New Password is \n <h1> ${new_password} </h1> . \n \n Your FASTTRAC Account Password has been changed successfully . \n \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimize the security on your application. \n \n Contact our admin if need arises.`,
-                    }
-                    mail.sendIt(messages)
+                    from: {
+                        name: 'Sun Planet Ltd',
+                        address: 'felixtemidayoojo@gmail.com',
+                    },
+                    to: userData.email,
+                    subject: "Sun Planet IT Department",
+                    text: `Dear Esteemed User ${userData.username}, \n ${userData.surname}, We detect that you have attempted to change your passwor few minutes ago \n Your New Password is \n <h1> ${new_password} </h1> . \n \n Your Sun Planet Account Password has been changed successfully . \n \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you alart our IT department. \n \n Contact our admin if need arises.`,
+                }
+                mail.sendIt(messages)
                 console.log('Password Updated successfully !', result)
                 res.redirect('/user/logout')
 

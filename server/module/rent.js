@@ -34,10 +34,8 @@ const upload = multer({
 
 
 
-
-
-// To View All Properties
-const allProp = async (req, res) => {
+// To View All Renterties
+const allRent = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
@@ -52,9 +50,9 @@ const allProp = async (req, res) => {
             resolve(results);
         });
     });
-    const userProp = await new Promise((resolve, reject) => {
+    const userRent = await new Promise((resolve, reject) => {
 
-        const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC;`;
+        const sqls = `SELECT * FROM sun_planet.spc_rent ORDER BY id DESC;`;
         db.query(sqls, [user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -62,13 +60,13 @@ const allProp = async (req, res) => {
     });
     
     const userData = userCookie
-    return res.render('index', { userData, userProp, info , notice });
+    return res.render('index', { userData, userRent, info , notice });
     } else {
         return res.status(401).redirect('/logout');
     }
 };
-// To View All Properties
-const allAdProp = async (req, res) => {
+// To View All Renterties
+const allAdRent = async (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const user_id = userCookie.user_id;
@@ -81,8 +79,8 @@ const allAdProp = async (req, res) => {
                 resolve(results);
             });
         });
-        const userProp = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC;`;
+        const userRent = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_rent ORDER BY id DESC;`;
             db.query(sqls,  (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -90,7 +88,7 @@ const allAdProp = async (req, res) => {
         });
         
         const userData = userCookie
-        return res.render('admin-index', { userData, userProp, info , notice });
+        return res.render('admin-index', { userData, userRent, info , notice });
 
 
     } else {
@@ -101,7 +99,7 @@ const allAdProp = async (req, res) => {
 
 // To view only one property 
 
-const oneProp = async (req, res) => {
+const oneRent = async (req, res) => {
 
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -118,22 +116,22 @@ const oneProp = async (req, res) => {
                 resolve(results);
             });
         });
-        const userProps = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
+        const userRents = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_rent WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
       
-        const userProp = userProps[0];
-        return res.render('prop-one', { userData, userProp, info , notice });
+        const userRent = userRents[0];
+        return res.render('prop-one', { userData, userRent, info , notice });
 
     }
 };
 
-// To view Admin Prop 
-const oneAdProp = async (req, res) => {
+// To view Admin Rent 
+const oneAdRent = async (req, res) => {
 
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -150,16 +148,16 @@ const oneAdProp = async (req, res) => {
                 resolve(results);
             });
         });
-        const userProps = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
+        const userRents = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_rent WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
       
-        const userProp = userProps[0];
-        return res.render('admin-prop-one', { userData, userProp, info , notice });
+        const userRent = userRents[0];
+        return res.render('admin-prop-one', { userData, userRent, info , notice });
 
     }
 };
@@ -167,7 +165,7 @@ const oneAdProp = async (req, res) => {
 
 
 // To Post property form from the frontend 
-const createProp = (req, res) => {
+const createRent = (req, res) => {
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
@@ -190,12 +188,12 @@ const createProp = (req, res) => {
             // Now you can handle the name, age, address, and pictures array
             // For example, save them to a database, send to another API, etc.
 
-            db.query('INSERT INTO sun_planet.spc_property SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
-            res.redirect('/admin/props')
+            db.query('INSERT INTO sun_planet.spc_rent SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
+            res.redirect('/admin/rents')
         });
 
     } catch (error) {
-        console.log('Property Form Error :', error)
+        console.log('Renting Form Error :', error)
     }
 
 }
@@ -206,7 +204,7 @@ const createProp = (req, res) => {
 // To delete a property content
 
 
-const deleteProp = (req, res, next) => {
+const deleteRent = (req, res, next) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     req.app.set('userData', userCookie);
@@ -217,13 +215,13 @@ const deleteProp = (req, res, next) => {
             const id = req.params.id;
 
             // Perform the deletion
-            const sql = `DELETE FROM sun_planet.spc_property WHERE id = ?;`;
+            const sql = `DELETE FROM sun_planet.spc_rent WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
 
-                    return res.status(500).send('Error deleting Property');
+                    return res.status(500).send('Error deleting Renting');
                 }
-                res.redirect('/admin/props')
+                res.redirect('/admin/rents')
             });
 
 
@@ -234,10 +232,10 @@ const deleteProp = (req, res, next) => {
 
 
     } else {
-        res.send('Cannot Delete This Property')
+        res.send('Cannot Delete This Renting')
     }
 };
 
 
 
-module.exports = { oneProp, oneAdProp, allProp, allAdProp, deleteProp, createProp }
+module.exports = { oneRent, oneAdRent, allRent, allAdRent, deleteRent, createRent }

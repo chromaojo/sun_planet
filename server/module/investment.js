@@ -46,6 +46,7 @@ const allInvest = async (req, res) => {
     if (userCookie) {
 
         const notice = await new Promise((resolve, reject) => {
+            const userId = userCookie.user_id;
             const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);

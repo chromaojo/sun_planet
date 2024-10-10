@@ -74,8 +74,7 @@ route.get('/createProp', (req, res) => {
             state VARCHAR(100),                -- State/Province
             country VARCHAR(100),              -- Country of the property
             postal_code VARCHAR(20),                    -- ZIP or Postal Code
-            property_type ENUM('apartment', 'house', 'office', 'commercial', 'land') NOT NULL, 
-                                                 -- Type of property
+            property_type ENUM('apartment', 'terrace', 'duplex', 'condo', 'detached_house', 'flat') NOT NULL, 
             number_of_units INT DEFAULT 1,              -- Number of units for multi-unit properties
             size_in_sqft DECIMAL(10, 2),                -- Size of the property in square feet
             bedrooms INT,                               -- Number of bedrooms (if applicable)
@@ -96,7 +95,7 @@ route.get('/createProp', (req, res) => {
             prop_id INT NOT NULL,
             property_name VARCHAR(100) NOT NULL,        -- Name or title of the property
             address VARCHAR(255) NOT NULL,
-            property_type ENUM('apartment', 'house', 'office', 'commercial', 'land') NOT NULL, -- Type of property
+            property_type ENUM('apartment', 'terrace', 'duplex', 'condo', 'detached_house', 'flat') NOT NULL, -- Type of property
             prop_link VARCHAR(255),               -- Size of the property in square feet                        -- Number of bedrooms (if applicable)
             user_id VARCHAR(255),
             rent_price DECIMAL(10, 2) NOT NULL,         -- Rental price of the property
@@ -104,6 +103,30 @@ route.get('/createProp', (req, res) => {
             picture VARCHAR(255) NOT NULL,                                    -- Current status of the property
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the property was added
 
+        FOREIGN KEY (user_id) REFERENCES spc_users(user_id)
+        );
+        `;
+
+        const sqlRent = `
+        CREATE TABLE IF NOT EXISTS sun_planet.spc_rent (
+            id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
+            rent_id INT NOT NULL,
+            property_name VARCHAR(100) NOT NULL, 
+            address VARCHAR(255) NOT NULL,
+            property_type ENUM('apartment', 'terrace', 'duplex', 'condo', 'detached_house', 'flat') NOT NULL,
+            occupant_name VARCHAR(255),
+            occupant_phone INT,
+            next_of_kin VARCHAR(255),
+            kin_address VARCHAR(255),
+            kin_phone INT,
+            duration VARCHAR(255),
+            rent_start_date TIMESTAMP,
+            rent_end_date TIMESTAMP,
+            user_id VARCHAR(255),
+            comment TEXT,
+            rent_price DECIMAL(10, 2) NOT NULL,
+            status ENUM('approved', 'reject', 'pending') DEFAULT 'pending',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
         FOREIGN KEY (user_id) REFERENCES spc_users(user_id)
         );
         `;
@@ -123,7 +146,15 @@ route.get('/createProp', (req, res) => {
         }
         console.log('Saved Table Created Successfully');
     });
-    res.send('Saved & Property Table Created Successfully');
+
+    db.query(sqlRent, (errAccounts) => {
+        if (errAccounts) {
+            console.log('Error creating Rent table:', errAccounts);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Rent Table Created Successfully');
+    });
+    res.send('Saved, Property & Rent Table Created Successfully');
 });
 
 route.get('/createReport', (req, res) => {

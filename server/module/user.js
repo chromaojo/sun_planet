@@ -10,12 +10,20 @@ const rand = rando + "FTL" + random;
 
 
 
-const allUser = (req, res) => {
+const allUser = async (req, res) => {
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
     const userId = req.params.userId;
 
+    const notice = await new Promise((resolve, reject) => {
+        const userId = userData.user_id
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [userId], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
 
     const sql = `
       SELECT * FROM sun_planet.spc_users;
@@ -30,17 +38,33 @@ const allUser = (req, res) => {
         req.app.set('userAll', results)
         // res.json(results);
         const userAll = req.app.get('userAll');
-        console.log("All Admin user detail is", userAll)
-        res.render('user', { userData, userAll })
+        
+        res.render('user', { userData, userAll, notice })
     });
 };
 
 
 
 // To get each user detail 
-const eachUser = (req, res, next)=>{
+const eachUser = async (req, res )=>{
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const user_id = req.params.user_id;
+    const notice = await new Promise((resolve, reject) => {
+        const userId = userData.user_id
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [userId], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const accts = await new Promise((resolve, reject) => {
+        const userId = userData.user_id
+        const sqls = `SELECT * FROM sun_planet.spc_accounts WHERE user_id = ?`;
+        db.query(sqls, [userId], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
 
     // Retrieve user data from the database based on userId
     const sql = `
@@ -58,9 +82,9 @@ const eachUser = (req, res, next)=>{
         }
         res.clearCookie('userOne');
         
-        const userOne = results[0]
-        console.log(' UserOne details is', userOne)
-        res.render('user-edit', { userData, userOne })
+        const userOne = results[0];
+        const acct = accts[0];
+        res.render('user-edit', { userData, userOne, acct , notice })
     });
 }
 
