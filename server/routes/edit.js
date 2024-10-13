@@ -2,12 +2,62 @@ const express = require('express');
 const route = express.Router();
 const mail = require('../config/mail');
 const path = require("path");
+const multer = require('multer');
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
 const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 99999);
 const rand = rando + "FTL" + random;
+
+
+// MiDDLE WARES 
+// Configure multer for file storage in 'prop' directory
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/profile/');
+        // cb(null, path.join(__dirname, 'prop'));
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        files: 1 // Limiting the number of files to 4
+    }
+}).array('pixz', 4);
+
+
+
+
+
+// To upload Profile Picture 
+route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
+
+    const imageP = '/' + req.file.path.replace(/\\/g, '/');
+    const imagePath = imageP.replace('/public', '');
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    const user_id = userData.mee.user_id
+    console.log('The Path os ', imagePath)
+    // const sql = `UPDATE jvmc.jvmc_profile SET profilePix = ? WHERE user_id = ?;
+    // `;
+    // const values = [imagePath, user_id];
+    // db.query(sql, values, (err, result) => {
+    //     if (err) {
+    //         console.error('Error storing account data:', err);
+    //         return res.status(500).send('Internal Profile Error');
+    //     }
+    //     console.log(`Image Path: ${imagePath}`);
+
+    //     res.redirect('/logout');
+    // });
+
+
+});
 
 
 // To Update Surname 
@@ -27,30 +77,11 @@ route.post('/surname', UserLoggin, async (req, res) => {
                 }
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
-            SELECT 
-                u.user_id,
-                a.acct_type
-                u.email,
-                u.role,
-                a.account_id,
-                a.total_spent,
-                a.account_balance,
-                a.phone_number,
-                a.surname,
-                a.whatsapp,
-                a.linkedin,
-                a.about,
-                a.facebook,
-                a.instagram,
-                a.current_rent,
-                a.othername,
-                a.username,
-                a.address,
-                a.email as account_email
-            FROM sun_planet.spc_users u
-            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
-            WHERE u.email = ?;
-            `;
+                SELECT *
+                FROM sun_planet.spc_users u
+                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                WHERE u.email = ?;
+              `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
                     if (error) {
 
@@ -70,7 +101,12 @@ route.post('/surname', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    if (userData.role ==='admin') {
+                        res.redirect('/admin/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
+                   
 
                 });
 
@@ -80,7 +116,11 @@ route.post('/surname', UserLoggin, async (req, res) => {
             res.status(500).send('Error Loading Update');
         }
     } else {
-        res.redirect('/user/edit');
+        if (userData.role ==='admin') {
+            res.redirect('/admin/edit');
+        } else {
+            res.redirect('/user/edit');  
+        }
     }
 });
 
@@ -101,29 +141,11 @@ route.post('/username', UserLoggin, async (req, res) => {
                 }
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
-            SELECT 
-                u.user_id,
-                a.acct_type
-                u.email,
-                u.role,
-                a.account_id,
-                a.total_spent,
-                a.account_balance,
-                a.phone_number,
-                a.surname,
-                a.whatsapp,
-                a.linkedin,
-                a.about,
-                a.facebook,
-                a.instagram,
-                a.current_rent,
-                a.othername,
-                a.username,
-                a.address,
-            FROM sun_planet.spc_users u
-            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
-            WHERE u.email = ?;
-            `;
+                SELECT *
+                FROM sun_planet.spc_users u
+                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                WHERE u.email = ?;
+              `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
                     if (error) {
 
@@ -143,7 +165,11 @@ route.post('/username', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    if (userData.role ==='admin') {
+                        res.redirect('/admin/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
 
                 });
 
@@ -174,30 +200,11 @@ route.post('/other', UserLoggin, async (req, res) => {
                 }
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
-                SELECT 
-                    u.user_id,
-                    a.acct_type
-                    u.email,
-                    u.role,
-                    a.account_id,
-                    a.total_spent,
-                    a.account_balance,
-                    a.phone_number,
-                    a.surname,
-                    a.whatsapp,
-                    a.linkedin,
-                    a.about,
-                    a.facebook,
-                    a.instagram,
-                    a.current_rent,
-                    a.othername,
-                    a.username,
-                    a.address,
-                    a.email as account_email
+                SELECT *
                 FROM sun_planet.spc_users u
                 LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
-                `;
+              `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
                     if (error) {
 
@@ -217,7 +224,13 @@ route.post('/other', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    
+                    if (userData.role ==='admin') {
+                        res.redirect('/user/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
+                    
 
                 });
 
@@ -249,29 +262,11 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
                 }
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
-            SELECT 
-            u.user_id,
-            a.acct_type
-            u.email,
-            u.role,
-            a.account_id,
-            a.total_spent,
-            a.account_balance,
-            a.phone_number,
-            a.surname,
-            a.whatsapp,
-            a.linkedin,
-            a.about,
-            a.facebook,
-            a.instagram,
-            a.current_rent,
-            a.othername,
-            a.username,
-            a.address,
-            FROM sun_planet.spc_users u
-            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
-            WHERE u.email = ?;
-            `;
+                SELECT *
+                FROM sun_planet.spc_users u
+                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                WHERE u.email = ?;
+              `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
                     if (error) {
 
@@ -291,7 +286,12 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    if (userData.role ==='admin') {
+                        res.redirect('/user/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
+                    
 
                 });
 
@@ -366,7 +366,12 @@ route.post('/whatsapp', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    if (userData.role ==='admin') {
+                        res.redirect('/user/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
+                    
 
                 });
 
@@ -398,32 +403,13 @@ route.post('/about', UserLoggin, async (req, res) => {
                 }
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
-                SELECT 
-                  u.user_id,
-                  u.password,
-                  u.email,
-                  u.role,
-                  a.account_id,
-                  a.total_spent,
-                  a.account_balance,
-                  a.phone_number,
-                  a.surname,
-                  a.whatsapp,
-                  a.linkedin,
-                  a.about,
-                  a.facebook,
-                  a.instagram,
-                  a.current_rent,
-                  a.othername,
-                  a.username,
-                  a.address,
-                  a.email as account_email
+                SELECT *
                 FROM sun_planet.spc_users u
                 LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
-              `;
+                `;
                 db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
-                    if (error) { 
+                    if (error) {
                         return res.status(500).json({
                             message: 'Internal Error Uploading About'
                         });
@@ -440,7 +426,12 @@ route.post('/about', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    if (userData.role ==='admin') {
+                        res.redirect('/user/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
+                    
 
                 });
 
@@ -471,30 +462,11 @@ route.post('/facebook', UserLoggin, async (req, res) => {
                 }
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
-            SELECT 
-                u.user_id,
-                a.acct_type
-                u.email,
-                u.role,
-                a.account_id,
-                a.total_spent,
-                a.account_balance,
-                a.phone_number,
-                a.surname,
-                a.whatsapp,
-                a.linkedin,
-                a.about,
-                a.facebook,
-                a.instagram,
-                a.current_rent,
-                a.othername,
-                a.username,
-                a.address,
-                a.email as account_email
-            FROM sun_planet.spc_users u
-            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
-            WHERE u.email = ?;
-            `;
+                SELECT *
+                FROM sun_planet.spc_users u
+                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                WHERE u.email = ?;
+              `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
                     if (error) {
 
@@ -514,7 +486,12 @@ route.post('/facebook', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    if (userData.role ==='admin') {
+                        res.redirect('/user/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
+                    
 
                 });
 
@@ -545,30 +522,11 @@ route.post('/address', UserLoggin, async (req, res) => {
                 }
                 console.log('Updated successfully !', result)
                 const sqlGetUserWithAccount = `
-                SELECT 
-                    u.user_id,
-                    a.acct_type
-                    u.email,
-                    u.role,
-                    a.account_id,
-                    a.total_spent,
-                    a.account_balance,
-                    a.phone_number,
-                    a.surname,
-                    a.whatsapp,
-                    a.linkedin,
-                    a.about,
-                    a.facebook,
-                    a.instagram,
-                    a.current_rent,
-                    a.othername,
-                    a.username,
-                    a.address,
-                    a.email as account_email
+                SELECT *
                 FROM sun_planet.spc_users u
                 LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
-                `;
+              `;
                 db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
                     if (error) {
 
@@ -588,7 +546,12 @@ route.post('/address', UserLoggin, async (req, res) => {
                     const userWithAccount = result[0];
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
-                    res.redirect('/user/profile');
+                    if (userData.role ==='admin') {
+                        res.redirect('/user/profile');
+                    } else {
+                        res.redirect('/user/profile');  
+                    }
+                    
 
                 });
 

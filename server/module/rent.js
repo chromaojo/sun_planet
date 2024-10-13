@@ -67,6 +67,39 @@ const allRent = async (req, res) => {
     }
 };
 
+// To get mt rent 
+const allMyRent = async (req, res) => {
+
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    req.app.set('userData', userCookie);
+    const user_id = userCookie.user_id;
+    if (userCookie) {
+
+    const notice = await new Promise((resolve, reject) => {
+        const user_id = userCookie.user_id;
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [user_id], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+    const userRent = await new Promise((resolve, reject) => {
+
+        const sqls = `SELECT * FROM sun_planet.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
+        db.query(sqls, [user_id], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    
+    const userData = userCookie
+    return res.render('rent', { userData, userRent, info , notice });
+    } else {
+        return res.status(401).redirect('/logout');
+    }
+};
+
 
 // To View All Renterties
 // const allAdRent = async (req, res) => {
@@ -135,7 +168,7 @@ const oneRent = async (req, res) => {
 
 // To view Admin Rent 
 const oneAdRent = async (req, res) => {
-
+    
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const user_id = userCookie.user_id;
@@ -160,7 +193,7 @@ const oneAdRent = async (req, res) => {
         });
       
         const userRent = userRents[0];
-        return res.render('admin-prop-one', { userData, userRent, info , notice });
+        return res.render('admin-rent-one', { userData, userRent, info , notice });
 
     }
 };
@@ -180,19 +213,14 @@ const createRent = (req, res) => {
             }
 
 
-            const { property_name, youtube, lease_status, description, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, } = req.body;
+            const { property_name, address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date } = req.body;
 
 
-            const prop_id = Math.floor(Math.random() * 999999);
-            const country = 'Nigeria'
-            const pixz = req.files.map(file => file.filename);
-            const picture = '' + pixz + "";
+            const rent_id = Math.floor(Math.random() * 99999999);
+            const user_id = userCookie.user_id;
 
-            // Now you can handle the name, age, address, and pictures array
-            // For example, save them to a database, send to another API, etc.
-
-            db.query('INSERT INTO sun_planet.spc_rent SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
-            res.redirect('/admin/rents')
+            db.query('INSERT INTO sun_planet.spc_rent SET ?', { property_name, address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id , user_id });
+            
         });
 
     } catch (error) {
@@ -241,4 +269,4 @@ const deleteRent = (req, res, next) => {
 
 
 
-module.exports = { oneRent, oneAdRent, allRent, deleteRent, createRent }
+module.exports = { oneRent, oneAdRent, allRent, allMyRent, deleteRent, createRent }

@@ -189,13 +189,21 @@ const createSaved = (req, res, next) => {
 
 }
 
-const createSavedAdmin = (req, res, next) => {
+const createSavedAdmin = async (req, res, next) => {
     const prop_id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const userData = userCookie
     const user_id = userData.user_id;
 
     if (userData) {
+        const notice = await new Promise((resolve, reject) => {
+            const userId = userData.user_id
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
 
         const sql = `
       SELECT * FROM sun_planet.spc_saved WHERE user_id = ? AND prop_id =?;
@@ -207,7 +215,7 @@ const createSavedAdmin = (req, res, next) => {
 
             if (results.length > 0) {
                 const error = 'Property Already Added'
-                return res.render('error',{userData, error})
+                return res.render('error',{userData, error, notice})
                 
             }else{ 
                 try {
@@ -259,7 +267,7 @@ const deleteSaved = (req, res, next) => {
         try {
             const id = req.params.id;
             // Perform the deletion
-            const sql = `DELETE FROM sun_planet.spc_saved WHERE prop_id = ?;`;
+            const sql = `DELETE * FROM sun_planet.spc_saved WHERE prop_id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
                     console.error('Error deleting saved:', err);

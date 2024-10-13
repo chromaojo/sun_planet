@@ -3,7 +3,7 @@ const route = express.Router();
 const mail = require('../config/mail');
 const path = require("path");
 const db = require('../config/db');
-const multer = require('multer');
+const {notice, }= require('../config/info')
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
 const {myTrans, }=require('../module/transactions') 
@@ -161,13 +161,16 @@ route.get('/dashboard', async(req, res) => {
             resolve(results);
         });
     });
-      const notice = await new Promise((resolve, reject) => {
+
+
+    const notice = await new Promise((resolve, reject) => {
         const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
         db.query(sqls,[user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
         });
     });
+
     // const land = await new Promise((resolve, reject) => {
     //     const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
     //     db.query(sqls,[lan], (err, results) => {
@@ -203,8 +206,7 @@ route.get('/dashboard', async(req, res) => {
     //         resolve(results);
     //     });
     // });
-    
-    console.log("The Last 3 is", notice)
+   
     res.render('dashboard',{userData, property, notice})
 });
 // See All Properties 

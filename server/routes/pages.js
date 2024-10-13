@@ -107,26 +107,7 @@ route.post('/nXcLl/login', async (req, res) => {
 
     // Check if the user and account details with the provided email exists
     const sqlGetUserWithAccount = `
-       SELECT 
-         u.user_id,
-         u.password,
-         u.email,
-         u.role,
-         a.account_id,
-         a.total_spent,
-         a.account_balance,
-         a.phone_number,
-         a.surname,
-         a.whatsapp,
-         a.linkedin,
-         a.about,
-         a.facebook,
-         a.instagram,
-         a.current_rent,
-         a.othername,
-         a.username,
-         a.address,
-         a.email as account_email
+       SELECT *
        FROM sun_planet.spc_users u
        LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
        WHERE u.email = ?;
@@ -161,7 +142,7 @@ route.post('/nXcLl/login', async (req, res) => {
         let ans = result[0];
         delete ans.password
         const userWithAccount = ans
-        
+        console.log('The details are ',ans)
         res.cookie('user', JSON.stringify({ ...userWithAccount }));
         
        if (result[0].role === 'client') {

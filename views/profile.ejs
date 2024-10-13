@@ -118,15 +118,18 @@
                   <div class="col-md-8 col-lg-9">
                     <img src="/assets/img/profile-img.jpg" alt="Profile">
                     <div class="pt-2">
+                      <input type="file" accept=".jpg, .png, .jpeg" name="" id="">
                       <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i
                           class="bi bi-upload"></i></a>
-                      <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i
-                          class="bi bi-trash"></i></a>
                     </div>
                   </div>
                 </div>
-
+                <% if (userData.role === 'admin') { %>
+                <form action="/admin/edit/surname" method="POST">
+                  <%} else {  %>
+                  
                 <form action="/user/edit/surname" method="POST">
+                  <%} %>
                   <div class="row mb-3">
                     <label for="surname" class="col-md-4 col-lg-3 col-form-label">Surname</label>
                     <div class="col-md-8 col-lg-9">
@@ -142,7 +145,13 @@
                     </div>
                   </div>
                 </form>
-                <form action="/user/edit/other" method="POST">
+
+                <% if (userData.role === 'admin') { %>
+                  <form action="/admin/edit/other" method="POST">
+                <%  } else { %>
+                  <form action="/user/edit/other" method="POST">
+                <%  } %>
+               
                   <div class="row mb-3">
                     <label for="surname" class="col-md-4 col-lg-3 col-form-label">Other Names</label>
                     <div class="col-md-8 col-lg-9">
@@ -159,7 +168,12 @@
                   </div>
                 </form>
 
-                <form action="/user/edit/username" method="POST">
+              
+              <% if (userData.role === 'admin') { %>
+                    <form action="/admin/edit/username" method="POST">
+              <% } else { %>
+                  <form action="/user/edit/username" method="POST">
+              <% } %>
                   <div class="row mb-3">
                     <label for="username" class="col-md-4 col-lg-3 col-form-label">Username </label>
                     <div class="col-md-8 col-lg-9">
@@ -175,7 +189,13 @@
                     </div>
                   </div>
                 </form>
-                <form action="/user/edit/address" method="POST">
+
+                <% if (userData.role === 'admin') {%>
+                  <form action="/admin/edit/address" method="POST">
+                <%  } else { %>
+                  <form action="/user/edit/address" method="POST">
+                <%  } %>
+                
                   <div class="row mb-3">
                     <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                     <div class="col-md-8 col-lg-9">
@@ -191,7 +211,12 @@
                     </div>
                   </div>
                 </form>
-                <form action="/user/edit/phone_number" method="POST">
+
+                <% if (userData.role === 'admin') {%>
+                  <form action="/admin/edit/phone_number" method="POST">
+                <%  } else { %>
+                  <form action="/user/edit/phone_number" method="POST">
+                <%  } %>
                   <div class="row mb-3">
                     <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
                     <div class="col-md-8 col-lg-9">
@@ -207,6 +232,13 @@
                     </div>
                   </div>
                 </form>
+
+                <% if (userData.role === 'admin') {%>
+                  <form action="/admin/edit/phone_number" method="POST">
+                <%  } else { %>
+                  <form action="/user/edit/phone_number" method="POST">
+                <%  } %>
+                 
                 <form action="/user/edit/whatsapp" method="POST">
                   <div class="row mb-3">
                     <label for="whatsapp" class="col-md-4 col-lg-3 col-form-label">Whatsapp Number</label>
@@ -255,8 +287,14 @@
                     </div>
                   </div>
                 </form>
-                <form action="/user/edit/about" method="POST">
-                  <div class="row mb-3">
+
+                <% if (userData.role === 'admin') { %>
+                  <form action="/admin/edit/about" method="POST">
+                <% } else { %>
+                 <form action="/user/edit/about" method="POST">
+                <% } %>
+    
+                  <div class="row mb-3"> 
                   <label for="about" class="col-md-4 col-lg-3 col-form-label">About </label>
                   <div class="col-md-8 col-lg-9">
                     <textarea name="about" class="form-control" id="about"
@@ -266,11 +304,6 @@
                  
                 </div>
                 </form>
-
-
-                
-
-
 
                 <div class="text-center">
                   <a class="btn btn-primary" href="/user/profile">Done</a>
