@@ -3,6 +3,7 @@ const route = express.Router();
 const mail = require('../config/mail');
 const path = require("path");
 const multer = require('multer');
+
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
@@ -35,29 +36,28 @@ const upload = multer({
 
 
 // To upload Profile Picture 
-route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
+route.post('/profile', (req, res) => {
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-    const imageP = '/' + req.file.path.replace(/\\/g, '/');
-    const imagePath = imageP.replace('/public', '');
-    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const userData = userCookie
 
-    const user_id = userData.mee.user_id
-    console.log('The Path os ', imagePath)
-    // const sql = `UPDATE jvmc.jvmc_profile SET profilePix = ? WHERE user_id = ?;
-    // `;
-    // const values = [imagePath, user_id];
-    // db.query(sql, values, (err, result) => {
-    //     if (err) {
-    //         console.error('Error storing account data:', err);
-    //         return res.status(500).send('Internal Profile Error');
-    //     }
-    //     console.log(`Image Path: ${imagePath}`);
+    try {
+        upload(req, res, function (err) {
+            if (err) {
+                return res.send('Error uploading files.');
+            }
+            // Now you can handle the name, age, address, and pictures array
+            // For example, save them to a database, send to another API, etc.
 
-    //     res.redirect('/logout');
-    // });
+            db.query('INSERT INTO sun_planet.spc_property SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
+            res.redirect('/admin/props')
+        });
 
+    } catch (error) {
+        console.log('Property Form Error :', error)
+    }
 
-});
+})
 
 
 // To Update Surname 
@@ -367,7 +367,7 @@ route.post('/whatsapp', UserLoggin, async (req, res) => {
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
                     if (userData.role ==='admin') {
-                        res.redirect('/user/profile');
+                        res.redirect('/admin/profile');
                     } else {
                         res.redirect('/user/profile');  
                     }
@@ -427,7 +427,7 @@ route.post('/about', UserLoggin, async (req, res) => {
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
                     if (userData.role ==='admin') {
-                        res.redirect('/user/profile');
+                        res.redirect('/admin/profile');
                     } else {
                         res.redirect('/user/profile');  
                     }
@@ -547,7 +547,7 @@ route.post('/address', UserLoggin, async (req, res) => {
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
                     if (userData.role ==='admin') {
-                        res.redirect('/user/profile');
+                        res.redirect('/admin/profile');
                     } else {
                         res.redirect('/user/profile');  
                     }

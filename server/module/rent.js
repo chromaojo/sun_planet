@@ -244,7 +244,7 @@ const deleteRent = (req, res, next) => {
 
         try {
             const id = req.params.id;
-
+            
             // Perform the deletion
             const sql = `DELETE FROM sun_planet.spc_rent WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
