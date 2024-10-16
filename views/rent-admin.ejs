@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="pagetitle">
+    <h1>Property Rent / Lease / Shortlet Request</h1> <br>
+  </div><!-- End Page Title -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Rent Request</h5>
+      <p class="text-capitalize">Every rent , lease and shortlet can be accessed and resolved from this very section</p>
+
+      <!-- Table with stripped rows -->
+      <table class="table datatable">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">Property Name</th>
+            <th scope="col">Occupant Name</th>
+            <th scope="col">Occupant Number</th>
+            <th scope="col">Next Of Kin</th>
+            <th scope="col">Kin Phone Number</th>
+          </tr>
+          <% let counter=1 %>
+        </thead>
+        <tbody>
+
+          <% userRent.forEach(trans=> { %>
+            <tr>
+              <th scope="row">
+                <%= counter++ %>
+              </th>
+              <td>
+                <a href="/admin/renter/<%= trans.id %>" class="text-dark ">
+                  <%= trans.property_name %>
+                </a>
+              </td>
+              <td>
+                <a href="/admin/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.occupant_name %>
+                </a>
+              </td>
+              <td>
+                <a href="/admin/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.occupant_phone %>
+                </a>
+              </td>
+              <td>
+                <a href="/admin/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.next_of_kin %>
+                </a>
+              </td>
+              <td>
+                <a href="/admin/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.kin_phone %>
+                </a>
+              </td>
+
+            </tr>
+            <% }) %>
+
+        </tbody>
+      </table>
+      <!-- End Table with stripped rows -->
+
+    </div>
+  </div>
+
+</div>

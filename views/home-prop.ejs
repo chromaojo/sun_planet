@@ -91,27 +91,26 @@
                     <div class="row gy-4 mb-4">
                       <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
                         <img src="asset/img/about.jpg" class="img-fluid" alt="">
-                        <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox pulsating-play-btn"></a>
+                        <a href="<%= trans.youtube %>" class="glightbox pulsating-play-btn"></a>
                       </div>
                       <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
                         <h3>
-                          <%= trans.title.substring(0, 29)+( trans.title.length>29?'...': "") %>
+                          <%= trans.property_name.substring(0, 29)+( trans.property_name.length>29?'...': "") %>
 
                         </h3>
                       
                         <ul>
                           <li><i class="bi bi-check2-all"></i> <span class="text-capitalize">General Price: <%=
-                                trans.price * 1.4 %> NGN</span>
+                                trans.rent_price * 1.4 %> NGN</span>
                           </li>
-                          <li><i class="bi bi-check2-all"></i> <span class="text-capitalize">Our Price: <%= trans.price
+                          <li><i class="bi bi-check2-all"></i> <span class="text-capitalize">Our Price: <%= trans.rent_price
                                 %> NGN</span>
                           </li>
                           <li><i class="bi bi-check2-all"></i> <span class="text-capitalize">Location: <%=
-                                trans.location %> NGN</span></li>
+                                trans.city %> , <%= trans.state %>. </span></li>
                           <li><i class="bi bi-check2-all"></i> <span class="text-capitalize">Property Type : <%=
-                                trans.prop_type %></span></li>
+                                trans.property_type %></span></li>
                         </ul>
-                  
                         <a href="/about" class="read-more btn btn-outline-danger"><span>Read More</span><i
                             class="bi bi-arrow-right"></i></a>
                       </div>

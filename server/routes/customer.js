@@ -6,7 +6,8 @@ const db = require('../config/db');
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
-const {allMyNotice} = require('../module/notification')
+const {allMyNotice} = require('../module/notification');
+const { createRent, allMyRent, oneRent  }=require('../module/rent')
 const { allMyLead, allLead, oneLead, createLead } = require('../module/lead');
 const { allProp, oneProp, createProp } = require('../module/property');
 const { allMyComplain, allComplain, createComplain } = require('../module/complaint');
@@ -211,6 +212,12 @@ route.post('/lead/KxkRTtyZx', createLead, (req, res) => {
     res.redirect('/user/mYlead/wWwCcYtT')
 
 });
+
+// To get all my rent 
+route.get('/rent', allMyRent);
+// To view only one rent details
+route.get('/renter/:id', oneRent);
+
 
 // To get all my notification 
 route.get('/notif', allMyNotice, (req, res) => {

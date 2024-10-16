@@ -39,7 +39,7 @@ const AdminRoleBased = async(req, res, next)=>{
     req.app.set('userData', userCookie);
     const userData = userCookie;
 
-    if (userCookie.role === 'admin'){
+    if (userData.role === 'admin'){
         return next();
         
     } else{

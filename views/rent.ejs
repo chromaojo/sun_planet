@@ -1,62 +1,120 @@
 <div class="container-fluid">
-  <div class="pagetitle">
+  <div class="pagetitle"><% let counter = 1 %>
     <h1>Property Rent / Lease / Shortlet Form</h1> <br>
   </div><!-- End Page Title -->
 
-  <div class="card p-4">
-    <div class="card-body">
+  <% if (condition) {
+     <div class="card p-4">
+    <form action="" method="post">
+      <div class="card-body">
 
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Property Name" aria-label="Username">
-        <span class="input-group-text">#</span>
-        <input type="text" class="form-control" placeholder="Address" aria-label="Server">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Property Name" aria-label="Username">
+          <span class="input-group-text">#</span>
+          <input type="text" class="form-control" placeholder="Address" aria-label="Server">
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Amount NGN" aria-label="Username">
+          <span class="input-group-text">#</span>
+          <select class="form-select" aria-label="Default select example" name="property_type">
+            <option selected>Select Property Type</option>
+            <hr>
+            <option value="apartment">Apartment</option>
+            <option value="condo">Condo</option>
+            <option value="detached_house">Detached House</option>
+            <option value="duplex">Duplex</option>
+            <option value="terrace">Terrace</option>
+            <option value="flat">Unit Flat</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Occupant Name" aria-label="Username">
+          <span class="input-group-text">#</span>
+          <input type="text" class="form-control" placeholder="Occupant Phone Number" aria-label="Server">
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Next Of Kin" aria-label="Username">
+          <span class="input-group-text">#</span>
+          <input type="text" class="form-control" placeholder="Next Of Kin Phone Number" aria-label="Server">
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Next Of Kin Address" aria-label="Username">
+          <span class="input-group-text">#</span>
+          <input type="text" class="form-control" placeholder="NOK Alternative Phone Number" aria-label="Server">
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Rent Starts" aria-label="Username">
+          <span class="input-group-text">#</span>
+          <input type="text" class="form-control" placeholder="Rent Ends" aria-label="Server">
+        </div>
+  
+  
+        <button type="submit" class="btn btn-outline-primary">Apply</button>
       </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Amount NGN" aria-label="Username">
-        <span class="input-group-text">#</span>
-        <select class="form-select" aria-label="Default select example" name="property_type">
-          <option selected>Select Property Type</option>
-          <hr>
-          <option value="apartment">Apartment</option>
-          <option value="condo">Condo</option>
-          <option value="detached_house">Detached House</option>
-          <option value="duplex">Duplex</option>
-          <option value="terrace">Terrace</option>
-          <option value="flat">Unit Flat</option>
-        </select>
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Occupant Name" aria-label="Username">
-        <span class="input-group-text">#</span>
-        <input type="text" class="form-control" placeholder="Occupant Phone Number" aria-label="Server">
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Next Of Kin" aria-label="Username">
-        <span class="input-group-text">#</span>
-        <input type="text" class="form-control" placeholder="Next Of Kin Phone Number" aria-label="Server">
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Next Of Kin Address" aria-label="Username">
-        <span class="input-group-text">#</span>
-        <input type="text" class="form-control" placeholder="NOK Alternative Phone Number" aria-label="Server">
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Rent Starts" aria-label="Username">
-        <span class="input-group-text">#</span>
-        <input type="text" class="form-control" placeholder="Rent Ends" aria-label="Server">
-      </div>
-
-
-      <button type="submit" class="btn btn-outline-primary">Proceed To Payment</button>
-    </div>
+    </form>
   </div>
-  <div class="card"> <br>
+  } %>
+  <div class="card">
     <div class="card-body">
-      <div class="pagetitle">
-        <small>
-          <h1>Form History</h1>
-        </small> <br>
-      </div><!-- End Page Title -->
+      <h5 class="card-title">Form Summary</h5>
+
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Property Name <i class="bi bi-pen me-1 text-info"></i></th>
+            <th scope="col">Type</th>
+            <th scope="col">Occupant</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Next Of Kin</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% userRent.forEach(trans=> { %>
+            <tr>
+              <th scope="row">
+                <%= counter++ %>
+              </th>
+              <td>
+                <a href="/user/renter/<%= trans.id %>" class="text-dark ">
+                  <%= trans.property_name %>
+                </a>
+              </td>
+              <td>
+                <a href="/user/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.property_type %>
+                </a>
+              </td>
+              <td>
+                <a href="/user/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.occupant_name %>
+                </a>
+              </td>
+              <td>
+                <a href="/user/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.occupant_phone %>
+                </a>
+              </td>
+              <td>
+                <a href="/user/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.next_of_kin %>
+                </a>
+              </td>
+              <td>
+                <a href="/user/renter/<%= trans.id %>" class="text-dark text-capitalize">
+                  <%= trans.status %>
+                </a>
+              </td>
+
+            </tr>
+            <% }) %>
+          
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+
     </div>
   </div>
 </div>

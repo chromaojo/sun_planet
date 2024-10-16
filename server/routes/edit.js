@@ -29,14 +29,14 @@ const upload = multer({
     limits: {
         files: 1 // Limiting the number of files to 4
     }
-}).array('pixz', 4);
+}).array('profilePix', 1);
 
 
 
 
 
 // To upload Profile Picture 
-route.post('/profile', (req, res) => {
+route.post('/upload-pix', (req, res) => {
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
@@ -45,12 +45,50 @@ route.post('/profile', (req, res) => {
         upload(req, res, function (err) {
             if (err) {
                 return res.send('Error uploading files.');
-            }
-            // Now you can handle the name, age, address, and pictures array
-            // For example, save them to a database, send to another API, etc.
+            } 
+            const profilePix = req.files.map(file => file.filename);
+            let updateUsername = 'UPDATE sun_planet.spc_accounts SET profilePix = ?  WHERE email = ?';
+            let values = [profilePix, userData.email];
 
-            db.query('INSERT INTO sun_planet.spc_property SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
-            res.redirect('/admin/props')
+            console.log('The Profile pix is in', profilePix  )
+            // db.query(updateUsername, values, (error, result) => {
+            //     if (error) {
+            //         console.log('An Update Error Occurred ', error);
+            //         res.status(500).send({ message: 'An Update Error Occurred' });
+            //     }
+            //     console.log('Updated successfully !', result)
+            //     const sqlGetUserWithAccount = `
+            //     SELECT *
+            //     FROM sun_planet.spc_users u
+            //     LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+            //     WHERE u.email = ?;
+            //   `;
+            //     db.query(sqlGetUserWithAccount, [userData.email], async (error, result) => {
+            //         if (error) {
+
+            //             return res.status(500).json({
+            //                 message: 'Internal Server Error'
+            //             });
+            //         }
+
+            //         if (result.length === 0) {
+            //             return res.status(401).json({
+            //                 message: 'Invalid Data or Fields'
+            //             });
+            //         }
+
+            //         delete userData
+            //         req.app.set('userData', result[0])
+            //         const userWithAccount = result[0];
+            //         res.clearCookie('user');
+            //         res.cookie('user', JSON.stringify(userWithAccount));
+            //         if (userData.role ==='admin') {
+            //             res.redirect('/admin/profile');
+            //         } else {
+            //             res.redirect('/user/profile');  
+            //         }
+            //     });
+            // });
         });
 
     } catch (error) {
@@ -287,7 +325,7 @@ route.post('/phone_number', UserLoggin, async (req, res) => {
                     res.clearCookie('user');
                     res.cookie('user', JSON.stringify(userWithAccount));
                     if (userData.role ==='admin') {
-                        res.redirect('/user/profile');
+                        res.redirect('/admin/profile');
                     } else {
                         res.redirect('/user/profile');  
                     }

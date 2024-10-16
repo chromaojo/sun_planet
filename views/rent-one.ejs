@@ -1,0 +1,70 @@
+<div class="container-fluid">
+  <div class="pagetitle">
+    <h1>Form Details</h1> <br>
+  </div><!-- End Page Title -->
+
+  <div class="container d-flex p-3">
+    <div class="col mx-2">
+      <ul class="list-group">
+        <li class="list-group-item text-capitalize"><i class="bi bi-pen me-1 text-success"></i> Property Name : <%=
+            userRent.property_name %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-pen me-1 text-info"></i> Occupant Name : <%=
+            userRent.occupant_name %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-phone me-1 text-success"></i> Occupant Phone Number :
+          <%= userRent.occupant_phone %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-book me-1 text-success"></i>
+          Next of kin : <%= userRent.next_of_kin %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-phone me-1 text-primary"></i>
+          Next Of Kin's Phone : <%= userRent.kin_phone %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-geo-alt-fill me-1 text-success"></i> Property Address : <br> <%=
+            userRent.address %>
+        </li>
+      </ul><!-- End List group With Icons -->
+    </div>
+    <div class="col mx-2">
+      <ul class="list-group">
+        <li class="list-group-item text-capitalize"><i class="bi bi-cash-stack me-1 text-success"></i> Amount : <%=
+            userRent.rent_price %> NGN</li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-pen me-1 text-success"></i> Form Id : <%=
+            userRent.rent_id %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-bank me-1 text-success"></i> Property Type :
+          <%= userRent.property_type %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-arrow-right-circle me-1 text-success"></i> Application Status :
+          <%= userRent.status %>
+        </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-clock me-1 text-success"></i>
+          Duration : <%= userRent.duration %></li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-house-fill me-1 text-primary"></i>
+          Rent Starts : <%= userRent.rent_start %> </li>
+          <li class="list-group-item text-capitalize"><i class="bi bi-house me-1 text-primary"></i>
+            Rent Expiry : <%= userRent.rent_end %> </li>
+       
+      </ul><!-- End List group With Icons -->
+    </div>
+  </div>
+ <% if ( userData.role === 'admin') { %>
+   <form action="/admin/vali-rent/<%= userRent.id %>" method="POST">
+    <div class="input-group mb-4">
+      <select class="form-select" aria-label="Default select example" name="status">
+        <option selected>Validation Status</option>
+        <hr>
+        <option value="approved">Approve</option>
+        <option value="reject">Reject</option>
+      </select>
+      <span class="input-group-text">&</span>
+      <input type="text" name="comment" class="form-control" placeholder="Status Comment" aria-label="Username">
+    </div>
+    <button type="submit" class="btn btn-outline-primary w-100">Done</button>
+  </form>
+ <% } %>
+
+  
+
+</div>

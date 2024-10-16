@@ -53,15 +53,16 @@ const allRent = async (req, res) => {
 
     const userRent = await new Promise((resolve, reject) => {
 
-        const sqls = `SELECT * FROM sun_planet.spc_rent ORDER BY id DESC;`;
-        db.query(sqls, [user_id], (err, results) => {
+        const status = 'pending'
+        const sqls = `SELECT * FROM sun_planet.spc_rent WHERE status = ? ORDER BY id DESC;`;
+        db.query(sqls, [status], (err, results) => {
             if (err) return reject(err);
             resolve(results);
         });
     });
     
     const userData = userCookie
-    return res.render('rent', { userData, userRent, info , notice });
+    return res.render('rent-admin', { userData, userRent, info , notice });
     } else {
         return res.status(401).redirect('/logout');
     }
@@ -161,7 +162,7 @@ const oneRent = async (req, res) => {
         });
       
         const userRent = userRents[0];
-        return res.render('prop-one', { userData, userRent, info , notice });
+        return res.render('rent-one', { userData, userRent, info , notice });
 
     }
 };
@@ -229,6 +230,34 @@ const createRent = (req, res) => {
 
 }
 
+// To Post property form from the frontend 
+const approveRent = (req, res) => {
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    const userData = userCookie
+
+    try {
+        upload(req, res, function (err) {
+            if (err) {
+                return res.send('Error uploading files.');
+            }
+
+
+            const { comment , status } = req.body;
+            const user_id = userCookie.user_id;
+
+
+            db.query('UPDATE sun_planet.spc_rent SET comment = ?, status = ? WHERE user_id = ?', [comment, status, user_id]);
+            const ok = "Task Successful"
+            res.redirect('/admin/all-rent')
+        });
+
+    } catch (error) {
+        console.log('Renting Form Error :', error)
+    }
+
+}
+
 
 
 
@@ -269,4 +298,4 @@ const deleteRent = (req, res, next) => {
 
 
 
-module.exports = { oneRent, oneAdRent, allRent, allMyRent, deleteRent, createRent }
+module.exports = { oneRent, oneAdRent, approveRent, allRent, allMyRent, deleteRent, createRent }

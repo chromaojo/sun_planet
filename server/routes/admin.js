@@ -7,7 +7,7 @@ const {notice, }= require('../config/info')
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
 const {myTrans, }=require('../module/transactions') 
-const { createRent,allRent}=require('../module/rent')
+const { createRent,allRent, allMyRent, oneRent, approveRent}=require('../module/rent')
 const {eachUser, editUser, allUser }=require('../module/user')
 const {allMyNotice, deleteNotice, } = require('../module/notification')
 const { allMyAdLead, oneLead, createLead } = require('../module/lead');
@@ -56,7 +56,7 @@ route.post('/register', (req, res) => {
                 message: 'Email Already Taken'
             })
         } else if (password == password1) {
-            const user_id = 'rE' + random + 'sT'
+            const user_id = 'sun' + random + 'P'
             const hashedPassword = await bcrypt.hash(password, 10);
             db.query('INSERT INTO sun_planet.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
                 if (error) {
@@ -82,6 +82,9 @@ route.post('/register', (req, res) => {
                                 message: 'Internal Server Error'
                             });
                         } else {
+                            const title = "New User";
+                            const content = 'Welcome To Sun Planet Ltd. Thank You for embarking on thing fruitfull journey.'
+                            db.query('INSERT INTO sun_planet.spc_notification SET ?', { user_id: result[0].user_id, title, content });
                             db.query('INSERT INTO sun_planet.spc_accounts SET ?', { user_id: result[0].user_id, email: email, account_id: rand, account_balance: 0, surname: surname, othername: othername, username: username, address: address, phone_number: phone_number });
                         }
                     });
@@ -255,6 +258,12 @@ route.get('/transactions', myTrans);
 
 // To gat All rent
 route.get('/all-rent', allRent);
+
+// To gat One rent
+route.get('/renter/:id', oneRent);
+
+// To gat validate rent
+route.post('/vali-rent/:id', approveRent);
 
 
 // To Read All Investments 
