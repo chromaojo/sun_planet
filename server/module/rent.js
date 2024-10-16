@@ -85,6 +85,8 @@ const allMyRent = async (req, res) => {
         });
     });
 
+
+
     const userRent = await new Promise((resolve, reject) => {
 
         const sqls = `SELECT * FROM sun_planet.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
@@ -94,8 +96,9 @@ const allMyRent = async (req, res) => {
         });
     });
     
+    const userProp = ''
     const userData = userCookie
-    return res.render('rent', { userData, userRent, info , notice });
+    return res.render('rent', { userData, userRent, userProp, info , notice });
     } else {
         return res.status(401).redirect('/logout');
     }
@@ -168,7 +171,7 @@ const oneRent = async (req, res) => {
 };
 
 // To view Admin Rent 
-const oneAdRent = async (req, res) => {
+const oneFillRent = async (req, res) => {
     
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -185,16 +188,24 @@ const oneAdRent = async (req, res) => {
                 resolve(results);
             });
         });
-        const userRents = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_rent WHERE id =?;`;
+        const userRent = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+        const userProps = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
-      
-        const userRent = userRents[0];
-        return res.render('admin-rent-one', { userData, userRent, info , notice });
+
+        // const userRent = userRents[0];
+        const userProp = userProps[0];
+        return res.render('rent', { userData, userRent, userProp, notice });
 
     }
 };
@@ -298,4 +309,4 @@ const deleteRent = (req, res, next) => {
 
 
 
-module.exports = { oneRent, oneAdRent, approveRent, allRent, allMyRent, deleteRent, createRent }
+module.exports = { oneRent, oneFillRent, approveRent, allRent, allMyRent, deleteRent, createRent }

@@ -7,7 +7,7 @@ const multer = require('multer');
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
 const {allMyNotice} = require('../module/notification');
-const { createRent, allMyRent, oneRent  }=require('../module/rent')
+const { createRent, allMyRent, oneRent, oneFillRent  }=require('../module/rent')
 const { allMyLead, allLead, oneLead, createLead } = require('../module/lead');
 const { allProp, oneProp, createProp } = require('../module/property');
 const { allMyComplain, allComplain, createComplain } = require('../module/complaint');
@@ -215,8 +215,12 @@ route.post('/lead/KxkRTtyZx', createLead, (req, res) => {
 
 // To get all my rent 
 route.get('/rent', allMyRent);
+
 // To view only one rent details
 route.get('/renter/:id', oneRent);
+
+// To view only one rent details
+route.get('/apply-rent/:id', oneFillRent);
 
 
 // To get all my notification 

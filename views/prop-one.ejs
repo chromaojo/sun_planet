@@ -11,17 +11,8 @@
                             <h6>Details</h6>
                             <hr>
                         </li>
-
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-week"></i>: <%= new
-                                    Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short',
-                                    day :'2-digit'}) %> ||
-                                    <%= new Date(userProp.created_at).toLocaleTimeString() %></a>
-                        </li>
-                        <li>
-                            <a href="/user/save/<%= userProp.prop_id %>" class="dropdown-item"> <i
-                                    class="bi bi-folder-plus"></i>Archive It</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Location : <%= userProp.location %></a></li>
+                        <li><a class="dropdown-item" href="/user/save/<%= userProp.prop_id %>">Add To Archive</a></li>
+                        <li><a class="dropdown-item" href="/user/apply-rent/<%= userProp.id %>">Apply</a></li>
                     </ul>
                 </div>
 
@@ -29,6 +20,10 @@
                     <h5 class="card-title text-center"> <b class="text-capitalize">Title :
                             <%= userProp.property_name %>
                         </b></h5>
+                    <h5 class="card-title text-capitalize">
+                        <a href="<%= userProp.youtube %>" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-youtube text-danger"><b>Property Tour</b></i> </a>
+                    </h5>
 
 
                     <div class="row">
@@ -82,29 +77,35 @@
                             </div><!-- End Slides with indicators --> <br>
                         </div>
                         <div class="col-lg-3 mb-2">
-                            
+
                             <h5 class="card-title text-capitalize"><i class="bi bi-geo-alt-fill"></i> <span>
                                     <%= userProp.address %>, <%= userProp.city %>, <%= userProp.state %>
                                 </span></h5>
                             <h5 class="card-title text-capitalize"><i class="bi bi-house-door"></i> <span>
-                                 <%= userProp.size_in_sqft %> Sqft <%= userProp.property_type %></span>
+                                    <%= userProp.size_in_sqft %> Sqft <%= userProp.property_type %>
+                                </span>
                             </h5>
                             <h5 class="card-title"> <i class="bi bi-currency-exchange"></i> <span>
                                     <%= userProp.rent_price %> NGN
                                 </span></h5>
-                            <h5 class="card-title"> <i class="bi bi-door-open"></i><span>  <%= userProp.bedrooms %> Bdrm
+                            <h5 class="card-title"> <i class="bi bi-door-open"></i><span>
+                                    <%= userProp.bedrooms %> Bdrm
                                 </span> | Bathroom :<span>
-                                    <%= userProp.bathrooms %> </span>
+                                    <%= userProp.bathrooms %>
+                                </span>
                             </h5>
-                                
 
-                            <h5 class="card-title"><i class="bi bi-calendar3"></i> <span> <%= new
-                                        Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
-                                        month:'short', day :'2-digit'}) %></span></h5>
-                             <h5 class="card-title text-capitalize"> <i class="bi bi-diamond-half"></i><span> <%= userProp.number_of_units %> Unit
-                                <%= userProp.lease_status %> </span>
+
+                            <h5 class="card-title"><i class="bi bi-calendar3"></i> <span>
+                                    <%= new Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
+                                        month:'short', day :'2-digit'}) %>
+                                </span></h5>
+                            <h5 class="card-title text-capitalize"> <i class="bi bi-diamond-half"></i><span>
+                                    <%= userProp.number_of_units %> Unit
+                                        <%= userProp.lease_status %>
+                                </span>
                             </h5>
-                            
+
                         </div>
 
 
