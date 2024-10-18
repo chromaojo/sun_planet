@@ -213,30 +213,23 @@ const oneFillRent = async (req, res) => {
 
 
 // To Post property form from the frontend 
-const createRent = (req, res) => {
+const createRent = (req, res, next) => {
+
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-    const userData = userCookie
+    const userData = userCookie;
 
     try {
-        upload(req, res, function (err) {
-            if (err) {
-                return res.send('Error uploading files.');
-            }
+        const { property_name, rent_price, address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date } = req.body;
 
+        const rent_id = Math.floor(Math.random() * 99999999);
+        const user_id = userCookie.user_id;
+        
+        db.query('INSERT INTO sun_planet.spc_rent SET ?', { property_name, rent_price ,address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id , user_id });
 
-            const { property_name, address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date } = req.body;
-
-
-            const rent_id = Math.floor(Math.random() * 99999999);
-            const user_id = userCookie.user_id;
-
-            db.query('INSERT INTO sun_planet.spc_rent SET ?', { property_name, address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id , user_id });
-            
-        });
-
+        next();
     } catch (error) {
-        console.log('Renting Form Error :', error)
+        console.error('Thi is an error ', error)
     }
 
 }

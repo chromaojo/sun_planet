@@ -29,104 +29,118 @@
                     <h5 class="card-title text-center"> <b class="text-capitalize">Title :
                             <%= userProp.property_name %>
                         </b></h5>
+                    <% if (userProp.youtube) { %>
+                        <h5 class="card-title text-capitalize">
+                            <a href="<%= userProp.youtube %>" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-youtube text-danger"><b>Property Tour</b></i> </a>
+                        </h5>
+                        <% } %>
+
+                            <div class="row">
+
+                                <div class="col-lg-9 text-end">
+
+                                    <!-- Slides with indicators -->
+                                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+                                        <div class="carousel-inner">
+                                            <% if (userProp.picture) { %>
+                                                <% let pixz=userProp.picture.split(',') %>
+
+                                                    <div class="carousel-item active"
+                                                        style="width: 790px; height: 390px;">
+                                                        <a href="/prop/<%= pixz[0] %>" target="_blank">
+                                                            <img src="/prop/<%= pixz[0] %>" class="d-block w-100"
+                                                                alt="Product Image">
+                                                        </a>
+                                                    </div>
+                                                    <% let num=0 %>
+                                                        <% if (pixz.length> num) { %>
+                                                            <% const pizzy=pixz.splice(1) %>
+                                                                <% pizzy.forEach(trans=> { %>
+                                                                    <div class="carousel-item"
+                                                                        style="width: 790px; height: 390px;">
+                                                                        <a href="/prop/<%= trans %>" target="_blank">
+                                                                            <img src="<%= trans ? '/prop/'+trans : '/assets/img/card.jpg' %>"
+                                                                                class="d-block w-100"
+                                                                                alt="Product Image">
+                                                                        </a>
+                                                                    </div>
+                                                                    <% }) %>
+                                                                        <% } %>
 
 
-                    <div class="row">
 
-                        <div class="col-lg-9 text-end">
+                                                                            <% } %>
 
-                            <!-- Slides with indicators -->
-                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                        </div>
 
-                                <div class="carousel-inner">
-                                    <% if (userProp.picture) { %>
-                                        <% let pixz=userProp.picture.split(',') %>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
 
-                                            <div class="carousel-item active" style="width: 790px; height: 390px;">
-                                                <a href="/prop/<%= pixz[0] %>" target="_blank">
-                                                    <img src="/prop/<%= pixz[0] %>" class="d-block w-100"
-                                                        alt="Product Image">
-                                                </a>
-                                            </div>
-                                            <% let num=0 %>
-                                                <% if (pixz.length> num) { %>
-                                                    <% const pizzy=pixz.splice(1) %>
-                                                        <% pizzy.forEach(trans=> { %>
-                                                            <div class="carousel-item"
-                                                                style="width: 790px; height: 390px;">
-                                                                <a href="/prop/<%= trans %>" target="_blank">
-                                                                    <img src="<%= trans ? '/prop/'+trans : '/assets/img/card.jpg' %>"
-                                                                        class="d-block w-100" alt="Product Image">
-                                                                </a>
-                                                            </div>
-                                                            <% }) %>
-                                                                <% } %>
+                                    </div><!-- End Slides with indicators --> <br>
+                                </div>
+                                <div class="col-lg-3 mb-2">
+
+                                    <h5 class="card-title text-capitalize"><i class="bi bi-geo-alt-fill"></i> <span>
+                                            <%= userProp.address %>, <%= userProp.city %>, <%= userProp.state %>
+                                        </span></h5>
+                                    <h5 class="card-title text-capitalize"><i class="bi bi-house-door"></i> <span>
+                                            <%= userProp.size_in_sqft %> Sqft <%= userProp.property_type %>
+                                        </span>
+                                    </h5>
+                                    <h5 class="card-title"> <i class="bi bi-currency-exchange"></i> <span>
+                                            <%= userProp.rent_price %> NGN
+                                        </span></h5>
+                                    <h5 class="card-title"> <i class="bi bi-door-open"></i><span>
+                                            <%= userProp.bedrooms %> Bdrm
+                                        </span> | Bathroom :<span>
+                                            <%= userProp.bathrooms %>
+                                        </span>
+                                    </h5>
 
 
-
-                                                                    <% } %>
+                                    <h5 class="card-title"><i class="bi bi-calendar3"></i> <span>
+                                            <%= new Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
+                                                month:'short', day :'2-digit'}) %>
+                                        </span></h5>
+                                    <h5 class="card-title text-capitalize"> <i class="bi bi-diamond-half"></i><span>
+                                            <%= userProp.number_of_units %> Unit
+                                                <%= userProp.lease_status %>
+                                        </span>
+                                    </h5>
 
                                 </div>
 
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
 
-                            </div><!-- End Slides with indicators --> <br>
-                        </div>
-                        <div class="col-lg-3 mb-2">
-                            
-                            <h5 class="card-title text-capitalize"><i class="bi bi-geo-alt-fill"></i> <span>
-                                    <%= userProp.address %>, <%= userProp.city %>, <%= userProp.state %>
-                                </span></h5>
-                            <h5 class="card-title text-capitalize"><i class="bi bi-house-door"></i> <span>
-                                 <%= userProp.size_in_sqft %> Sqft <%= userProp.property_type %></span>
-                            </h5>
-                            <h5 class="card-title"> <i class="bi bi-currency-exchange"></i> <span>
-                                    <%= userProp.rent_price %> NGN
-                                </span></h5>
-                            <h5 class="card-title"> <i class="bi bi-door-open"></i><span>  <%= userProp.bedrooms %> Bdrm
-                                </span> | Bathroom :<span>
-                                    <%= userProp.bathrooms %> </span>
-                            </h5>
-                                
+                            </div>
+                            <div class="d-flex align-items-center">
 
-                            <h5 class="card-title"><i class="bi bi-calendar3"></i> <span> <%= new Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
-                                        month:'short', day :'2-digit'}) %></span></h5>
-                             <h5 class="card-title text-capitalize"> <i class="bi bi-diamond-half"></i><span> <%= userProp.number_of_units %> Unit
-                                <%= userProp.lease_status %> </span>
-                            </h5>
-                            
-                        </div>
+                                <div class="ps-3">
+                                    <% if (userProp.description) { %>
+                                        <% userProp.description.split('\n').forEach(function(line) { %>
+                                            <% if (line.trim()) { %>
+
+                                                <%- line %>
+
+                                                    <% } %>
+                                                        <% }); %>
+                                                            <% } %> <br>
+
+                                </div>
+
+                            </div>
 
 
-                    </div>
-                    <div class="d-flex align-items-center">
-
-                        <div class="ps-3">
-                            <% if (userProp.description) { %>
-                                <% userProp.description.split('\n').forEach(function(line) { %>
-                                    <% if (line.trim()) { %>
-
-                                        <%- line %>
-
-                                            <% } %>
-                                                <% }); %>
-                                                    <% } %> <br>
-
-                        </div>
-
-                    </div>
-
-
-                    <% } %>
+                            <% } %>
                 </div>
 
             </div><!-- End Customers Card -->

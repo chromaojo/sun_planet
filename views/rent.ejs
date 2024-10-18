@@ -5,16 +5,16 @@
 
   <% if (userProp) { %>
      <div class="card p-4">
-    <form action="" method="post">
+    <form action="/user/rental-submit" method="POST">
       <div class="card-body">  <b>Booking Form</b> <br> <br>
 
         <div class="input-group mb-3">
-          <input type="text" class="form-control" readonly aria-label="Username" value="<%= userProp.property_name %>">
+          <input type="text" class="form-control" name="property_name" readonly aria-label="Username" value="<%= userProp.property_name %>">
           <span class="input-group-text">&</span>
-          <input type="text" class="form-control" readonly value="<%= userProp.address %>" aria-label="Server">
+          <input type="text" class="form-control" readonly value="<%= userProp.address %>" name="address" aria-label="Server">
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" readonly value="<%= userProp.rent_price %>" aria-label="Username">
+          <input type="number" class="form-control" readonly value="<%= userProp.rent_price %>" name="rent_price" aria-label="Username">
           <span class="input-group-text">#</span>
           <select class="form-select text-capitalize" aria-label="Default select example" name="property_type" >
             <option selected value="<%= userProp.property_type %>"><%= userProp.property_type %></option>
@@ -23,23 +23,23 @@
           </select>
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Occupant Name" aria-label="Username">
+          <input type="text" class="form-control" placeholder="Occupant Name" aria-label="Username" name="occupant_name">
           <span class="input-group-text">#</span>
-          <input type="text" class="form-control" placeholder="Occupant Phone Number" aria-label="Server">
+          <input type="number" class="form-control" placeholder="Occupant Phone Number" aria-label="Server" name="occupant_phone">
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Next Of Kin" aria-label="Username">
+          <input type="text" class="form-control" placeholder="Next Of Kin" aria-label="Username" name="next_of_kin">
           <span class="input-group-text">#</span>
-          <input type="text" class="form-control" placeholder="Next Of Kin Phone Number" aria-label="Server">
+          <input type="number" class="form-control" placeholder="Next Of Kin Phone Number" aria-label="Server" name="kin_phone">
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Next Of Kin Address" aria-label="Username">
+          <input type="text" class="form-control" placeholder="Next Of Kin Address" aria-label="Username" name="kin_address">
           <span class="input-group-text">#</span>
-          <input type="text" class="form-control" placeholder="NOK Alternative Phone Number" aria-label="Server">
+          <input type="text" class="form-control" placeholder="Enter Duration" name="duration" aria-label="Server">
         </div>
         <span>Rent Start # Rent End</span>
         <div class="input-group mb-3">
-          <input type="date" class="form-control" placeholder="Rent Starts" aria-label="Username">
+          <input type="date" class="form-control" name="rent_start_date"  placeholder="Rent Starts" aria-label="Username">
           <span class="input-group-text">#</span>
           <input type="text" class="form-control" placeholder="Rent Ends" aria-label="Server">
         </div>

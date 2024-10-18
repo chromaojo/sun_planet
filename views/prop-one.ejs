@@ -20,10 +20,12 @@
                     <h5 class="card-title text-center"> <b class="text-capitalize">Title :
                             <%= userProp.property_name %>
                         </b></h5>
-                    <h5 class="card-title text-capitalize">
+                   <% if (userProp.youtube) {  %>
+                     <h5 class="card-title text-capitalize">
                         <a href="<%= userProp.youtube %>" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-youtube text-danger"><b>Property Tour</b></i> </a>
                     </h5>
+                    <% } %>
 
 
                     <div class="row">
@@ -90,7 +92,7 @@
                                 </span></h5>
                             <h5 class="card-title"> <i class="bi bi-door-open"></i><span>
                                     <%= userProp.bedrooms %> Bdrm
-                                </span> | Bathroom :<span>
+                                </span> | Btrm :<span>
                                     <%= userProp.bathrooms %>
                                 </span>
                             </h5>

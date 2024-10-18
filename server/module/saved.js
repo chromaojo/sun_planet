@@ -133,13 +133,22 @@ const oneSaved = (req, res) => {
 
 
 // To create form from the frontend 
-const createSaved = (req, res, next) => {
+const createSaved = async(req, res, next) => {
     const prop_id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const userData = userCookie
     const user_id = userData.user_id;
 
     if (userData) {
+
+        const notice = await new Promise((resolve, reject) => {
+            const userId = userData.user_id
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userId], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
 
         const sql = `
       SELECT * FROM sun_planet.spc_saved WHERE user_id = ? AND prop_id =?;
@@ -150,8 +159,8 @@ const createSaved = (req, res, next) => {
             if (err) { console.log("Customized Error ", err); }
 
             if (results.length > 0) {
-                const error = 'Property Already Added'
-                return res.render('error',{userData, error})
+                const error = 'Property Previously Added'
+                return res.render('error',{userData, error, notice})
                 
             }else{ 
                 try {
@@ -161,7 +170,7 @@ const createSaved = (req, res, next) => {
     
                     db.query(sql, [prop_id], (err, results) => {
                         if (err) {
-                            console.log('Login Issues :', err);
+                            console.log('Property Details :', err);
                             return res.status(500).send('Internal Server Error');
                         }
                         const { property_name, rent_price, property_type, id, city, state, picture, prop_id } = results[0]

@@ -222,6 +222,12 @@ route.get('/renter/:id', oneRent);
 // To view only one rent details
 route.get('/apply-rent/:id', oneFillRent);
 
+// To post data from frontend
+route.post('/rental-submit', createRent, (req, res)=>{
+    
+    res.redirect('/user/rent');
+});
+
 
 // To get all my notification 
 route.get('/notif', allMyNotice, (req, res) => {

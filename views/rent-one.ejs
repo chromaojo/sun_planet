@@ -3,7 +3,7 @@
     <h1>Form Details</h1> <br>
   </div><!-- End Page Title -->
 
-  <div class="container d-flex p-3">
+  <div class="container d-flex p-3">    
     <div class="col mx-2">
       <ul class="list-group">
         <li class="list-group-item text-capitalize"><i class="bi bi-pen me-1 text-success"></i> Property Name : <%=
@@ -21,9 +21,12 @@
         <li class="list-group-item text-capitalize"><i class="bi bi-phone me-1 text-primary"></i>
           Next Of Kin's Phone : <%= userRent.kin_phone %>
         </li>
-        <li class="list-group-item text-capitalize"><i class="bi bi-geo-alt-fill me-1 text-success"></i> Property Address : <br> <%=
+        <li class="list-group-item text-capitalize"><i class="bi bi-geo-alt-fill me-1 text-success"></i> Property Address : <br/> <%=
             userRent.address %>
         </li>
+        <li class="list-group-item text-capitalize"><i class="bi bi-calendar-day me-1 text-success"></i> Form Filled :  <%= new Date(userRent.created_at).toLocaleDateString() %>
+      </li> 
+
       </ul><!-- End List group With Icons -->
     </div>
     <div class="col mx-2">
