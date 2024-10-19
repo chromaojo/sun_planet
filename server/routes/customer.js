@@ -224,7 +224,7 @@ route.get('/apply-rent/:id', oneFillRent);
 
 // To post data from frontend
 route.post('/rental-submit', createRent, (req, res)=>{
-    
+      
     res.redirect('/user/rent');
 });
 

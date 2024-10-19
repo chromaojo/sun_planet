@@ -14,9 +14,9 @@
 
       <div class="card">
         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-          <a href="/assets/img/profile-img.jpg">
-            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-          </a>          
+          <a href="<%= userData.profilePix?userData.profilePix: "/assets/img/profile-img.jpg" %>">
+            <img src="<%= userData.profilePix?userData.profilePix: "/assets/img/profile-img.jpg" %>" alt="Profile" class="rounded-circle" >
+          </a>
           <h2>
             <%= userData.surname %>
               <%= userData.othername %>
@@ -94,9 +94,10 @@
                       <li class="list-group-item text-capitalize"><i class="bi bi-whatsapp me-1 text-success"></i>
                         Whatsapp : <%- userData.whatsapp %></li>
                       <li class="list-group-item text-capitalize"><i
-                          class="bi bi-star me-1 text-capitalize text-info"></i> Account Type : <%- userData.userData_type %>
+                          class="bi bi-star me-1 text-capitalize text-info"></i> Account Type : <%-
+                          userData.userData_type %>
                       </li>
-                     
+
                       <li class="list-group-item text-capitalize"><i class="bi bi-instagram me-1 text-success"></i>
                         instagram : <%- userData.instagram %></li>
                       <li class="list-group-item text-capitalize"><i class="bi bi-linkedin me-1 text-success"></i>
@@ -104,8 +105,8 @@
                     </ul><!-- End List group With Icons -->
 
                   </div>
-                </div> 
-                
+                </div>
+
               </div>
 
             </div>
@@ -113,210 +114,239 @@
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
               <!-- Profile Edit Form -->
-              <form>
-                <div class="row mb-3">
-                  <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                  <div class="col-md-8 col-lg-9">
-                    <img src="/assets/img/profile-img.jpg" alt="Profile">
-                    <div class="pt-2">
-           
-                      <% if (userData.role === 'admin') { %>
-                        <form action="/admin/edit/upload-pix" method="post" enctype="multipart/form-data">
-                      <% } else { %>
-                        <form action="/user/edit/upload-pix" method="post" enctype="multipart/form-data">
-                      <% } %>
-                      <input type="file" accept=".jpg, .png, .jpeg" name="profileImage" id="profileImage">
-                      <button type="submit" class="btn btn-primary btn-sm" ><i
-                          class="bi bi-upload"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <% if (userData.role === 'admin') { %>
-                <form action="/admin/edit/surname" method="POST">
-                  <%} else {  %>
-                  
-                <form action="/user/edit/surname" method="POST">
-                  <%} %>
-                  <div class="row mb-3">
-                    <label for="surname" class="col-md-4 col-lg-3 col-form-label">Surname</label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="surname" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.surname %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-primary btn-sm">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
 
-                <% if (userData.role === 'admin') { %>
-                  <form action="/admin/edit/other" method="POST">
-                <%  } else { %>
-                  <form action="/user/edit/other" method="POST">
-                <%  } %>
-               
-                  <div class="row mb-3">
-                    <label for="surname" class="col-md-4 col-lg-3 col-form-label">Other Names</label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="othername" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.othername %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-primary btn-sm">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
-              
-              <% if (userData.role === 'admin') { %>
-                    <form action="/admin/edit/username" method="POST">
-              <% } else { %>
-                  <form action="/user/edit/username" method="POST">
-              <% } %>
-                  <div class="row mb-3">
-                    <label for="username" class="col-md-4 col-lg-3 col-form-label">Username </label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="username" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.username %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-sm btn-primary">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
-                <% if (userData.role === 'admin') {%>
-                  <form action="/admin/edit/address" method="POST">
-                <%  } else { %>
-                  <form action="/user/edit/address" method="POST">
-                <%  } %>
-                
-                  <div class="row mb-3">
-                    <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="address" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.address %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-primary btn-sm">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
-                <% if (userData.role === 'admin') {%>
-                  <form action="/admin/edit/phone_number" method="POST">
-                <%  } else { %>
-                  <form action="/user/edit/phone_number" method="POST">
-                <%  } %>
-                  <div class="row mb-3">
-                    <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="phone_number" type="number" class="form-control" id="fullName"
-                            placeholder="<%= userData.phone_number %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-primary btn-sm">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
-                <% if (userData.role === 'admin') {%>
-                  <form action="/admin/edit/phone_number" method="POST">
-                <%  } else { %>
-                  <form action="/user/edit/phone_number" method="POST">
-                <%  } %>
-                 
-                <form action="/user/edit/whatsapp" method="POST">
-                  <div class="row mb-3">
-                    <label for="whatsapp" class="col-md-4 col-lg-3 col-form-label">Whatsapp Number</label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="whatsapp" type="number" class="form-control" id="fullName"
-                            placeholder="<%= userData.whatsapp %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-primary btn-sm">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <form action="/user/edit/instagram" method="POST">
-                  <div class="row mb-3">
-                    <label for="instagram" class="col-md-4 col-lg-3 col-form-label">Instagram</label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="instagram" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.instagram %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-primary btn-sm">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <form action="/user/edit/facebook" method="POST">
-                  <div class="row mb-3">
-                    <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">Facebook</label>
-                    <div class="col-md-8 col-lg-9">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <input name="facebook" type="text" class="form-control" id="fullName"
-                            placeholder="<%= userData.facebook %>">
-                        </div>
-                        <div class="col">
-                          <button type="submit" class="btn btn-primary btn-sm">Save </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-
-                <% if (userData.role === 'admin') { %>
-                  <form action="/admin/edit/about" method="POST">
-                <% } else { %>
-                 <form action="/user/edit/about" method="POST">
-                <% } %>
+              <div class="row mb-3">
+                <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                <div class="col-md-8 col-lg-9">
+                  <img src="<%= userData.profilePix?userData.profilePix: "/assets/img/profile-img.jpg" %>" alt="Profile" class="rounded-circle" >
     
-                  <div class="row mb-3"> 
-                  <label for="about" class="col-md-4 col-lg-3 col-form-label">About </label>
-                  <div class="col-md-8 col-lg-9">
-                    <textarea name="about" class="form-control" id="about"
-                      style="height: 100px"> <%- userData.about %></textarea>
-                      <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                  <div class="pt-2">
+
+                    <% if (userData.role==='admin' ) { %>
+                      <form action="/admin/edit/upload-pix" method="POST" enctype="multipart/form-data">
+                        <% } else { %>
+                          <form action="/user/edit/upload-pix" method="POST" enctype="multipart/form-data">
+                            <% } %>
+                              <input type="file" accept=".jpg, .png, .jpeg" name="profileImage" id="profileImage">
+                              <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-upload"></i></button>
+                          </form>
                   </div>
-                 
                 </div>
-                </form>
+              </div>
 
-                <div class="text-center">
-                  <a class="btn btn-primary" href="/user/profile">Done</a>
-                </div>
-              </form><!-- End Profile Edit Form -->
+              <div>
+                <% if (userData.role==='admin' ) { %>
+                  <form action="/admin/edit/surname" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/surname" method="POST">
+                        <% } %>
+                          <div class="row mb-3">
+                            <label for="surname" class="col-md-4 col-lg-3 col-form-label">Username </label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="surname" type="text" class="form-control" id="fullName"
+                                    placeholder="<%= userData.surname %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-sm btn-primary">Save </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
 
+              <div>
+
+                <% if (userData.role==='admin' ) { %>
+                  <form action="/admin/edit/other" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/other" method="POST">
+                        <% } %>
+                          <div class="row mb-3">
+                            <label for="surname" class="col-md-4 col-lg-3 col-form-label">Other Names</label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="othername" type="text" class="form-control" id="fullName"
+                                    placeholder="<%= userData.othername %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-primary btn-sm">Save </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
+
+              <div>
+                <% if (userData.role==='admin' ) {%>
+                  <form action="/admin/edit/address" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/address" method="POST">
+                        <% } %>
+
+                          <div class="row mb-3">
+                            <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="address" type="text" class="form-control" id="fullName"
+                                    placeholder="<%= userData.address %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-primary btn-sm">Save </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
+
+              <div>
+                <% if (userData.role==='admin' ) { %>
+                  <form action="/admin/edit/username" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/username" method="POST">
+                        <% } %>
+                          <div class="row mb-3">
+                            <label for="username" class="col-md-4 col-lg-3 col-form-label">Username </label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="username" type="text" class="form-control" id="fullName"
+                                    placeholder="<%= userData.username %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-sm btn-primary">Save </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
+
+              <div>
+                <% if (userData.role==='admin' ) {%>
+                  <form action="/admin/edit/phone_number" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/phone_number" method="POST">
+                        <% } %>
+                          <div class="row mb-3">
+                            <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">Phone
+                              Number</label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="phone_number" type="number" class="form-control" id="fullName"
+                                    placeholder="<%= userData.phone_number %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-primary btn-sm">Save
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
+              <div>
+                <% if (userData.role==='admin' ) {%>
+                  <form action="/admin/edit/instagram" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/instagram" method="POST">
+                        <% } %>
+                          <div class="row mb-3">
+                            <label for="instagram" class="col-md-4 col-lg-3 col-form-label">Instagram</label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="instagram" type="text" class="form-control" id="fullName"
+                                    placeholder="<%= userData.instagram %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-primary btn-sm">Save
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
+              <div>
+                <% if (userData.role==='admin' ) {%>
+                  <form action="/admin/edit/whatsapp" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/whatsapp" method="POST">
+                        <% } %>
+
+                          <div class="row mb-3">
+                            <label for="whatsapp" class="col-md-4 col-lg-3 col-form-label">Whatsapp
+                              Number</label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="whatsapp" type="number" class="form-control" id="fullName"
+                                    placeholder="<%= userData.whatsapp %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-primary btn-sm">Save
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
+              <div>
+                <% if (userData.role==='admin' ) {%>
+                  <form action="/admin/edit/facebook" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/facebook" method="POST">
+                        <% } %>
+                          <div class="row mb-3">
+                            <label for="facebook" class="col-md-4 col-lg-3 col-form-label">Enter Facebook</label>
+                            <div class="col-md-8 col-lg-9">
+                              <div class="row">
+                                <div class="col-md-10">
+                                  <input name="facebook" type="text" class="form-control" id="fullName"
+                                    placeholder="<%= userData.facebook %>">
+                                </div>
+                                <div class="col">
+                                  <button type="submit" class="btn btn-primary btn-sm">Save
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+              </div>
+              <div>
+                <% if (userData.role==='admin' ) { %>
+                  <form action="/admin/edit/about" method="POST">
+                    <% } else { %>
+                      <form action="/user/edit/about" method="POST">
+                        <% } %>
+
+                          <div class="row mb-3">
+                            <label for="about" class="col-md-4 col-lg-3 col-form-label">About
+                            </label>
+                            <div class="col-md-8 col-lg-9">
+                              <textarea name="about" class="form-control" id="about"
+                                style="height: 100px"> <%- userData.about %></textarea>
+                              <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                            </div>
+
+                          </div>
+                      </form>
+              </div>
+
+              <div class="text-center">
+                <a class="btn btn-primary" href="/user/profile">Done</a>
+              </div>
+             
             </div>
 
             <div class="tab-pane fade pt-3" id="profile-settings">
