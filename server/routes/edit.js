@@ -13,25 +13,19 @@ const rand = rando + "FTL" + random;
 
 
 // MiDDLE WARES 
-// Configure multer for file storage in 'prop' directory
+
+
+// Set up storage engine for multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'public/profile/');
-        // cb(null, path.join(__dirname, 'prop'));
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
+        cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 
-const upload = multer({
-    storage: storage,
-    limits: {
-        files: 1 // Limiting the number of files to 4
-    }
-}).array('profilePix', 1);
-
-
+const upload = multer({ storage});
 
 
 
@@ -46,11 +40,12 @@ route.post('/upload-pix', (req, res) => {
             if (err) {
                 return res.send('Error uploading files.');
             } 
-            const profilePix = req.files.map(file => file.filename);
+            const imagePath = req.file.path;
+            const profilePix = ''
             let updateUsername = 'UPDATE sun_planet.spc_accounts SET profilePix = ?  WHERE email = ?';
             let values = [profilePix, userData.email];
-
-            console.log('The Profile pix is in', profilePix  )
+            
+            console.log('The Profile pix path is in', imagePath  )
             // db.query(updateUsername, values, (error, result) => {
             //     if (error) {
             //         console.log('An Update Error Occurred ', error);
