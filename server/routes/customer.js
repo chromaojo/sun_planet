@@ -63,14 +63,14 @@ route.get('/transactions', async (req, res) => {
     const userId = userCookie.user_id
     const notice = await new Promise((resolve, reject) => {
         
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
             resolve(results);
         });
     });
     const sql = `
-    SELECT * FROM sun_planet.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
+    SELECT * FROM bkew76jt01b1ylysxnzp.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
   `;
 
     db.query(sql, [userId], (err, results) => {
@@ -118,13 +118,13 @@ route.get('/profile', UserLoggin, async (req, res) => {
     } else {
         const notice = await new Promise((resolve, reject) => {
             const user_id =userData.user_id
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
-        const user = db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [userData.email], async (error, result) => {
+        const user = db.query('SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
             if (error) {

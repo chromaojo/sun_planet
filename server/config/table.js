@@ -10,7 +10,7 @@ route.get('/createUser', (req, res) => {
 
 
     const sqlUsers = `
-        CREATE TABLE IF NOT EXISTS sun_planet.spc_users (
+        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_users (
         id INT PRIMARY KEY AUTO_INCREMENT,
         user_id VARCHAR(255) UNIQUE,
         email VARCHAR(255) NOT NULL UNIQUE,
@@ -20,7 +20,7 @@ route.get('/createUser', (req, res) => {
         `;
 
     const sqlAccounts = `
-        CREATE TABLE IF NOT EXISTS sun_planet.spc_accounts (
+        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_accounts (
         account_id VARCHAR(255) UNIQUE PRIMARY KEY,
         account_balance INT DEFAULT 0,
         total_spent INT DEFAULT 0,
@@ -65,7 +65,7 @@ route.get('/createUser', (req, res) => {
 route.get('/createProp', (req, res) => {
 
     const sqlProp = `
-        CREATE TABLE IF NOT EXISTS sun_planet.spc_property (
+        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_property (
             id INT AUTO_INCREMENT PRIMARY KEY,
             property_name VARCHAR(100) NOT NULL,        -- Name or title of the property
             youtube VARCHAR(255),
@@ -90,7 +90,7 @@ route.get('/createProp', (req, res) => {
         `;
 
     const sqlSaved = `
-        CREATE TABLE IF NOT EXISTS sun_planet.spc_saved (
+        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_saved (
             id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
             prop_id INT NOT NULL,
             property_name VARCHAR(100) NOT NULL,        -- Name or title of the property
@@ -108,7 +108,7 @@ route.get('/createProp', (req, res) => {
         `;
 
         const sqlRent = `
-        CREATE TABLE IF NOT EXISTS sun_planet.spc_rent (
+        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_rent (
             id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
             rent_id INT NOT NULL,
             property_name VARCHAR(100) NOT NULL, 
@@ -161,7 +161,7 @@ route.get('/createProp', (req, res) => {
 route.get('/createReport', (req, res) => {
 
     const sqlReport = `
-    CREATE TABLE IF NOT EXISTS sun_planet.spc__report (
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__report (
       id INT AUTO_INCREMENT PRIMARY KEY,
       report_id VARCHAR(255) UNIQUE,
       title VARCHAR(255) NOT NULL,
@@ -174,7 +174,7 @@ route.get('/createReport', (req, res) => {
   `;
 
     const sqlReportC = `
-    CREATE TABLE IF NOT EXISTS sun_planet.spc__content (
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__content (
       id INT PRIMARY KEY AUTO_INCREMENT,
       activity TEXT,
       result TEXT,
@@ -182,7 +182,7 @@ route.get('/createReport', (req, res) => {
       status ENUM('completed', 'in progress', 'not started', 'onhold'),
       progress ENUM('pending', 'finished') DEFAULT 'pending',
       report_id VARCHAR(255) NOT NULL,
-      FOREIGN KEY (report_id) REFERENCES sun_planet.spc__report(report_id)
+      FOREIGN KEY (report_id) REFERENCES bkew76jt01b1ylysxnzp.spc__report(report_id)
     );
   `;
 
@@ -209,7 +209,7 @@ route.get('/createComplain', (req, res) => {
 
 
     const sqlComplaint = `
-    CREATE TABLE IF NOT EXISTS sun_planet.spc_complaint (
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_complaint (
       id INT AUTO_INCREMENT PRIMARY KEY,
       report_id VARCHAR(255) UNIQUE,
       name VARCHAR(255) NOT NULL,
@@ -243,7 +243,7 @@ route.get('/createComplain', (req, res) => {
 route.get('/createInvestment', (req, res) => {
 
     const sqlInvest = `
-    CREATE TABLE IF NOT EXISTS sun_planet.spc_investment (
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_investment (
       id INT AUTO_INCREMENT PRIMARY KEY,
       invest_id VARCHAR(255) UNIQUE,
       title VARCHAR(255) NOT NULL,
@@ -256,7 +256,7 @@ route.get('/createInvestment', (req, res) => {
     );
   `;
     const sqlTransaction = `
-    CREATE TABLE IF NOT EXISTS sun_planet.spc_transaction (
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_transaction (
         transaction_id INT AUTO_INCREMENT PRIMARY KEY,
         user_id VARCHAR(255),
         payment_method VARCHAR(255),
@@ -296,7 +296,7 @@ route.get('/createInvestment', (req, res) => {
 route.get('/createLead', (req, res) => {
 
     const sqlLead = `
-    CREATE TABLE IF NOT EXISTS sun_planet.spc_lead (
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_lead (
         lead_id INT AUTO_INCREMENT PRIMARY KEY,
         title VARCHAR(20),
         gender VARCHAR(20),
@@ -322,7 +322,7 @@ route.get('/createLead', (req, res) => {
   `;
 
     const sqlInspect = `
-    CREATE TABLE IF NOT EXISTS sun_planet.spc_inspection (
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_inspection (
       id INT AUTO_INCREMENT PRIMARY KEY,
       transaction_id VARCHAR(255) UNIQUE,
       name VARCHAR(255) NOT NULL,
@@ -361,7 +361,7 @@ route.get('/createNotice', (req, res) => {
 
 
   const sqlNotice = `
-  CREATE TABLE IF NOT EXISTS sun_planet.spc_notification (
+  CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_notification (
     id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
     title VARCHAR(255),
     content TEXT,
@@ -370,7 +370,7 @@ route.get('/createNotice', (req, res) => {
     link VARCHAR(115),
     user_id VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES sun_planet.spc_users(user_id)
+    FOREIGN KEY (user_id) REFERENCES bkew76jt01b1ylysxnzp.spc_users(user_id)
   );
   `;
 

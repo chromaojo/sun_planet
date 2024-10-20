@@ -49,7 +49,7 @@ route.use(express.urlencoded({ extended: true }));
 route.post('/register', (req, res) => {
     const { email, password, password1, surname, othername, username, address, phone_number } = req.body;
 
-    db.query('SELECT email FROM sun_planet.spc_users WHERE email = ?', [email], async (error, result) => {
+    db.query('SELECT email FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [email], async (error, result) => {
         if (error) { console.log("Customized Error ", error); }
         if (result.length > 0) {
             return res.status(401).json({
@@ -58,7 +58,7 @@ route.post('/register', (req, res) => {
         } else if (password == password1) {
             const user_id = 'sun' + random + 'P'
             const hashedPassword = await bcrypt.hash(password, 10);
-            db.query('INSERT INTO sun_planet.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
+            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
                 if (error) {
                     console.log('A Registeration Error Occured ', error);
                 } else {
@@ -75,7 +75,7 @@ route.post('/register', (req, res) => {
                     mail.sendIt(messages)
 
                     // To create the account table into the user 
-                    db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [email], async (error, result) => {
+                    db.query('SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [email], async (error, result) => {
                         if (error) {
 
                             return res.status(500).json({
@@ -84,8 +84,8 @@ route.post('/register', (req, res) => {
                         } else {
                             const title = "New User";
                             const content = 'Welcome To Sun Planet Ltd. Thank You for embarking on thing fruitfull journey.'
-                            db.query('INSERT INTO sun_planet.spc_notification SET ?', { user_id: result[0].user_id, title, content });
-                            db.query('INSERT INTO sun_planet.spc_accounts SET ?', { user_id: result[0].user_id, email: email, account_id: rand, account_balance: 0, surname: surname, othername: othername, username: username, address: address, phone_number: phone_number });
+                            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_notification SET ?', { user_id: result[0].user_id, title, content });
+                            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_accounts SET ?', { user_id: result[0].user_id, email: email, account_id: rand, account_balance: 0, surname: surname, othername: othername, username: username, address: address, phone_number: phone_number });
                         }
                     });
 
@@ -133,7 +133,7 @@ route.post('/:user_id/edit', UserLoggin, (req, res) => {
 
     // Update user role in the database
     const sql = `
-      UPDATE sun_planet.spc_users
+      UPDATE bkew76jt01b1ylysxnzp.spc_users
       SET role = ?
       WHERE user_id = ?;
     `;
@@ -158,7 +158,7 @@ route.get('/dashboard', async(req, res) => {
     // const short = 'shortlet';
 
     const property = await new Promise((resolve, reject) => {
-        const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property ORDER BY id DESC`;
         db.query(sqls, (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -167,7 +167,7 @@ route.get('/dashboard', async(req, res) => {
 
 
     const notice = await new Promise((resolve, reject) => {
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls,[user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -175,35 +175,35 @@ route.get('/dashboard', async(req, res) => {
     });
 
     // const land = await new Promise((resolve, reject) => {
-    //     const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+    //     const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE prop_type = ?`;
     //     db.query(sqls,[lan], (err, results) => {
     //         if (err) return reject(err);
     //         resolve(results);
     //     });
     // });
     // const building = await new Promise((resolve, reject) => {
-    //     const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+    //     const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE prop_type = ?`;
     //     db.query(sqls,[build], (err, results) => {
     //         if (err) return reject(err);
     //         resolve(results);
     //     });
     // });
     // const shortlet = await new Promise((resolve, reject) => {
-    //     const sqls = `SELECT * FROM sun_planet.spc_property WHERE prop_type = ?`;
+    //     const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE prop_type = ?`;
     //     db.query(sqls,[short], (err, results) => {
     //         if (err) return reject(err);
     //         resolve(results);
     //     });
     // });
     // const investment = await new Promise((resolve, reject) => {
-    //     const sqls = `SELECT * FROM sun_planet.spc_investment ORDER BY id DESC`;
+    //     const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_investment ORDER BY id DESC`;
     //     db.query(sqls, (err, results) => {
     //         if (err) return reject(err);
     //         resolve(results);
     //     });
     // });
     // const complain = await new Promise((resolve, reject) => {
-    //     const sqls = `SELECT * FROM sun_planet.spc_complaint ORDER BY id DESC`;
+    //     const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_complaint ORDER BY id DESC`;
     //     db.query(sqls, (err, results) => {
     //         if (err) return reject(err);
     //         resolve(results);
@@ -238,7 +238,7 @@ route.get('/create/prop', async (req, res) => {
     const userData = userCookie
     const notice = await new Promise((resolve, reject) => {
         const userId = userCookie.user_id
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -283,7 +283,7 @@ route.get('/investe', UserLoggin, async (req, res) => {
     const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const notice = await new Promise((resolve, reject) => {
         const userId = userData.user_id
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -310,13 +310,13 @@ route.get('/profile', UserLoggin, async (req, res) => {
         res.redirect('/login');
     } else {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls,[user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
-        const user = db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [userData.email], async (error, result) => {
+        const user = db.query('SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
             if (error) {

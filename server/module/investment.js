@@ -47,7 +47,7 @@ const allInvest = async (req, res) => {
 
         const notice = await new Promise((resolve, reject) => {
             const userId = userCookie.user_id;
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -55,7 +55,7 @@ const allInvest = async (req, res) => {
         });
 
         const sql = `
-      SELECT * FROM sun_planet.spc_investment ORDER BY id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_investment ORDER BY id DESC;
     `;
 
         db.query(sql, (err, results) => {
@@ -88,7 +88,7 @@ const allAdInvest = async (req, res) => {
 
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -96,7 +96,7 @@ const allAdInvest = async (req, res) => {
         });
 
         const sql = `
-      SELECT * FROM sun_planet.spc_investment ORDER BY id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_investment ORDER BY id DESC;
     `;
 
         db.query(sql, (err, results) => {
@@ -134,7 +134,7 @@ const oneInvest = (req, res, next) => {
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM sun_planet.spc_investment WHERE id =?;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_investment WHERE id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -176,7 +176,7 @@ const createInvest = (req, res) => {
 
             const picture = '/invest/'+pixz;
           
-            db.query('INSERT INTO sun_planet.spc_investment SET ?', { title , details , invest_id, price , picture , date });
+            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_investment SET ?', { title , details , invest_id, price , picture , date });
            
            if (userCookie.role ==='client') {
             res.redirect('/user/investments');

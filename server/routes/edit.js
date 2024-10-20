@@ -45,7 +45,7 @@ const upload = multer({ storage });
 //             } 
 //             const imagePath = req.file.path;
 //             const profilePix = ''
-//             let updateUsername = 'UPDATE sun_planet.spc_accounts SET profilePix = ?  WHERE email = ?';
+//             let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET profilePix = ?  WHERE email = ?';
 //             let values = [profilePix, userData.email];
 
 //             console.log('The Profile pix path is in', imagePath  )
@@ -57,8 +57,8 @@ const upload = multer({ storage });
 //             //     console.log('Updated successfully !', result)
 //             //     const sqlGetUserWithAccount = `
 //             //     SELECT *
-//             //     FROM sun_planet.spc_users u
-//             //     LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+//             //     FROM bkew76jt01b1ylysxnzp.spc_users u
+//             //     LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
 //             //     WHERE u.email = ?;
 //             //   `;
 //             //     db.query(sqlGetUserWithAccount, [userData.email],  (error, result) => {
@@ -103,13 +103,13 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
     const imagePath = imageP.replace('/public', '');
     console.log('Image Path is ', imagePath);
 
-    db.query('UPDATE sun_planet.spc_accounts SET profilePix = ? WHERE user_id = ?;', [imagePath, userCookie.user_id]);
+    db.query('UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET profilePix = ? WHERE user_id = ?;', [imagePath, userCookie.user_id]);
     console.log('The User id is ', userCookie.user_id);
 
     const sqlGetUserWithAccount = `
         SELECT *
-        FROM sun_planet.spc_users u
-        LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+        FROM bkew76jt01b1ylysxnzp.spc_users u
+        LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
         WHERE u.email = ?;`;
     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
         if (error) {
@@ -148,7 +148,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
             try {
 
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET surname = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET surname = ?  WHERE email = ?';
                 let values = [surname, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -159,8 +159,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
                 SELECT *
-                FROM sun_planet.spc_users u
-                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                FROM bkew76jt01b1ylysxnzp.spc_users u
+                LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
               `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -207,7 +207,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (username) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET username = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET username = ?  WHERE email = ?';
                 let values = [username, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -218,8 +218,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
                 SELECT *
-                FROM sun_planet.spc_users u
-                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                FROM bkew76jt01b1ylysxnzp.spc_users u
+                LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
               `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -266,7 +266,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (othername) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET othername = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET othername = ?  WHERE email = ?';
                 let values = [othername, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -277,8 +277,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
                 SELECT *
-                FROM sun_planet.spc_users u
-                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                FROM bkew76jt01b1ylysxnzp.spc_users u
+                LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
               `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -328,7 +328,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (phone_number) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET phone_number = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET phone_number = ?  WHERE email = ?';
                 let values = [phone_number, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -339,8 +339,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
                 SELECT *
-                FROM sun_planet.spc_users u
-                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                FROM bkew76jt01b1ylysxnzp.spc_users u
+                LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
               `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -389,7 +389,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (whatsapp) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET whatsapp = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET whatsapp = ?  WHERE email = ?';
                 let values = [whatsapp, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -400,8 +400,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
             SELECT *
-            FROM sun_planet.spc_users u
-            LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+            FROM bkew76jt01b1ylysxnzp.spc_users u
+            LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
             WHERE u.email = ?;
             `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -450,7 +450,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (about) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET about = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET about = ?  WHERE email = ?';
                 let values = [about, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -461,8 +461,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
                 SELECT *
-                FROM sun_planet.spc_users u
-                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                FROM bkew76jt01b1ylysxnzp.spc_users u
+                LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
                 `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -509,7 +509,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (facebook) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET facebook = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET facebook = ?  WHERE email = ?';
                 let values = [facebook, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -520,8 +520,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
                 SELECT *
-                FROM sun_planet.spc_users u
-                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                FROM bkew76jt01b1ylysxnzp.spc_users u
+                LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
               `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -569,7 +569,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (address) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET address = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET address = ?  WHERE email = ?';
                 let values = [address, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {
@@ -580,8 +580,8 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
                     console.log('Updated successfully !', result)
                     const sqlGetUserWithAccount = `
                 SELECT *
-                FROM sun_planet.spc_users u
-                LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+                FROM bkew76jt01b1ylysxnzp.spc_users u
+                LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
                 WHERE u.email = ?;
               `;
                     db.query(sqlGetUserWithAccount, [userData.email], (error, result) => {
@@ -630,7 +630,7 @@ route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
         if (password) {
             try {
                 const userData = req.app.get('userData');
-                let updateUsername = 'UPDATE sun_planet.spc_accounts SET password = ?  WHERE email = ?';
+                let updateUsername = 'UPDATE bkew76jt01b1ylysxnzp.spc_accounts SET password = ?  WHERE email = ?';
                 let values = [password, userData.email];
 
                 db.query(updateUsername, values, (error, result) => {

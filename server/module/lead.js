@@ -26,7 +26,7 @@ const allLead = (req, res) => {
 
     if (userCookie) {
         const sql = `
-      SELECT * FROM sun_planet.spc_lead ORDER BY id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_lead ORDER BY id DESC;
     `;
 
         db.query(sql, (err, results) => {
@@ -61,7 +61,7 @@ const allMyLead = async (req, res) => {
 
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -69,7 +69,7 @@ const allMyLead = async (req, res) => {
         });
 
         const sql = `
-      SELECT * FROM sun_planet.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
     `;
 
         db.query(sql, [user_id], (err, results) => {
@@ -102,14 +102,14 @@ const allMyAdLead = async (req, res) => {
 
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const sql = `
-      SELECT * FROM sun_planet.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_lead WHERE user_id = ? ORDER BY lead_id DESC;
     `;
 
         db.query(sql, [user_id], (err, results) => {
@@ -147,7 +147,7 @@ const oneLead = async(req, res) => {
         res.redirect('/logout');
     } else {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -155,7 +155,7 @@ const oneLead = async(req, res) => {
         });
 
         const sql = `
-      SELECT * FROM sun_planet.spc_lead WHERE lead_id =?;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_lead WHERE lead_id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -195,7 +195,7 @@ const createLead = (req, res, next) => {
         
         const lead_by = userData.surname + ' ' + userData.othername
 
-        db.query('INSERT INTO sun_planet.spc_lead SET ?', { first_name, last_name, title, gender, email, phone_number, company_name, job_title, industry, info, location, user_id, lead_by });
+        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_lead SET ?', { first_name, last_name, title, gender, email, phone_number, company_name, job_title, industry, info, location, user_id, lead_by });
        return next();
 
     } catch (error) {

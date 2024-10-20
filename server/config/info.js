@@ -10,7 +10,7 @@ const info = {
 }
 
 
-const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
 
 const notice = {
     

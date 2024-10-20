@@ -18,7 +18,7 @@ const rand = rando + "FTL" + random;
 const regNew = (req, res) => {
     const { email, password, password1, surname, othername, username, address, phone_number } = req.body;
 
-    db.query('SELECT email FROM sun_planet.spc_users WHERE email = ?', [email], async (error, result) => {
+    db.query('SELECT email FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [email], async (error, result) => {
         if (error) { console.log("Customized Error ", error); }
         if (result.length > 0) {
 
@@ -27,7 +27,7 @@ const regNew = (req, res) => {
         } else if (password == password1) {
             const user_id = 'SP' + random + 'Co'
             const hashedPassword = await bcrypt.hash(password, 10);
-            db.query('INSERT INTO sun_planet.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
+            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
                 if (error) {
 
                     const error = 'A Registeration Error Occured '
@@ -46,7 +46,7 @@ const regNew = (req, res) => {
                     // mail.sendIt(messages)
 
                     // To create the account table into the user 
-                    db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [email], async (error, result) => {
+                    db.query('SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [email], async (error, result) => {
                         if (error) {
 
                             return res.status(500).json({
@@ -54,7 +54,7 @@ const regNew = (req, res) => {
                             });
                             
                         } else {
-                            db.query('INSERT INTO sun_planet.spc_accounts SET ?', { user_id: result[0].user_id, email: email, account_id: rand, account_balance: 0, surname: surname, othername: othername, username: username, address: address, phone_number: phone_number });
+                            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_accounts SET ?', { user_id: result[0].user_id, email: email, account_id: rand, account_balance: 0, surname: surname, othername: othername, username: username, address: address, phone_number: phone_number });
                         }
                     });
 
@@ -82,7 +82,7 @@ const profile = (req, res) => {
     if (!userCookie) {
         res.redirect('/login');
     } else {
-        const user = db.query('SELECT * FROM sun_planet.spc_users WHERE email = ?', [userData.email], async (error, result) => {
+        const user = db.query('SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
             if (error) {

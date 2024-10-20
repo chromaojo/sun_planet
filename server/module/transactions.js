@@ -18,14 +18,14 @@ const myTrans = async (req, res)=>{
     const userId = userCookie.user_id
     const notice = await new Promise((resolve, reject) => {
         
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
             resolve(results);
         });
     });
     const sql = `
-    SELECT * FROM sun_planet.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
+    SELECT * FROM bkew76jt01b1ylysxnzp.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
   `;
 
     db.query(sql, [userId], (err, results) => {
@@ -57,7 +57,7 @@ const allTrans = (req, res)=>{
     
     if (userCookie){
         const sql = `
-      SELECT * FROM sun_planet.spc_transaction ORDER BY id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_transaction ORDER BY id DESC;
     `;
 
         db.query(sql,  (err, results) => {
@@ -95,7 +95,7 @@ const oneTrans = (req, res, next)=>{
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM sun_planet.spc_transaction WHERE id =?;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_transaction WHERE id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -142,7 +142,7 @@ const createTrans = (req, res, next) => {
     
 
     try {
-        db.query('INSERT INTO sun_planet.spc_transaction SET ?', { title , description ,Trans_status, price, location  });
+        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_transaction SET ?', { title , description ,Trans_status, price, location  });
 
         res.json("Form Successfully Submitted")
     } catch (error) {

@@ -18,7 +18,7 @@ const allUser = async (req, res) => {
 
     const notice = await new Promise((resolve, reject) => {
         const userId = userData.user_id
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -26,7 +26,7 @@ const allUser = async (req, res) => {
     });
 
     const sql = `
-      SELECT * FROM sun_planet.spc_users;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_users;
     `;
 
     db.query(sql, [userId], (err, results) => {
@@ -51,7 +51,7 @@ const eachUser = async (req, res )=>{
     const user_id = req.params.user_id;
     const notice = await new Promise((resolve, reject) => {
         const userId = userData.user_id
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -59,7 +59,7 @@ const eachUser = async (req, res )=>{
     });
     const accts = await new Promise((resolve, reject) => {
         const userId = userData.user_id
-        const sqls = `SELECT * FROM sun_planet.spc_accounts WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_accounts WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -68,7 +68,7 @@ const eachUser = async (req, res )=>{
 
     // Retrieve user data from the database based on userId
     const sql = `
-      SELECT * FROM sun_planet.spc_users WHERE user_id = ?;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE user_id = ?;
     `;
 
     db.query(sql, [user_id], (err, results) => {
@@ -95,7 +95,7 @@ const editUser = (req, res) => {
 
     // Update user role in the database
     const sql = `
-      UPDATE sun_planet.spc_users
+      UPDATE bkew76jt01b1ylysxnzp.spc_users
       SET role = ?
       WHERE user_id = ?;
     `;

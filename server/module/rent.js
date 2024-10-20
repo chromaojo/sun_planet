@@ -44,7 +44,7 @@ const allRent = async (req, res) => {
 
     const notice = await new Promise((resolve, reject) => {
         const user_id = userCookie.user_id;
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -54,7 +54,7 @@ const allRent = async (req, res) => {
     const userRent = await new Promise((resolve, reject) => {
 
         const status = 'pending'
-        const sqls = `SELECT * FROM sun_planet.spc_rent WHERE status = ? ORDER BY id DESC;`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE status = ? ORDER BY id DESC;`;
         db.query(sqls, [status], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -78,7 +78,7 @@ const allMyRent = async (req, res) => {
 
     const notice = await new Promise((resolve, reject) => {
         const user_id = userCookie.user_id;
-        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
         db.query(sqls, [user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -89,7 +89,7 @@ const allMyRent = async (req, res) => {
 
     const userRent = await new Promise((resolve, reject) => {
 
-        const sqls = `SELECT * FROM sun_planet.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
         db.query(sqls, [user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -113,14 +113,14 @@ const allMyRent = async (req, res) => {
 //     req.app.set('userData', userCookie);
 //     if (userCookie) {
 //         const notice = await new Promise((resolve, reject) => {
-//             const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+//             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
 //             db.query(sqls, [user_id], (err, results) => {
 //                 if (err) return reject(err);
 //                 resolve(results);
 //             });
 //         });
 //         const userRent = await new Promise((resolve, reject) => {
-//             const sqls = `SELECT * FROM sun_planet.spc_rent ORDER BY id DESC;`;
+//             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent ORDER BY id DESC;`;
 //             db.query(sqls,  (err, results) => {
 //                 if (err) return reject(err);
 //                 resolve(results);
@@ -150,14 +150,14 @@ const oneRent = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const userRents = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_rent WHERE id =?;`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -182,21 +182,21 @@ const oneFillRent = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const userRent = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const userProps = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -225,7 +225,7 @@ const createRent = (req, res, next) => {
         const rent_id = Math.floor(Math.random() * 99999999);
         const user_id = userCookie.user_id;
         
-        db.query('INSERT INTO sun_planet.spc_rent SET ?', { property_name, rent_price ,address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id , user_id });
+        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_rent SET ?', { property_name, rent_price ,address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id , user_id });
 
         next();
     } catch (error) {
@@ -251,7 +251,7 @@ const approveRent = (req, res) => {
             const user_id = userCookie.user_id;
 
 
-            db.query('UPDATE sun_planet.spc_rent SET comment = ?, status = ? WHERE user_id = ?', [comment, status, user_id]);
+            db.query('UPDATE bkew76jt01b1ylysxnzp.spc_rent SET comment = ?, status = ? WHERE user_id = ?', [comment, status, user_id]);
             const ok = "Task Successful"
             res.redirect('/admin/all-rent')
         });
@@ -279,7 +279,7 @@ const deleteRent = (req, res, next) => {
             const id = req.params.id;
             
             // Perform the deletion
-            const sql = `DELETE FROM sun_planet.spc_rent WHERE id = ?;`;
+            const sql = `DELETE FROM bkew76jt01b1ylysxnzp.spc_rent WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
 

@@ -22,14 +22,14 @@ const allAdSaved = async (req, res) => {
 
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const sql = `
-      SELECT * FROM sun_planet.spc_saved WHERE user_id = ? ORDER BY id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_saved WHERE user_id = ? ORDER BY id DESC;
     `;
 
         db.query(sql, [userId], (err, results) => {
@@ -64,14 +64,14 @@ const allSaved = async (req, res) => {
 
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const sql = `
-      SELECT * FROM sun_planet.spc_saved WHERE user_id = ? ORDER BY id DESC;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_saved WHERE user_id = ? ORDER BY id DESC;
     `;
 
         db.query(sql, [userId], (err, results) => {
@@ -110,7 +110,7 @@ const oneSaved = (req, res) => {
         res.redirect('/logout');
     } else {
         const sql = `
-      SELECT * FROM sun_planet.spc_saved WHERE id =?;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_saved WHERE id =?;
     `;
 
         db.query(sql, [id], (err, results) => {
@@ -143,7 +143,7 @@ const createSaved = async(req, res, next) => {
 
         const notice = await new Promise((resolve, reject) => {
             const userId = userData.user_id
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -151,7 +151,7 @@ const createSaved = async(req, res, next) => {
         });
 
         const sql = `
-      SELECT * FROM sun_planet.spc_saved WHERE user_id = ? AND prop_id =?;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_saved WHERE user_id = ? AND prop_id =?;
     `;
 
 
@@ -165,7 +165,7 @@ const createSaved = async(req, res, next) => {
             }else{ 
                 try {
                     const sql = `
-                    SELECT * FROM sun_planet.spc_property WHERE prop_id = ?;
+                    SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE prop_id = ?;
                   `;
     
                     db.query(sql, [prop_id], (err, results) => {
@@ -180,7 +180,7 @@ const createSaved = async(req, res, next) => {
                         const pikz =picture.split(',')[0]  
                         const address = city+ ', ' + state
 
-                        db.query('INSERT INTO sun_planet.spc_saved SET ?', { prop_link, property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
+                        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_saved SET ?', { prop_link, property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
     
                         return next();
                     })
@@ -207,7 +207,7 @@ const createSavedAdmin = async (req, res, next) => {
     if (userData) {
         const notice = await new Promise((resolve, reject) => {
             const userId = userData.user_id
-            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls, [userId], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -215,7 +215,7 @@ const createSavedAdmin = async (req, res, next) => {
         });
 
         const sql = `
-      SELECT * FROM sun_planet.spc_saved WHERE user_id = ? AND prop_id =?;
+      SELECT * FROM bkew76jt01b1ylysxnzp.spc_saved WHERE user_id = ? AND prop_id =?;
     `;
 
 
@@ -229,7 +229,7 @@ const createSavedAdmin = async (req, res, next) => {
             }else{ 
                 try {
                     const sql = `
-                    SELECT * FROM sun_planet.spc_property WHERE prop_id = ?;
+                    SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE prop_id = ?;
                   `;
     
                     db.query(sql, [prop_id], (err, results) => {
@@ -244,7 +244,7 @@ const createSavedAdmin = async (req, res, next) => {
                         const pikz =picture.split(',')[0]  
                         const address = city+ ', ' + state
 
-                        db.query('INSERT INTO sun_planet.spc_saved SET ?', { prop_link, property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
+                        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_saved SET ?', { prop_link, property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
     
                         return next();
                     })
@@ -276,7 +276,7 @@ const deleteSaved = (req, res, next) => {
         try {
             const id = req.params.id;
             // Perform the deletion
-            const sql = `DELETE * FROM sun_planet.spc_saved WHERE prop_id = ?;`;
+            const sql = `DELETE * FROM bkew76jt01b1ylysxnzp.spc_saved WHERE prop_id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
                     console.error('Error deleting saved:', err);

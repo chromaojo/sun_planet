@@ -63,7 +63,7 @@ route.get('/verify-payment/:reference', async (req, res) => {
     const status = 'completed'
     const reference_number = reference
     
-    db.query('INSERT INTO sun_planet.spc_transaction SET ?', { user_id, reference_number, payment_method ,amount, status, description });
+    db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_transaction SET ?', { user_id, reference_number, payment_method ,amount, status, description });
 
     res.redirect('/user/transactions')
     // res.status(200).json({
