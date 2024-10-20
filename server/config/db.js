@@ -1,23 +1,23 @@
-// require('dotenv').config();
+require('dotenv').config();
 const mysql = require('mysql');
 
-// const db = mysql.createConnection({
-//     host: process.env.HOST,
-//     user: process.env.USER,
-//     password: process.env.PASS,
-//     database: process.env.DATABASE,
-//     waitForConnections: true,
-//   });
-
 const db = mysql.createConnection({
-  
-  host: 'localhost',
-  user: 'root',
-  password: 'Oluchroma234',
-  database: 'sun_planet',
-  waitForConnections: true,
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASS,
+    database: process.env.DATABASE,
+    waitForConnections: true,
+  });
 
-});
+// const db = mysql.createConnection({
+  
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'Oluchroma234',
+//   database: 'sun_planet',
+//   waitForConnections: true,
+
+// });
 
 
 // Workbench Setting 
