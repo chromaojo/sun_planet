@@ -6,22 +6,16 @@
             <div class="card info-card customers-card">
                 <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
-                            <h6>Details</h6>
+                            <h6>Option</h6>
                             <hr>
                         </li>
 
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-week"></i>: <%= new
-                                    Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short',
-                                    day :'2-digit'}) %> ||
-                                    <%= new Date(userProp.created_at).toLocaleTimeString() %></a>
-                        </li>
-                        <li>
-                            <a href="/admin/save/<%= userProp.prop_id %>" class="dropdown-item"> <i
-                                    class="bi bi-folder-plus"></i>Archive It</a>
-                        </li>
-                        <li><a class="dropdown-item" href="#">Location : <%= userProp.location %></a></li>
+                        <li><a class="dropdown-item" href="/user/save/<%= userProp.prop_id %>">Add To Archive</a></li>
+                        <li><a class="dropdown-item" href="/user/apply-rent/<%= userProp.id %>">Apply</a></li>
+
                     </ul>
                 </div>
 

@@ -45,14 +45,14 @@ route.get('/createUser', (req, res) => {
     db.query(sqlUsers, (errRoles) => {
         if (errRoles) {
             console.log('Error creating roles table:', errRoles);
-            return res.status(500).send('Internal Server Error');
+            return res.status(500).send('Internal User Server Error');
         }
         console.log('Users Created Successfully');
 
         db.query(sqlAccounts, (errAccounts) => {
             if (errAccounts) {
                 console.log('Error creating accounts table:', errAccounts);
-                return res.status(500).send('Internal Server Error');
+                return res.status(500).send('Internal Account Server Error');
             }
             console.log('Accounts Created Successfully');
 

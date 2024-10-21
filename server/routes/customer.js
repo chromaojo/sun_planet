@@ -9,7 +9,7 @@ const { UserLoggin } = require('../auth/auth');
 const {allMyNotice} = require('../module/notification');
 const { createRent, allMyRent, oneRent, oneFillRent  }=require('../module/rent')
 const { allMyLead, allLead, oneLead, createLead } = require('../module/lead');
-const { allProp, oneProp, createProp } = require('../module/property');
+const { allProp, oneProp, allFiltProp } = require('../module/property');
 const { allMyComplain, allComplain, createComplain } = require('../module/complaint');
 const { allMyRept, allRept, oneRept, deleteRept } = require('../module/report');
 const { allSaved, oneSaved, createSaved, deleteSaved } = require('../module/saved');
@@ -46,6 +46,12 @@ route.get('/dashboard', allProp, (req, res) => {
 });
 
 
+
+// See All Properties 
+
+route.post('/filter110', allFiltProp, (req, res) => {
+
+});
 
 
 
@@ -250,6 +256,7 @@ route.get('/logout', (req, res) => {
         }
     });
 });
+
 
 
 

@@ -41,7 +41,7 @@ route.get('/pricing', AvoidIndex, (req, res) => {
 
 route.get('/properties', AvoidIndex, (req, res) => {
     const sql = `
-    SELECT * FROM bkew76jt01b1ylysxnzp.spc_property ORDER BY id DESC;
+    SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
   `;
   const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
@@ -108,8 +108,8 @@ route.post('/nXcLl/login', async (req, res) => {
     // Check if the user and account details with the provided email exists
     const sqlGetUserWithAccount = `
        SELECT *
-       FROM bkew76jt01b1ylysxnzp.spc_users u
-       LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
+       FROM sun_planet.spc_users u
+       LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
        WHERE u.email = ?;
      `;
     db.query(sqlGetUserWithAccount, [email], async (error, result) => {

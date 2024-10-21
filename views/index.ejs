@@ -1,5 +1,5 @@
 <div class="pagetitle">
-  <h1>Dashboard - Properties</h1> <br>
+  <h1>Property Listing</h1> <br>
 </div><!-- End Page Title -->
 
 <section class="section dashboard">
@@ -9,7 +9,6 @@
     <div class="col-lg-8">
       <div class="container-fluid overflow-auto" style="height: 147vh;">
 
-        <!-- Sales Card -->
     
         <% if (userProp=='' ) { %>
           <br> 
@@ -25,7 +24,7 @@
                       <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
-                          <h6>Option</h6>
+                          <h6>Option</h6> <hr>
                         </li>
 
                         <li><a class="dropdown-item" href="/user/save/<%= trans.prop_id %>">Add To Archive</a></li>
@@ -69,19 +68,20 @@
 
     <!-- Right side columns -->
     <div class="col-lg-4">
-
-
       <div class="card info-card revenue-card">
         <div class="card-body">
           <h5 class="card-title">Filter <span>| Properties</span></h5>
         
-            <form class=" align-items-center" method="POST" action="#">
+            <form class=" align-items-center" method="POST" action="/user/filter110">
               <div class="d-flex ">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Filter Properties </option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select class="form-select" aria-label="Default select example" name="filter">
+                  <option selected>Filter Properties </option> <hr>
+                  <option value="apartment">Apartment</option>
+                  <option value="condo">Condo</option>
+                  <option value="detached_house">Detached_house</option>
+                  <option value="duplex">Duplex</option>
+                  <option value="flat">Flat</option>
+                  <option value="terrace">Terrace</option>
                 </select>
                 <button type="submit" title="Search" class="btn btn-light"><i class="bi bi-search"></i></button>
               </div>

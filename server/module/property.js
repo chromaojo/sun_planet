@@ -46,15 +46,16 @@ const allProp = async (req, res) => {
 
     const notice = await new Promise((resolve, reject) => {
         const user_id = userCookie.user_id;
-        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
         db.query(sqls, [user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
         });
     });
+    
     const userProp = await new Promise((resolve, reject) => {
 
-        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property ORDER BY id DESC;`;
+        const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC;`;
         db.query(sqls, [user_id], (err, results) => {
             if (err) return reject(err);
             resolve(results);
@@ -67,6 +68,8 @@ const allProp = async (req, res) => {
         return res.status(401).redirect('/logout');
     }
 };
+
+
 // To View All Properties
 const allAdProp = async (req, res) => {
 
@@ -75,14 +78,14 @@ const allAdProp = async (req, res) => {
     req.app.set('userData', userCookie);
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const userProp = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property ORDER BY id DESC;`;
+            const sqls = `SELECT * FROM sun_planet.spc_property ORDER BY id DESC;`;
             db.query(sqls,  (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -100,7 +103,6 @@ const allAdProp = async (req, res) => {
 
 
 // To view only one property 
-
 const oneProp = async (req, res) => {
 
     const id = req.params.id;
@@ -112,14 +114,14 @@ const oneProp = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const userProps = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE id =?;`;
+            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -144,14 +146,14 @@ const oneAdProp = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
+            const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
             db.query(sqls, [user_id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
         const userProps = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE id =?;`;
+            const sqls = `SELECT * FROM sun_planet.spc_property WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
@@ -190,7 +192,7 @@ const createProp = (req, res) => {
             // Now you can handle the name, age, address, and pictures array
             // For example, save them to a database, send to another API, etc.
 
-            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_property SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
+            db.query('INSERT INTO sun_planet.spc_property SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
             res.redirect('/admin/props')
         });
 
@@ -204,8 +206,6 @@ const createProp = (req, res) => {
 
 
 // To delete a property content
-
-
 const deleteProp = (req, res, next) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -217,7 +217,7 @@ const deleteProp = (req, res, next) => {
             const id = req.params.id;
 
             // Perform the deletion
-            const sql = `DELETE FROM bkew76jt01b1ylysxnzp.spc_property WHERE id = ?;`;
+            const sql = `DELETE FROM sun_planet.spc_property WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
 
@@ -239,5 +239,39 @@ const deleteProp = (req, res, next) => {
 };
 
 
+// To View All Properties
+const allFiltProp = async (req, res) => {
 
-module.exports = { oneProp, oneAdProp, allProp, allAdProp, deleteProp, createProp }
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    req.app.set('userData', userCookie);
+    const {filter} = req.body
+    
+    if (userCookie) {
+
+    const notice = await new Promise((resolve, reject) => {
+        const user_id = userCookie.user_id;
+        const sqls = `SELECT * FROM sun_planet.spc_notification WHERE user_id = ?`;
+        db.query(sqls, [user_id], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    const userProp = await new Promise((resolve, reject) => {
+
+        const sqls = `SELECT * FROM sun_planet.spc_property WHERE property_type = ? ORDER BY id DESC;`;
+        db.query(sqls, [filter], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+    
+    const userData = userCookie
+    return res.render('index', { userData, userProp, info , notice });
+    } else {
+        return res.status(401).redirect('/logout');
+    }
+};
+
+
+
+module.exports = { oneProp, oneAdProp, allProp, allAdProp, deleteProp, createProp, allFiltProp }
