@@ -124,7 +124,7 @@ const allAdInvest = async (req, res) => {
 
 // To view only one investment 
 
-const oneInvest = (req, res, next) => {
+const oneInvest = async(req, res, next) => {
 
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -133,6 +133,13 @@ const oneInvest = (req, res, next) => {
     if (!userCookie) {
         res.redirect('/logout');
     } else {
+        const notice = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
+            db.query(sqls, [userData.user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
         const sql = `
       SELECT * FROM bkew76jt01b1ylysxnzp.spc_investment WHERE id =?;
     `;
@@ -147,7 +154,7 @@ const oneInvest = (req, res, next) => {
             if (results) {
                 const userInvest = results[0]
                 console.log('Investments are ', userInvest)
-                res.render('Invest-one', { userData, userInvest, info });
+                res.render('Invest-one', { userData, notice, userInvest, info });
             }
 
         })

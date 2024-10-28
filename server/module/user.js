@@ -28,7 +28,6 @@ const allUser = async (req, res) => {
     const sql = `
       SELECT * FROM bkew76jt01b1ylysxnzp.spc_users;
     `;
-
     db.query(sql, [userId], (err, results) => {
         if (err) {
             console.log('Error retrieving shipments:', err);

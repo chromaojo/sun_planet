@@ -1,5 +1,5 @@
 // require('dotenv').config();
-const mysql = require('mysql');
+const mysql = require('mysql'); 
 
 // const db = mysql.createConnection({
 //     host: process.env.HOST,
@@ -19,24 +19,27 @@ const mysql = require('mysql');
 
 // });
 
+
+
+// const db = mysql.createConnection({
+//   host: process.env.MYSQL_ADDON_HOST,
+//   user: process.env.MYSQL_ADDON_USER,
+//   uri: process.env.MYSQL_ADDON_URI,
+//   password: process.env.MYSQL_ADDON_PASSWORD,
+//   database : process.env.MYSQL_ADDON_DB,
+//   port : process.env.MYSQL_ADDON_PORT,
+//   waitForConnections: true,
+// });
+
+
 const db = mysql.createConnection({
-  host: process.env.MYSQL_ADDON_HOST,
-  user: process.env.MYSQL_ADDON_USER,
-  uri: process.env.MYSQL_ADDON_URI,
-  password: process.env.MYSQL_ADDON_PASSWORD,
-  database : process.env.MYSQL_ADDON_DB,
-  port : process.env.MYSQL_ADDON_PORT,
+
+  host: 'localhost',
+  user: 'root',
+  password: 'Oluchroma234',
+  database: 'sun_planet',
   waitForConnections: true,
 });
-
-
-// const db = mysql.createPool({
-//   host: 'localhost',
-//   user: 'root',
-//   password: '',
-//   database: 'nica_app',
-// waitForConnections: true,
-// });
 
 
 db.connect((error) => {

@@ -98,7 +98,7 @@ const upload = multer({ storage });
 route.post('/upload-pix', upload.single('profileImage'), (req, res) => {
 
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-
+    const userData = userCookie
     const imageP = '/' + req.file.path.replace(/\\/g, '/');
     const imagePath = imageP.replace('/public', '');
     console.log('Image Path is ', imagePath);

@@ -21,6 +21,7 @@ route.use(
         cookie: { secure: true }
     })
 );
+
 route.use('/DxXTWwq', require('../module/payment'));
 
 // Home Page 
@@ -41,7 +42,7 @@ route.get('/pricing', AvoidIndex, (req, res) => {
 
 route.get('/properties', AvoidIndex, (req, res) => {
     const sql = `
-    SELECT * FROM sun_planet.spc_property ORDER BY id DESC;
+    SELECT * FROM bkew76jt01b1ylysxnzp.spc_property ORDER BY id DESC;
   `;
   const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
@@ -108,8 +109,8 @@ route.post('/nXcLl/login', async (req, res) => {
     // Check if the user and account details with the provided email exists
     const sqlGetUserWithAccount = `
        SELECT *
-       FROM sun_planet.spc_users u
-       LEFT JOIN sun_planet.spc_accounts a ON u.user_id = a.user_id
+       FROM bkew76jt01b1ylysxnzp.spc_users u
+       LEFT JOIN bkew76jt01b1ylysxnzp.spc_accounts a ON u.user_id = a.user_id
        WHERE u.email = ?;
      `;
     db.query(sqlGetUserWithAccount, [email], async (error, result) => {
@@ -141,7 +142,7 @@ route.post('/nXcLl/login', async (req, res) => {
         req.app.set('userData', result[0])
         let ans = result[0];
         delete ans.password
-        const userWithAccount = ans
+        const userWithAccount = ans;
         console.log('The details are ',ans)
         res.cookie('user', JSON.stringify({ ...userWithAccount }));
         

@@ -5,8 +5,12 @@
 
   <% if (userProp) { %>
      <div class="card p-4">
-    <form action="/user/rental-submit" method="POST">
-      <div class="card-body">  <b>Booking Form</b> <br> <br>
+    <% if (userData.role === 'admin' ) { %>
+      <form action="/admin/rental-submit" method="POST">
+    <% } else { %>
+      <form action="/user/rental-submit" method="POST">
+    <% } %>
+      <div class="card-body">  <b>Booking Forms</b> <br> <br>
 
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="property_name" readonly aria-label="Username" value="<%= userProp.property_name %>">

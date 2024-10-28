@@ -13,8 +13,8 @@
                             <hr>
                         </li>
 
-                        <li><a class="dropdown-item" href="/user/save/<%= userProp.prop_id %>">Add To Archive</a></li>
-                        <li><a class="dropdown-item" href="/user/apply-rent/<%= userProp.id %>">Apply</a></li>
+                        <li><a class="dropdown-item" href="/admin/save/<%= userProp.prop_id %>">Add To Archive</a></li>
+                        <li><a class="dropdown-item" href="/admin/apply-rent/<%= userProp.id %>">Apply</a></li>
 
                     </ul>
                 </div>
@@ -105,7 +105,8 @@
                                     <h5 class="card-title"><i class="bi bi-calendar3"></i> <span>
                                             <%= new Date(userProp.created_at).toLocaleString('en-GB',{year : 'numeric' ,
                                                 month:'short', day :'2-digit'}) %>
-                                        </span></h5>
+                                        </span> | <a class="btn btn-sm btn-outline-primary" href="/admin/apply-rent/<%= userProp.id %>">Apply</a>
+                                    </h5>
                                     <h5 class="card-title text-capitalize"> <i class="bi bi-diamond-half"></i><span>
                                             <%= userProp.number_of_units %> Unit
                                                 <%= userProp.lease_status %>

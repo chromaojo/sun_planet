@@ -188,6 +188,7 @@ const oneFillRent = async (req, res) => {
                 resolve(results);
             });
         });
+        
         const userRent = await new Promise((resolve, reject) => {
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
             db.query(sqls, [user_id], (err, results) => {
@@ -226,7 +227,7 @@ const createRent = (req, res, next) => {
         const user_id = userCookie.user_id;
         
         db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_rent SET ?', { property_name, rent_price ,address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id , user_id });
-
+ 
         next();
     } catch (error) {
         console.error('Thi is an error ', error)

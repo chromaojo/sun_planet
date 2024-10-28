@@ -19,14 +19,17 @@
               <div class="card info-card sales-card">
                 <div class="filter">
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                      <h6>Option</h6>
+                        <h6>Option</h6>
+                        <hr>
                     </li>
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">Confirm </a></li>
+
                     <li><a class="dropdown-item" href="/admin/save/<%= trans.prop_id %>">Add To Archive</a></li>
-                  </ul>
+                    <li><a class="dropdown-item" href="/admin/apply-rent/<%= trans.id %>">Apply</a></li>
+
+                </ul>
                 </div>
                 <div class="card-body">
                   <h5 class="card-title text-capitalize"><%= trans.property_type %><span> |  <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day

@@ -6,8 +6,8 @@ const db = require('../config/db');
 const {notice, }= require('../config/info')
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
-const {myTrans, }=require('../module/transactions') 
-const { createRent,allRent, allMyRent, oneRent, approveRent}=require('../module/rent')
+const {myTrans, }=require('../module/transactions');
+const { createRent,allRent, allMyRent, oneFillRent, oneRent, approveRent}=require('../module/rent')
 const {eachUser, editUser, allUser }=require('../module/user')
 const {allMyNotice, deleteNotice, } = require('../module/notification')
 const { allMyAdLead, oneLead, createLead } = require('../module/lead');
@@ -261,6 +261,15 @@ route.get('/all-rent', allRent);
 
 // To gat One rent
 route.get('/renter/:id', oneRent);
+
+// To view only one rent details
+route.get('/apply-rent/:id', oneFillRent);
+
+// To post data from frontend
+route.post('/rental-submit', createRent, (req, res)=>{
+      
+    res.redirect('/admin/all-rent');
+});
 
 // To gat validate rent
 route.post('/vali-rent/:id', approveRent);

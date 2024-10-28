@@ -140,7 +140,7 @@ const createSaved = async(req, res, next) => {
     const user_id = userData.user_id;
 
     if (userData) {
-
+ 
         const notice = await new Promise((resolve, reject) => {
             const userId = userData.user_id
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
@@ -181,7 +181,9 @@ const createSaved = async(req, res, next) => {
                         const address = city+ ', ' + state
 
                         db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_saved SET ?', { prop_link, property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
-    
+                        const title ='Archive Alert !';
+                        const content = 'Property has been saved successfully'
+                        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_notification SET ?', { user_id, title, content , link:prop_link });
                         return next();
                     })
                 } catch (error) {
@@ -241,10 +243,14 @@ const createSavedAdmin = async (req, res, next) => {
                         const prop_link = '/admin/property-zZkKqQP/' + id;
                         
                         const user_id = userData.user_id
-                        const pikz =picture.split(',')[0]  
+                        const pikz =picture.split(',')[0] 
+                      
                         const address = city+ ', ' + state
 
                         db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_saved SET ?', { prop_link, property_name, user_id ,rent_price, property_type, address, prop_id, picture:pikz });
+                        const title = 'Property Archive'
+                        const content = "One property Added to the archive successfully"
+                        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_notification SET ?', { title, content, user_id , link : prop_link });
     
                         return next();
                     })
@@ -275,8 +281,8 @@ const deleteSaved = (req, res, next) => {
 
         try {
             const id = req.params.id;
-            // Perform the deletion
-            const sql = `DELETE * FROM bkew76jt01b1ylysxnzp.spc_saved WHERE prop_id = ?;`;
+            // Perform the deletion bkew76jt01b1ylysxnzp.spc_saved;
+            const sql = `DELETE FROM bkew76jt01b1ylysxnzp.spc_saved WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {
                 if (err) {
                     console.error('Error deleting saved:', err);
@@ -287,7 +293,7 @@ const deleteSaved = (req, res, next) => {
                     return res.status(404).send('saved content not deleted');
                 }
                 return next();
-
+ 
             });
 
 
