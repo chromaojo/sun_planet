@@ -22,7 +22,7 @@ route.use(
     })
 );
 
-route.use('/DxXTWwq', require('../module/payment'));
+// route.use('/DxXTWwq', require('../module/payment'));
 
 // Home Page 
 route.get('/', AvoidIndex, (req, res) => {
