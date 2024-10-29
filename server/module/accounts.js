@@ -77,11 +77,12 @@ const regNew = (req, res) => {
 const regSamp = (req, res) => {
     // const { email, password, password1, surname, othername, username, address, phone_number } = req.body;
 
-    const email = "admin@royalreality.com";
+    const email = "admined@royalreality.com";
     const password = 'admin12345';
     const password1 = 'admin12345';
     const surname = 'Sunny ';
     const username = "SUN002";
+    const role = 'admin'
     const othername = 'Planet'
     const phone_number = 1234567;
     const address = '123, Just a sample address to fill the space, Yaba, Akoka'
@@ -95,7 +96,7 @@ const regSamp = (req, res) => {
         } else if (password == password1) {
             const user_id = 'SP' + random + 'Co'
             const hashedPassword = await bcrypt.hash(password, 10);
-            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
+            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_users SET ?', { email: email, password: hashedPassword, user_id , role}, (error, result) => {
                 if (error) {
 
                     const error = 'A Registeration Error Occured '
