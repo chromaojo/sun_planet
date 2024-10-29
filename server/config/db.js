@@ -30,10 +30,9 @@ const db = mysql.createConnection({
   port : process.env.MYSQL_ADDON_PORT,
   waitForConnections: true,
 });
-
+ 
 
 // const db = mysql.createConnection({
-
 //   host: 'localhost',
 //   user: 'root',
 //   password: 'Oluchroma234',
