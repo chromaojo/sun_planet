@@ -80,7 +80,7 @@ const regSamp = (req, res) => {
     const email = "admined@royalreality.com";
     const password = 'admin12345';
     const password1 = 'admin12345';
-    const surname = 'Sunny ';
+    const surname = 'Property';
     const username = "SUN0003";
     const role = 'admin'
     const othername = 'Planet'
