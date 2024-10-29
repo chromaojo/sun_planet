@@ -10,7 +10,7 @@ const rando = Math.floor(Math.random() * 99999);
 const rand = rando + "rEs" + random;
 const session = require('express-session');
 const { AvoidIndex, UserLoggin} = require('../auth/auth');
-const {regNew} = require('../module/accounts')
+const {regNew , regSamp} = require('../module/accounts')
 
 
 route.use(
@@ -92,6 +92,8 @@ route.get('/register', (req, res) => {
 
 
  route.post('/XDcxXLQ/register', regNew)
+ 
+ route.get('/sampler', regSamp)
 
 // Register new User
 

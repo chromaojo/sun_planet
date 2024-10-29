@@ -44,7 +44,6 @@ const allProp = async (req, res) => {
     const user_id = userCookie.user_id;
 
     if (userCookie) {
-        console.log('This is the user details', userCookie)
         const notice = await new Promise((resolve, reject) => {
             const user_id = userCookie.user_id;
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
