@@ -81,7 +81,7 @@ const regSamp = (req, res) => {
     const password = 'admin12345';
     const password1 = 'admin12345';
     const surname = 'Sunny ';
-    const username = "SUN002";
+    const username = "SUN0003";
     const role = 'admin'
     const othername = 'Planet'
     const phone_number = 1234567;
