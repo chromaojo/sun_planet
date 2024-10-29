@@ -62,17 +62,18 @@ const ClientRole = async (req, res, next) => {
    
 
     if (userData) {
-        const notice = await new Promise((resolve, reject) => {
-            const userId = userCookie.user_id
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [userId], (err, results) => {
-                if (err) return reject(err);
-                resolve(results);
-            });
-        });
+        
         if (userCookie.role === 'client') {
             return next();
         } else {
+            const notice = await new Promise((resolve, reject) => {
+                const userId = userCookie.user_id
+                const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
+                db.query(sqls, [userId], (err, results) => {
+                    if (err) return reject(err);
+                    resolve(results);
+                });
+            });
             const error = 'You are not Unauthorized to access the page'
             return res.render('error', { userData, error, notice })
             // return res.status(401).redirect('/logout');
