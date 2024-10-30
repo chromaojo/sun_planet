@@ -9,15 +9,15 @@ const db = require('../config/db');
 route.get('/createUser', (req, res) => {
 
 
-    const sqlUsers = `
-        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_users (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        user_id VARCHAR(255) UNIQUE,
-        email VARCHAR(255) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL,
-        role ENUM('admin', 'client') DEFAULT 'client'
-        );
-        `;
+    // const sqlUsers = `
+    //     CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_users (
+    //     id INT PRIMARY KEY AUTO_INCREMENT,
+    //     user_id VARCHAR(255) UNIQUE,
+    //     email VARCHAR(255) NOT NULL UNIQUE,
+    //     password VARCHAR(255) NOT NULL,
+    //     role ENUM('admin', 'client') DEFAULT 'client'
+    //     );
+    //     `;
 
     const sqlAccounts = `
         CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_accounts (
