@@ -57,7 +57,7 @@ const eachUser = async (req, res )=>{
         });
     });
     const accts = await new Promise((resolve, reject) => {
-        const userId = userData.user_id
+        const userId = user_id
         const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_accounts WHERE user_id = ?`;
         db.query(sqls, [userId], (err, results) => {
             if (err) return reject(err);
