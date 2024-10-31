@@ -82,8 +82,8 @@ const eachUser = async (req, res )=>{
         res.clearCookie('userOne');
         
         const userOne = results[0];
-        // const acct = accts[0];
-        const acct = accts;
+        const acct = accts[0];
+        // const acct = accts;
         res.render('user-edit', { userData, userOne, acct , notice })
     });
 }

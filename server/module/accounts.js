@@ -13,6 +13,8 @@ const rand = rando + "FTL" + random;
 
 // username, surname, othername, phone_number, address
 
+
+
 // To create User and Account 
 // Register new user 
 const regNew = (req, res) => {
@@ -36,12 +38,12 @@ const regNew = (req, res) => {
 
                     // const messages = {
                     //     from: {
-                    //         name: 'Property Biz Software',
+                    //         name: 'SUN PLANET Software',
                     //         address: 'felixtemidayoojo@gmail.com',
                     //     },
                     //     to: email,
-                    //     subject: "Welcome To Property Biz App",
-                    //     text: `<b> Dear New User, Welcome to Property Biz INT'L,</b> \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
+                    //     subject: "Welcome To Sun Planet ",
+                    //     text: `<b> Dear New User, Welcome to Sun Planet INT'L,</b> \n \n  Your Transactional Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your account.`,
                     // } 
                     // mail.sendIt(messages)
 
@@ -105,12 +107,12 @@ const regSamp = (req, res) => {
 
                     // const messages = {
                     //     from: {
-                    //         name: 'Property Biz Software',
+                    //         name: 'Sun Planet Software',
                     //         address: 'felixtemidayoojo@gmail.com',
                     //     },
                     //     to: email,
-                    //     subject: "Welcome To Property Biz App",
-                    //     text: `<b> Dear New User, Welcome to Property Biz INT'L,</b> \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
+                    //     subject: "Welcome To Sun Planet App",
+                    //     text: `<b> Dear New User, Welcome to Sun Planet INT'L,</b> \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
                     // } 
                     // mail.sendIt(messages)
 

@@ -9,6 +9,7 @@ const { UserLoggin } = require('../auth/auth');
 const {myTrans, }=require('../module/transactions');
 const { createRent,allRent, allMyRent, oneFillRent, oneRent, approveRent}=require('../module/rent')
 const {eachUser, editUser, allUser }=require('../module/user')
+const {regNew} = require('../module/accounts')
 const {allMyNotice, deleteNotice, } = require('../module/notification')
 const { allMyAdLead, oneLead, createLead } = require('../module/lead');
 const { allAdProp, oneAdProp, createProp, deleteProp } = require('../module/property');
@@ -45,64 +46,6 @@ route.use(express.urlencoded({ extended: true }));
 
 
 
-// Register new user 
-route.post('/register', (req, res) => {
-    const { email, password, password1, surname, othername, username, address, phone_number } = req.body;
-
-    db.query('SELECT email FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [email], async (error, result) => {
-        if (error) { console.log("Customized Error ", error); }
-        if (result.length > 0) {
-            return res.status(401).json({
-                message: 'Email Already Taken'
-            })
-        } else if (password == password1) {
-            const user_id = 'sun' + random + 'P'
-            const hashedPassword = await bcrypt.hash(password, 10);
-            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_users SET ?', { email: email, password: hashedPassword, user_id }, (error, result) => {
-                if (error) {
-                    console.log('A Registeration Error Occured ', error);
-                } else {
-
-                    const messages = {
-                        from: {
-                            name: 'Sun Planet Co',
-                            address: 'felixtemidayoojo@gmail.com',
-                        },
-                        to: email,
-                        subject: "Welcome To Sun Planet Company",
-                        text: `<b> Dear New User, Welcome to Sun Planet Co ,</b> \n \n  Your Real Est Account has been opened successfully . \n Ensure that Your Password is kept safe. Incase of any compromise, ensure you change or optimizee the security on your application.`,
-                    } 
-                    mail.sendIt(messages)
-
-                    // To create the account table into the user 
-                    db.query('SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [email], async (error, result) => {
-                        if (error) {
-
-                            return res.status(500).json({
-                                message: 'Internal Server Error'
-                            });
-                        } else {
-                            const title = "New User";
-                            const content = 'Welcome To Sun Planet Ltd. Thank You for embarking on thing fruitfull journey.'
-                            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_notification SET ?', { user_id: result[0].user_id, title, content });
-                            db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_accounts SET ?', { user_id: result[0].user_id, email: email, account_id: rand, account_balance: 0, surname: surname, othername: othername, username: username, address: address, phone_number: phone_number });
-                        }
-                    });
-
-
-                    return res.redirect('/login');
-                }
-
-            });
-
-
-        } else {
-            return res.redirect('/register');
-        }
-
-    })
-
-});
 
 
 // To get notifications 
@@ -223,7 +166,6 @@ route.get('/del-prop/:id', deleteProp, (req, res) => {
 });
 
 
-
 // To Read One Property detail 
 route.get('/property-zZkKqQP/:id', oneAdProp, (req, res) => {
 
@@ -252,6 +194,25 @@ route.post('/create/pXrRoPp', createProp, (req, res) => {
 
 
 });
+
+
+// To register a new account 
+route.get('/register', (req, res) => {
+
+
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    if (userCookie) {
+        res.sendFile(path.join(__dirname, "../../statics", 'signUp.html'));
+
+    } else {
+
+        res.redirect('/login');
+    }
+})
+
+
+ route.post('/XDcxXLQ/register', regNew)
 
 // To gat my Transactions
 route.get('/transactions', myTrans);

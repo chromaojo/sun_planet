@@ -4,7 +4,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="/" class="logo d-flex align-items-center">
-        <img src="asset/img/logo.png" alt="">
+        <img src="/asset/img/logo.png" alt="">
         <!-- <span class="d-none d-lg-block">Sun Planet</span> -->
       </a>
 
@@ -82,10 +82,12 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="<%= userData.profilePix?userData.profilePix: " /assets/img/profile-img.jpg" %>" alt="Profile"
+            class="rounded-circle" >
+
             <span class="d-none d-md-block dropdown-toggle ps-2 text-capitalize">
               <%= userData.surname ? userData.surname.charAt(0) : '' %>.
-              <%= userData.othername %> &nbsp;
+                <%= userData.othername %> &nbsp;
             </span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -187,7 +189,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="/user/mYlead/wWwCcYtT">
           <i class="bi bi-book-half"></i>
-          <span>Leads</span>
+          <span>Contact /Lead</span>
         </a>
       </li><!-- End User Nav -->
 
@@ -222,7 +224,7 @@
       <div class="d-flex align-items-center justify-content-between">
         <a href="/admin/dashboard" class="logo d-flex align-items-center">
           <!-- <img src="/assets/img/logo.png" alt=""> -->
-          <img src="asset/img/logo.png" alt="">
+          <img src="/asset/img/logo.png" alt="">
           <!-- <span class="d-none d-lg-block">Prop Biz</span> -->
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -258,9 +260,10 @@
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                 <li class="dropdown-header">
                   You have <%= notice.length %> new notifications
-                    <a href="/<%= userData.role %>/notif"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                    <a href="/<%= userData.role %>/notif"><span class="badge rounded-pill bg-primary p-2 ms-2">View
+                        all</span></a>
                 </li>
-                
+
 
                 <li>
                   <hr class="dropdown-divider">
@@ -302,10 +305,11 @@
           <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-              <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+              <img src="<%= userData.profilePix?userData.profilePix: " /assets/img/profile-img.jpg" %>" alt="Profile"
+              class="rounded-circle" >
               <span class="d-none d-md-block dropdown-toggle ps-2 text-capitalize">
                 <%= userData.surname ? userData.surname.charAt(0) : '' %>.
-. <%= userData.othername %> &nbsp;
+                  . <%= userData.othername %> &nbsp;
               </span>
             </a><!-- End Profile Iamge Icon -->
 
@@ -430,7 +434,7 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="/admin/mYlead/wWwCcYtT">
             <i class="bi bi-book-half"></i>
-            <span>Leads</span>
+            <span>Leads / Contact</span>
           </a>
         </li><!-- End User Nav -->
 
@@ -467,6 +471,12 @@
             <span>Create Investment </span>
           </a>
         </li><!-- End Dashboard Nav -->
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="/admin/register">
+            <i class="bi bi-bank"></i>
+            <span>Create New User</span>
+          </a>
+        </li><!-- End User -->
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-layout-text-window-reverse"></i><span>Report</span><i
