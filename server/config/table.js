@@ -69,12 +69,13 @@ route.get('/createProp', (req, res) => {
             id INT AUTO_INCREMENT PRIMARY KEY,
             property_name VARCHAR(100) NOT NULL,        -- Name or title of the property
             youtube VARCHAR(255),
-            address VARCHAR(255) NOT NULL,              -- Full address of the property
-            city VARCHAR(100) NOT NULL,                 -- City where the property is located
-            state VARCHAR(100),                -- State/Province
-            country VARCHAR(100),              -- Country of the property
-            postal_code VARCHAR(20),                    -- ZIP or Postal Code
-            property_type ENUM('apartment', 'terrace', 'duplex', 'condo', 'detached_house', 'flat') NOT NULL, 
+            address VARCHAR(255) NOT NULL,              
+            city VARCHAR(100) NOT NULL,         
+            state VARCHAR(100), 
+            country VARCHAR(100), 
+            postal_code VARCHAR(20),
+            property_type ENUM('apartment', 'land' ,'terrace', 'duplex', 'condo', 'detached_house', 'flat') NOT NULL, 
+            action ENUM('for_sale', 'for_lease', 'shortlet','flat') NOT NULL, 
             number_of_units INT DEFAULT 1,              -- Number of units for multi-unit properties
             size_in_sqft DECIMAL(10, 2),                -- Size of the property in square feet
             bedrooms INT,                               -- Number of bedrooms (if applicable)

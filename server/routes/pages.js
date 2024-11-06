@@ -40,13 +40,14 @@ route.get('/pricing', AvoidIndex, (req, res) => {
 
 // Properties Section 
 
-route.get('/properties', AvoidIndex, (req, res) => {
+route.get('/prop/:type', AvoidIndex, (req, res) => {
+    const property_type = req.params.type;
     const sql = `
-    SELECT * FROM bkew76jt01b1ylysxnzp.spc_property ORDER BY id DESC;
+    SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE property_type = ? ORDER BY id DESC;
   `;
   const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-      db.query(sql,  (err, results) => {
+      db.query(sql,[property_type], (err, results) => {
           if (err) {
               console.log('Login Issues :', err);
               return res.status(500).send('Internal Server Error');

@@ -42,7 +42,17 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="/#hero" class="active">Home<br></a></li>
-          <li><a href="/properties">Properties</a></li>
+          <li class="dropdown"><a href="#"><span>Properties</span> <i
+                class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="/prop/apartment">Apartments</a></li>
+              <li><a href="/prop/condo">Condo</a></li>
+              <li><a href="/prop/detached_house">Detached House</a></li>
+              <li><a href="/prop/duplex">Duplex</a></li>
+              <li><a href="/prop/flat">Flat</a></li>
+              <li><a href="/prop/terrace">Terrace</a></li>
+            </ul>
+          </li>
           <li><a href="#Investment">Investment</a></li>
           <li class="dropdown"><a href="/#about"><span>About</span> <i
                 class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -95,13 +105,12 @@
         <div class="row gy-4 mt-5">
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
             <div class="icon-box">
-              <div class="icon"><i class="bi bi-easel"></i></div>
-              <h4 class="title"><a href="">Property Development</a></h4>
+              <div class="icon"><i class="bi bi-house-fill"></i></div>
+              <h4 class="title"><a href="/prop/apartment">Property Lease</a></h4>
               <p class="description">
-                We specialize in constructing high-quality residential and commercial buildings on prime properties.
-                <br>Our
-                developments are designed with modern amenities and sustainable practices to meet the diverse needs of
-                our clients.
+                Click here to explore our available properties for lease. We offer prime options tailored for
+                individuals, families, and businesses looking for lasting accommodations.
+                Start your journey to find a place you can truly call home
 
               </p>
             </div>
@@ -110,24 +119,22 @@
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="200">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-gem"></i></div>
-              <h4 class="title"><a href="">Property Rental</a></h4>
+              <h4 class="title"><a href="">Investments</a></h4>
               <p class="description">
-                Our portfolio includes a variety of properties available for rent. <br>From luxurious apartments to
-                spacious commercial spaces, we provide flexible rental options to suit different preferences and
-                budgets.
-
+                Interested in property investments? Click here to learn how you can invest in our properties to enjoy
+                future rental income and steady asset growth. Join our network of smart investors and see the value of
+                your investment grow.
               </p>
             </div>
           </div><!--End Icon Box -->
 
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="300">
             <div class="icon-box">
-              <div class="icon"><i class="bi bi-geo-alt"></i></div>
-              <h4 class="title"><a href="">Service Apartments</a></h4>
-              <p class="description">Our service apartments offer a perfect blend of comfort and convenience. <br>Fully
-                furnished and meticulously maintained, they provide an ideal living environment for both short-term and
-                long-term stays.
-
+              <div class="icon"><i class="bi bi-house"></i></div>
+              <h4 class="title"><a href="/prop/shortlet">Shortlets</a></h4>
+              <p class="description">Ready for a short stay or a quick getaway? <br>Visit our shortlet section for
+                fully-furnished, short-term rental options that provide all the comfort and convenience you need. Book
+                your next short-term stay with ease!
               </p>
             </div>
           </div><!--End Icon Box -->
@@ -135,11 +142,11 @@
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="400">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-command"></i></div>
-              <h4 class="title"><a href="">Property Maintenance</a></h4>
+              <h4 class="title"><a href="/prop/forsale">Property Sales</a></h4>
               <p class="description">
-                We offer comprehensive property maintenance services to ensure that our buildings remain in excellent
-                condition. <br>Our team of professionals is dedicated to providing prompt and efficient maintenance
-                solutions.
+                Ready to buy? Discover our diverse properties available for sale. Whether you’re looking for
+                residential, commercial, or investment properties, our listings have something for every buyer. Click
+                here to begin your journey toward ownership.
               </p>
             </div>
           </div><!--End Icon Box -->
@@ -147,15 +154,11 @@
         </div>
       </div>
 
-    </section><!-- /Hero Section -->
-
-    
+    </section><!-- /Hero Section --> <br>
 
     <!-- About Alt Section -->
     <section id="about-alt" class="about-alt section">
-
       <div class="container">
-
         <div class="row gy-4">
           <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
             <img src="asset/img/about.jpg" class="img-fluid" alt="">
@@ -187,170 +190,102 @@
 
     </section><!-- /About Alt Section -->
 
-        <!-- Call To Action Section -->
-        <section id="call-to-action" class="call-to-action section steeze">
-          <!-- accent-background -->
-          <div class="container">
-            <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
-              <div class="col-xl-10">
-                <div class="text-center">
-                  <h3 class="text-light fw-bold">Investment Alert</h3>
-                  <p class="text-light ">"Get in Touch to Start Your Investment Journey <br>Let your money make more money while you rest"</p>
-                  <a class="cta-btn" href="#">Invest Now</a>
-                </div>
-              </div>
+    <!-- Property Section -->
+    <div class="container mt-5 mb-5">
+      <h2 class="text-center mb-5 fw-bold">Properties</h2>
+      <div class="row row-cols-1 row-cols-md-4 mb-5 text-center">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header bg-danger py-3">
+              <h4 class="my-0 fw-normal text-light">Investments</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">Investment</h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Click Here</li>
+                <li>To See A Range</li>
+                <li>Of Our Properties</li>
+                <li>Available For Lease</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-outline-danger">Click To View</button>
             </div>
           </div>
-    
-        </section><!-- /Call To Action Section -->
-
-
-
-    <!-- Peopwerty Section -->
-    <section id="testimonials" class="testimonials section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="zoom-in">
-        <h2>Properties</h2>
-        
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper" data-speed="600" data-delay="5000"
-          data-breakpoints="{ &quot;320&quot;: { &quot;slidesPerView&quot;: 1, &quot;spaceBetween&quot;: 40 }, &quot;1200&quot;: { &quot;slidesPerView&quot;: 3, &quot;spaceBetween&quot;: 40 } }">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 20
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-                  style="background-image: url('asset/img/prop1.jpg');">
-                  <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <p class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">2 BD Flat</p>
-                    <ul class="d-flex list-unstyled mt-auto">
-                      <li class="me-auto">
-                        <img src='asset/img/favicon.png' alt="SUNPLANET LOGO" width="32" height="32"
-                          class="rounded-circle border border-white">
-                      </li>
-                      <li class="d-flex align-items-center me-3">
-                        <svg class="bi me-2" width="1em" height="1em">
-                          <use xlink:href="#geo-fill" />
-                        </svg>
-                        <small>Sunplanet</small>
-                      </li>
-                      
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-                  style="background-image: url('asset/img/prop2.jpg');">
-                  <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <p class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">An Hostel</p>
-                    <ul class="d-flex list-unstyled mt-auto">
-                      <li class="me-auto">
-                        <img src='asset/img/favicon.png' alt="SUNPLANET LOGO" width="32" height="32"
-                          class="rounded-circle border border-white">
-                      </li>
-                      <li class="d-flex align-items-center me-3">
-                        <svg class="bi me-2" width="1em" height="1em">
-                          <use xlink:href="#geo-fill" />
-                        </svg>
-                        <small>Sunplanet</small>
-                      </li>
-                     
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-                  style="background-image: url('asset/img/prop3.jpg'); background-size: cover;">
-                  <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <p class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Bungalow</p>
-                    <ul class="d-flex list-unstyled mt-auto">
-                      <li class="me-auto">
-                        <img src='asset/img/favicon.png' alt="SUNPLANET LOGO" width="32" height="32"
-                          class="rounded-circle border border-white">
-                      </li>
-                      <li class="d-flex align-items-center me-3">
-                        <svg class="bi me-2" width="1em" height="1em">
-                          <use xlink:href="#geo-fill" />
-                        </svg>
-                        <small>Sunplanet</small>
-                      </li>
-                      
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-                  style="background-image: url('asset/img/prop4.jpg'); background-size: cover;">
-                  <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                    <p class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Shortlet</p>
-                    <ul class="d-flex list-unstyled mt-auto">
-                      <li class="me-auto">
-                        <img src='asset/img/favicon.png' alt="SUNPLANET LOGO" width="32" height="32"
-                          class="rounded-circle border border-white">
-                      </li>
-                      <li class="d-flex align-items-center me-3">
-                        <svg class="bi me-2" width="1em" height="1em">
-                          <use xlink:href="#geo-fill" />
-                        </svg>
-                        <small>Sunplanet</small>
-                      </li>
-                     
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End testimonial item -->
-
-
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header bg-danger py-3">
+              <h4 class="my-0 fw-normal text-light">Property Sales</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">For <small class="text-muted fw-light">Sale</small></h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Click Here</li>
+                <li>To See A Range</li>
+                <li>Of Our Properties</li>
+                <li>Available For Lease</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-outline-danger">Click To View</button>
+            </div>
           </div>
-          <div class="swiper-pagination"></div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header bg-danger py-3">
+              <h4 class="my-0 fw-normal text-light">Available Shortlets</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">Shortlet</h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Click Here</li>
+                <li>To See A Range</li>
+                <li>Of Our Properties</li>
+                <li>Available For Lease</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-outline-danger">Click To View</button>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header bg-danger py-3">
+              <h4 class="my-0 fw-normal text-light">Property Rent & Lease</h4>
+            </div>
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">Lease</h1>
+              <ul class="list-unstyled mt-3 mb-4">
+                <li>Click Here</li>
+                <li>To See A Range</li>
+                <li>Of Our Properties</li>
+                <li>Available For Lease</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-outline-danger">Click To View</button>
+            </div>
+          </div>
         </div>
 
+
+      </div>
+    </div> <br>
+
+
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section steeze mb-5">
+      <!-- accent-background -->
+      <div class="container">
+        <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-xl-10">
+            <div class="text-center">
+              <h3 class="text-light fw-bold">Investment Alert</h3>
+              <p class="text-light ">"Get in Touch to Start Your Investment Journey <br>Let your money make more money
+                while you rest"</p>
+              <a class="cta-btn" href="#">Invest Now</a>
+            </div>
+          </div>
+        </div>
       </div>
 
-    </section><!-- /Property Section -->
-  
+    </section><!-- /Call To Action Section --> <br><br>
 
 
     <!-- Investment Alt Section -->
@@ -361,7 +296,7 @@
         <div class="row gy-4">
 
           <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
-            <h3> Why Investment with Us ?</h3>
+            <h3> Why An Investment With Us ?</h3>
             <p class="fst-italic">
               At Sun Planet Company Limited, we remain committed to delivering exceptional real estate solutions,
               exceeding our clients' expectations, and shaping the future of Lagos' property landscape. Through our
@@ -375,16 +310,17 @@
                   investors, and businesses</span></li>
               <li><i class="bi bi-check2-all"></i> <span>Established ourselves as an ever growing and expanding
                   construction and property management company in Lagos</span></li>
-                  <li><i class="bi bi-check2-all"></i> <span>We have reasonable ROI and good delivery records</span></li>
+              <li><i class="bi bi-check2-all"></i> <span>We have reasonable ROI (Returns On Investment) and good
+                  delivery records</span></li>
             </ul>
 
-            
+
           </div>
           <div class="col-lg-6 position-relative align-self-start">
-            
+
             <img src="asset/img/invest.gif" class="img-fluid" alt="">
             <a href="/about" class="read-more btn btn-outline-light"><span>Invest Now</span><i
-              class="bi bi-arrow-right"></i></a>
+                class="bi bi-arrow-right"></i></a>
           </div>
 
         </div>
@@ -397,7 +333,7 @@
     <!-- Blog Section  -->
     <section id="service-details" class="service-details section">
 
-      <div class="container "> 
+      <div class="container ">
         <div class="content text-center ">
           <h3 class="fw-bold">B L O G</h3> <br>
         </div>
@@ -406,7 +342,7 @@
           <div class="col-md-6">
             <img src="asset/img/blog.jpg" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="130">
           </div>
-         
+
           <div class="col-md-6" data-aos="fade-up" data-aos-delay="90">
             <div class="services-list">
               <a href="#">How To Login To Our Portal</a>
@@ -421,26 +357,26 @@
       </div>
     </section>
 
-      <!-- Stats Section -->
-      <section id="stats" class="stats section light-background">
+    <!-- Stats Section -->
+    <section id="stats" class="stats section light-background">
 
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-  
-          <div class="row gy-4">
-            <div class="card p-4 h-100" style="background-image: url(asset/img/ad2.png); background-size: cover;">
-              <div class="text-center ">
-                <a class="btn-outline-light mt-5 btn ">Invest Now</a>
-  
-                <p class="text-light mb-5 mt-2"><i>Make money while you are sleeping..</i></p>
-              </div>
-  
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+          <div class="card p-4 h-100" style="background-image: url(asset/img/ad2.png); background-size: cover;">
+            <div class="text-center ">
+              <a class="btn-outline-light mt-5 btn ">Invest Now</a>
+
+              <p class="text-light mb-5 mt-2"><i>Make money while you are sleeping..</i></p>
             </div>
+
           </div>
-  
         </div>
-  
-      </section><!-- /Stats Section -->
-    
+
+      </div>
+
+    </section><!-- /Stats Section -->
+
 
   </main>
 
@@ -501,8 +437,8 @@
 
   <!-- Scroll Top -->
 
-  <a href="https://wa.me/+2348101631008" id="scroll-top" target="_blank" rel="noopener noreferrer" class="scroll-top d-flex align-items-center justify-content-center"><i
-    class="bi bi-whatsapp"></i></a>
+  <a href="https://wa.me/+2348101631008" id="scroll-top" target="_blank" rel="noopener noreferrer"
+    class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-whatsapp"></i></a>
   <!-- Preloader -->
   <!-- <div id="preloader"></div> -->
 
