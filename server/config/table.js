@@ -65,30 +65,31 @@ route.get('/createUser', (req, res) => {
 route.get('/createProp', (req, res) => {
 
     const sqlProp = `
-        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_property (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            property_name VARCHAR(100) NOT NULL,        -- Name or title of the property
-            youtube VARCHAR(255),
-            address VARCHAR(255) NOT NULL,              
-            city VARCHAR(100) NOT NULL,         
-            state VARCHAR(100), 
-            country VARCHAR(100), 
-            postal_code VARCHAR(20),
-            property_type ENUM('apartment', 'land' ,'terrace', 'duplex', 'condo', 'detached_house', 'flat') NOT NULL, 
-            action ENUM('for_sale', 'for_lease', 'shortlet','flat') NOT NULL, 
-            number_of_units INT DEFAULT 1,              -- Number of units for multi-unit properties
-            size_in_sqft DECIMAL(10, 2),                -- Size of the property in square feet
-            bedrooms INT,                               -- Number of bedrooms (if applicable)
-            bathrooms INT,                    -- Number of bathrooms (can be 1.5, 2.5, etc.)
-            rent_price DECIMAL(10, 2) NOT NULL,         -- Rental price of the property
-            lease_status ENUM('available', 'occupied' , 'under_construction' , 'under_maintenance') DEFAULT 'available',
-            picture VARCHAR(255) ,                                    -- Current status of the property
-            prop_id INT,                             -- Reference to the property manager (foreign key)
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the property was added
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Auto-update timestamp
-            description TEXT                            -- Optional detailed description of the property
-        );
-        `;
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_property (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        property_name VARCHAR(100) NOT NULL,        -- Name or title of the property
+        youtube VARCHAR(255),
+        address VARCHAR(255) NOT NULL,              
+        city VARCHAR(100) NOT NULL,         
+        state VARCHAR(100), 
+        country VARCHAR(100), 
+        postal_code VARCHAR(20),
+        property_type ENUM('apartment', 'land', 'terrace', 'duplex', 'condo', 'detached_house', 'flat') NOT NULL, 
+        action ENUM('for_sale', 'for_lease', 'shortlet') NOT NULL, 
+        number_of_units INT DEFAULT 1,              -- Number of units for multi-unit properties
+        size_in_sqft DECIMAL(10, 2),                -- Size of the property in square feet
+        bedrooms INT,                               -- Number of bedrooms (if applicable)
+        bathrooms INT,                              -- Number of bathrooms (can be 1.5, 2.5, etc.)
+        rent_price DECIMAL(10, 2) NOT NULL,         -- Rental price of the property
+        lease_status ENUM('available', 'occupied', 'under_construction', 'under_maintenance') DEFAULT 'available',
+        picture VARCHAR(255),                       -- Picture URL of the property
+        prop_id INT,                                -- Reference to the property manager (foreign key)
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Timestamp of when the property was added
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Auto-update timestamp
+        description TEXT                            -- Optional detailed description of the property
+    );
+`;
+
 
     const sqlSaved = `
         CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_saved (
