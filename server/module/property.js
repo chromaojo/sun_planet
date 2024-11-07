@@ -194,20 +194,40 @@ const createProp = (req, res) => {
 
             db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_property SET ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
             // To create Alert for every user when property is created 
-            const sql = `
-            SELECT user_id FROM bkew76jt01b1ylysxnzp.spc_users;
-          `;
-            db.query(sql, (err, results) => {
-                if (err) {
-                    console.log('Error retrieving shipments:', err);
-                    return res.status(500).send('Internal Server Error');
-                }
-                console.log('This is the user id ', results)
-                const title = 'New Property !'
-                const content = "One property now available"
-                db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_notification SET ?', { title, content, user_id, link: prop_link });
-                res.redirect('/admin/props')
 
+            db.query('SELECT user_id FROM bkew76jt01b1ylysxnzp.spc_users', (err, results) => {
+                if (err) {
+                    console.error('Failed to retrieve user IDs:', err);
+                    return res.status(500).json({ error: 'Database error.' });
+                }
+
+                const title = 'New Property !!!';
+                const content = ' A new property has been added to the dashboard. Click to view details and explore the latest listings!'
+                const link = '/'
+                const notifications = results.map(user => ({
+                    user_id: user.user_id,
+                    title,
+                    content,
+                    link,
+                }));
+
+                // Insert notifications into spc_notification table
+                const query = 'INSERT INTO bkew76jt01b1ylysxnzp.spc_notification (user_id, title, content, link) VALUES ?';
+                const values = notifications.map(({ user_id, title, content, link }) => [user_id, title, content, link]);
+
+                db.query(query, [values], (err, result) => {
+                    if (err) {
+                        console.error('Failed to insert notifications:', err);
+                        return res.status(500).json({ error: 'Database error.' });
+                    }
+
+                    console.log(`Inserted ${result.affectedRows} notifications.`);
+                    if (userCookie.role === 'client') {
+                        res.redirect('/user/props');
+                    } else {
+                        res.redirect('/admin/props');
+                    }
+                });
             });
 
         });

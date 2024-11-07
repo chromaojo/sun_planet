@@ -50,17 +50,19 @@
                 <li class="notification-item">
                   <i class="bi bi-info-circle text-primary"></i>
                   <div>
-                    <h4>
-                      <%= trans.title %>
-                    </h4>
-                    <p>
-                      <%= trans.content %>
-                    </p>
-                    <p>
-                      <%= new Date(trans.created_at).toLocaleTimeString() %> ||
-                        <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
-                          :'2-digit'}) %>
-                    </p>
+                    <a href=" <%= trans.link %>">
+                      <h4>
+                        <%= trans.title %>
+                      </h4>
+                      <p>
+                        <%= trans.content %>
+                      </p>
+                      <p>
+                        <%= new Date(trans.created_at).toLocaleTimeString() %> ||
+                          <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
+                            :'2-digit'}) %>
+                      </p>
+                    </a>
                   </div>
                 </li>
                 <li>
@@ -273,17 +275,19 @@
                   <li class="notification-item">
                     <i class="bi bi-info-circle text-primary"></i>
                     <div>
-                      <h4>
-                        <%= trans.title %>
-                      </h4>
-                      <p>
-                        <%= trans.content %>
-                      </p>
-                      <p>
-                        <%= new Date(trans.created_at).toLocaleTimeString() %> ||
-                          <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
-                            :'2-digit'}) %>
-                      </p>
+                      <a href="<%= trans.link %>">
+                        <h4>
+                          <%= trans.title %>
+                        </h4>
+                        <p>
+                          <%= trans.content %>
+                        </p>
+                        <p>
+                          <%= new Date(trans.created_at).toLocaleTimeString() %> ||
+                            <%= new Date(trans.created_at).toLocaleString('en-GB',{year : 'numeric' , month:'short', day
+                              :'2-digit'}) %>
+                        </p>
+                      </a>
                     </div>
                   </li>
                   <li>
