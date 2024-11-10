@@ -160,52 +160,52 @@ route.get('/createProp', (req, res) => {
     res.send('Saved, Property & Rent Table Created Successfully');
 });
 
-route.get('/createReport', (req, res) => {
+// route.get('/createReport', (req, res) => {
 
-    const sqlReport = `
-    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__report (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      report_id VARCHAR(255) UNIQUE,
-      title VARCHAR(255) NOT NULL,
-      progress ENUM('pending', 'finished') DEFAULT 'pending',
-      name VARCHAR(255) NOT NULL,
-      user_id VARCHAR(255),
-      date VARCHAR(255),
-      time VARCHAR(255)
-    );
-  `;
+//     const sqlReport = `
+//     CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__report (
+//       id INT AUTO_INCREMENT PRIMARY KEY,
+//       report_id VARCHAR(255) UNIQUE,
+//       title VARCHAR(255) NOT NULL,
+//       progress ENUM('pending', 'finished') DEFAULT 'pending',
+//       name VARCHAR(255) NOT NULL,
+//       user_id VARCHAR(255),
+//       date VARCHAR(255),
+//       time VARCHAR(255)
+//     );
+//   `;
 
-    const sqlReportC = `
-    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__content (
-      id INT PRIMARY KEY AUTO_INCREMENT,
-      activity TEXT,
-      result TEXT,
-      recommendation TEXT,
-      status ENUM('completed', 'in progress', 'not started', 'onhold'),
-      progress ENUM('pending', 'finished') DEFAULT 'pending',
-      report_id VARCHAR(255) NOT NULL,
-      FOREIGN KEY (report_id) REFERENCES bkew76jt01b1ylysxnzp.spc__report(report_id)
-    );
-  `;
+//     const sqlReportC = `
+//     CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__content (
+//       id INT PRIMARY KEY AUTO_INCREMENT,
+//       activity TEXT,
+//       result TEXT,
+//       recommendation TEXT,
+//       status ENUM('completed', 'in progress', 'not started', 'onhold'),
+//       progress ENUM('pending', 'finished') DEFAULT 'pending',
+//       report_id VARCHAR(255) NOT NULL,
+//       FOREIGN KEY (report_id) REFERENCES bkew76jt01b1ylysxnzp.spc__report(report_id)
+//     );
+//   `;
 
-    db.query(sqlReport, (errRoles) => {
-        if (errRoles) {
-            console.log('Error creating roles table:', errRoles);
-            return res.status(500).send('Internal Server Error');
-        }
-        console.log('Report Created Successfully');
+//     db.query(sqlReport, (errRoles) => {
+//         if (errRoles) {
+//             console.log('Error creating roles table:', errRoles);
+//             return res.status(500).send('Internal Server Error');
+//         }
+//         console.log('Report Created Successfully');
 
-    });
-    db.query(sqlReportC, (errAccounts) => {
-        if (errAccounts) {
-            console.log('Error creating accounts table:', errAccounts);
-            return res.status(500).send('Internal Server Error');
-        }
-        // console.log('Saved Table Created Successfully');
+//     });
+//     db.query(sqlReportC, (errAccounts) => {
+//         if (errAccounts) {
+//             console.log('Error creating accounts table:', errAccounts);
+//             return res.status(500).send('Internal Server Error');
+//         }
+//         // console.log('Saved Table Created Successfully');
 
-    });
-    res.send('Report Table Created Successfully');
-});
+//     });
+//     res.send('Report Table Created Successfully');
+// });
 
 route.get('/createComplain', (req, res) => {
 
@@ -264,7 +264,8 @@ route.get('/createInvestment', (req, res) => {
         payment_method VARCHAR(255),
         transaction_date DATETIME,
         amount DECIMAL(12, 2),
-        currency VARCHAR(10),
+        name VARCHAR(90),
+        created_by VARCHAR(90),
         transaction_type ENUM('debit', 'credit'),
         status ENUM('pending', 'completed', 'failed'),
         description VARCHAR(255),

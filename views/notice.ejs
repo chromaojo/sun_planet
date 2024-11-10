@@ -3,7 +3,7 @@
     <div class="card-body">
         <h5 class="card-title">Recent Activity <span>| Notifications</span></h5>
 
-        <% if (notice=='' ) { %>
+        <% if (noticed=='' ) { %>
             <br> 
             <h3 class="m-5 text-center mb-2 p-3">There is no notification at the moment</h3>
       
@@ -19,9 +19,9 @@
                     <th scope="col">Time</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="table-primary">
                 
-                <% notice.forEach(trans=> { %>
+                <% noticed.forEach(trans=> { %>
                     <tr> 
                         <th scope="row"><%= counter++ %></th>
                         <td>

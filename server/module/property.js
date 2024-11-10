@@ -45,13 +45,14 @@ const allProp = async (req, res) => {
 
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
+            const status ='unread'
             const user_id = userCookie.user_id;
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
-        });
+        }); 
 
         const userProp = await new Promise((resolve, reject) => {
 
@@ -78,12 +79,15 @@ const allAdProp = async (req, res) => {
     req.app.set('userData', userCookie);
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
+
         const userProp = await new Promise((resolve, reject) => {
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property ORDER BY id DESC;`;
             db.query(sqls, (err, results) => {
@@ -114,12 +118,15 @@ const oneProp = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
+
         const userProps = await new Promise((resolve, reject) => {
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
@@ -146,12 +153,15 @@ const oneAdProp = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
+
         const userProps = await new Promise((resolve, reject) => {
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
@@ -285,9 +295,10 @@ const allFiltProp = async (req, res) => {
     if (filter) {
 
         const notice = await new Promise((resolve, reject) => {
+            const status ='unread'
             const user_id = userCookie.user_id;
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
@@ -322,9 +333,10 @@ const allSearchProp = async (req, res) => {
     if (userCookie) {
 
         const notice = await new Promise((resolve, reject) => {
+            const status ='unread'
             const user_id = userCookie.user_id;
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });

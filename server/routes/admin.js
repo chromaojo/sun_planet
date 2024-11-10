@@ -6,7 +6,7 @@ const db = require('../config/db');
 const {notice, }= require('../config/info')
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
-const {myTrans, }=require('../module/transactions');
+const {myTrans, makeTrans }=require('../module/transactions');
 const { createRent,allRent, allMyRent, oneFillRent, oneRent, approveRent}=require('../module/rent')
 const {eachUser, editUser, allUser }=require('../module/user')
 const {regNew} = require('../module/accounts')
@@ -217,6 +217,9 @@ route.get('/register', (req, res) => {
 // To gat my Transactions
 route.get('/transactions', myTrans);
 
+
+route.get('/tranzact/:id', makeTrans);
+
 // To gat All rent
 route.get('/all-rent', allRent);
 
@@ -380,6 +383,9 @@ route.post('/lead/KxkRTtyZx', createLead, (req, res) => {
 
 
 });
+
+
+
 
 
 

@@ -42,27 +42,28 @@ const allRent = async (req, res) => {
     const user_id = userCookie.user_id;
     if (userCookie) {
 
-    const notice = await new Promise((resolve, reject) => {
-        const user_id = userCookie.user_id;
-        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-        db.query(sqls, [user_id], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
+        const notice = await new Promise((resolve, reject) => {
+            const status = 'unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
         });
-    });
 
-    const userRent = await new Promise((resolve, reject) => {
+        const userRent = await new Promise((resolve, reject) => {
 
-        const status = 'pending'
-        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE status = ? ORDER BY id DESC;`;
-        db.query(sqls, [status], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
+            const status = 'pending'
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE status = ? ORDER BY id DESC;`;
+            db.query(sqls, [status], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
         });
-    });
-    
-    const userData = userCookie
-    return res.render('rent-admin', { userData, userRent, info , notice });
+
+        const userData = userCookie
+        return res.render('rent-admin', { userData, userRent, info, notice });
     } else {
         return res.status(401).redirect('/logout');
     }
@@ -76,29 +77,30 @@ const allMyRent = async (req, res) => {
     const user_id = userCookie.user_id;
     if (userCookie) {
 
-    const notice = await new Promise((resolve, reject) => {
-        const user_id = userCookie.user_id;
-        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-        db.query(sqls, [user_id], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
+        const notice = await new Promise((resolve, reject) => {
+            const status = 'unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
         });
-    });
 
 
 
-    const userRent = await new Promise((resolve, reject) => {
+        const userRent = await new Promise((resolve, reject) => {
 
-        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
-        db.query(sqls, [user_id], (err, results) => {
-            if (err) return reject(err);
-            resolve(results);
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
         });
-    });
-    
-    const userProp = ''
-    const userData = userCookie
-    return res.render('rent', { userData, userRent, userProp, info , notice });
+
+        const userProp = ''
+        const userData = userCookie
+        return res.render('rent', { userData, userRent, userProp, info, notice });
     } else {
         return res.status(401).redirect('/logout');
     }
@@ -126,7 +128,7 @@ const allMyRent = async (req, res) => {
 //                 resolve(results);
 //             });
 //         });
-        
+
 //         const userData = userCookie
 //         return res.render('admin-index', { userData, userRent, info , notice });
 
@@ -150,12 +152,15 @@ const oneRent = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const status = 'unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
+
         const userRents = await new Promise((resolve, reject) => {
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE id =?;`;
             db.query(sqls, [id], (err, results) => {
@@ -163,16 +168,16 @@ const oneRent = async (req, res) => {
                 resolve(results);
             });
         });
-      
+
         const userRent = userRents[0];
-        return res.render('rent-one', { userData, userRent, info , notice });
+        return res.render('rent-one', { userData, userRent, info, notice });
 
     }
 };
 
 // To view Admin Rent 
 const oneFillRent = async (req, res) => {
-    
+
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const user_id = userCookie.user_id;
@@ -182,13 +187,15 @@ const oneFillRent = async (req, res) => {
     } else {
 
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const status = 'unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
         });
-        
+
         const userRent = await new Promise((resolve, reject) => {
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_rent WHERE user_id = ? ORDER BY id DESC;`;
             db.query(sqls, [user_id], (err, results) => {
@@ -225,9 +232,9 @@ const createRent = (req, res, next) => {
 
         const rent_id = Math.floor(Math.random() * 99999999);
         const user_id = userCookie.user_id;
-        
-        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_rent SET ?', { property_name, rent_price ,address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id , user_id });
- 
+
+        db.query('INSERT INTO bkew76jt01b1ylysxnzp.spc_rent SET ?', { property_name, rent_price, address, property_type, occupant_name, occupant_phone, next_of_kin, kin_address, kin_phone, duration, rent_start_date, rent_end_date, rent_id, user_id });
+
         next();
     } catch (error) {
         console.error('Thi is an error ', error)
@@ -248,7 +255,7 @@ const approveRent = (req, res) => {
             }
 
 
-            const { comment , status } = req.body;
+            const { comment, status } = req.body;
             const user_id = userCookie.user_id;
 
 
@@ -278,7 +285,7 @@ const deleteRent = (req, res, next) => {
 
         try {
             const id = req.params.id;
-            
+
             // Perform the deletion
             const sql = `DELETE FROM bkew76jt01b1ylysxnzp.spc_rent WHERE id = ?;`;
             db.query(sql, [id], (err, result) => {

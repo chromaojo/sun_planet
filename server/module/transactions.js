@@ -85,7 +85,7 @@ const allTrans = (req, res)=>{
 
 // To view only one Transaction 
 
-const oneTrans = (req, res, next)=>{
+const oneTrans = (req, res)=>{
     
     const id = req.params.id;
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
@@ -109,6 +109,10 @@ const oneTrans = (req, res, next)=>{
                 const userTrans = results[0]
                 console.log('Properties are ',userTrans)
                 res.render('Trans-one', { userData, userTrans, info });
+            }else{
+                const error = "Account ID Doesn't Exist"
+                return res.render('error',{userData, error, notice})
+
             }
 
         })
@@ -118,13 +122,40 @@ const oneTrans = (req, res, next)=>{
 
 
 // To Get Transaction form 
-const createTranss = (req, res)=>{
+const makeTrans = async(req, res)=>{
     
-    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
-    req.app.set('userData', userCookie);
+    const userData = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const account_id = req.params.id
+    const notice = await new Promise((resolve, reject) => {
+        const status ='unread'
+        const user_id = userData.user_id;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+        db.query(sqls, [user_id, status], (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
     
-    if (userCookie){
-        return next();
+    if (userData){
+        const sql = `
+        SELECT * FROM bkew76jt01b1ylysxnzp.spc_accounts WHERE account_id =?;
+      `;
+  
+          db.query(sql, [account_id], (err, results) => {
+              if (err) {
+                  console.log('Login Issues :', err);
+                  return res.status(500).send('Internal Server Error');
+              }
+              console.log('This is the dashboard Details : ', userData);
+              
+              if (results) {
+                  const userTranz = results[0]
+                  const refs = random * rando;
+                  console.log('Details are ',userTranz)
+                  res.render('tranz', { userData, userTranz, notice, refs });
+              }
+    });
         
     } else{
         return res.status(401).redirect('/user/logout');
@@ -195,4 +226,4 @@ const deleteTrans = (req, res, next) => {
 
 
 
-module.exports = {oneTrans, allTrans, deleteTrans, createTrans , myTrans}
+module.exports = {oneTrans, allTrans, deleteTrans, createTrans , makeTrans , myTrans}

@@ -21,7 +21,22 @@ const allMyNotice = async (req, res) => {
     const user_id = userCookie.user_id
   
     if (userCookie) {
+        // TO Change All Messages to read from unread
+        const status = 'read'
+        
+        db.query('UPDATE bkew76jt01b1ylysxnzp.spc_notification SET status = ? WHERE user_id = ? ', [status , user_id]);
+
         const notice = await new Promise((resolve, reject) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
+        const noticed = await new Promise((resolve, reject) => {
             const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
             db.query(sqls,[user_id], (err, results) => {
                 if (err) return reject(err);
@@ -30,7 +45,7 @@ const allMyNotice = async (req, res) => {
         });
        
         const userData = userCookie
-        return res.render('notice', { userData, notice, info });
+        return res.render('notice', { userData, notice, noticed, info });
 
     } else {
         return res.status(401).redirect('/user/logout');
