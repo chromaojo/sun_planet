@@ -23,8 +23,9 @@
                             <%= userProp.property_name %>
                         </b></h5>
                     <% if (userProp.youtube) { %>
+                        
                         <h5 class="card-title text-capitalize">
-                            <a href="<%= userProp.youtube %>" target="_blank" rel="noopener noreferrer">
+                            <a href="<%= userProp.youtube %>">
                                 <i class="bi bi-youtube text-danger"><b>Property Tour</b></i> </a>
                         </h5>
                         <% } %>
@@ -42,7 +43,7 @@
 
                                                     <div class="carousel-item active"
                                                         style="width: 790px; height: 390px;">
-                                                        <a href="/prop/<%= pixz[0] %>" target="_blank">
+                                                        <a href="/prop/<%= pixz[0] %>">
                                                             <img src="/prop/<%= pixz[0] %>" class="d-block w-100"
                                                                 alt="Product Image">
                                                         </a>
@@ -53,7 +54,7 @@
                                                                 <% pizzy.forEach(trans=> { %>
                                                                     <div class="carousel-item"
                                                                         style="width: 790px; height: 390px;">
-                                                                        <a href="/prop/<%= trans %>" target="_blank">
+                                                                        <a href="/prop/<%= trans %>">
                                                                             <img src="<%= trans ? '/prop/'+trans : '/assets/img/card.jpg' %>"
                                                                                 class="d-block w-100"
                                                                                 alt="Product Image">

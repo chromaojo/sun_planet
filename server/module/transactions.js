@@ -151,7 +151,8 @@ const makeTrans = async(req, res)=>{
               
               if (results) {
                   const userTranz = results[0]
-                  const refs = random * rando;
+                  const myref = Math.floor(Math.random() * 99989999);
+                  const refs = random * myref;
                   console.log('Details are ',userTranz)
                   res.render('tranz', { userData, userTranz, notice, refs });
               }
@@ -163,7 +164,7 @@ const makeTrans = async(req, res)=>{
 };
 
 // To Post shipment form from the frontend 
-const createTrans = (req, res, next) => {
+const postTrans = (req, res) => {
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
     const userData = userCookie
@@ -226,4 +227,4 @@ const deleteTrans = (req, res, next) => {
 
 
 
-module.exports = {oneTrans, allTrans, deleteTrans, createTrans , makeTrans , myTrans}
+module.exports = {oneTrans, allTrans, deleteTrans, postTrans , makeTrans , myTrans}

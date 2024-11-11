@@ -6,7 +6,7 @@ const db = require('../config/db');
 const {notice, }= require('../config/info')
 const bcrypt = require('bcryptjs');
 const { UserLoggin } = require('../auth/auth');
-const {myTrans, makeTrans }=require('../module/transactions');
+const {myTrans, makeTrans, postTrans }=require('../module/transactions');
 const { createRent,allRent, allMyRent, oneFillRent, oneRent, approveRent}=require('../module/rent')
 const {eachUser, editUser, allUser }=require('../module/user')
 const {regNew} = require('../module/accounts')
@@ -217,8 +217,12 @@ route.get('/register', (req, res) => {
 // To gat my Transactions
 route.get('/transactions', myTrans);
 
-
+// To get the transaction page 
 route.get('/tranzact/:id', makeTrans);
+
+// To post a transaction 
+route.post('/tranzit/GgTxXWyQkDx', postTrans);
+
 
 // To gat All rent
 route.get('/all-rent', allRent);
