@@ -9,22 +9,21 @@ const db = require('../config/db');
 route.get('/createUser', (req, res) => {
 
 
-    // const sqlUsers = `
-    //     CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_users (
-    //     id INT PRIMARY KEY AUTO_INCREMENT,
-    //     user_id VARCHAR(255) UNIQUE,
-    //     email VARCHAR(255) NOT NULL UNIQUE,
-    //     password VARCHAR(255) NOT NULL,
-    //     role ENUM('admin', 'client') DEFAULT 'client'
-    //     );
-    //     `;
+    const sqlUsers = `
+        CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_users (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id VARCHAR(255) UNIQUE,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        role ENUM('admin', 'client') DEFAULT 'client'
+        );
+        `;
 
     const sqlAccounts = `
         CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc_accounts (
         account_id VARCHAR(255) UNIQUE PRIMARY KEY,
         account_balance INT DEFAULT 0,
         total_spent INT DEFAULT 0,
-        current_rent INT DEFAULT 0,
         phone_number VARCHAR(255),
         whatsapp VARCHAR(255),
         instagram VARCHAR(255),
@@ -160,52 +159,40 @@ route.get('/createProp', (req, res) => {
     res.send('Saved, Property & Rent Table Created Successfully');
 });
 
-// route.get('/createReport', (req, res) => {
+route.get('/createDoc', (req, res) => {
 
-//     const sqlReport = `
-//     CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__report (
-//       id INT AUTO_INCREMENT PRIMARY KEY,
-//       report_id VARCHAR(255) UNIQUE,
-//       title VARCHAR(255) NOT NULL,
-//       progress ENUM('pending', 'finished') DEFAULT 'pending',
-//       name VARCHAR(255) NOT NULL,
-//       user_id VARCHAR(255),
-//       date VARCHAR(255),
-//       time VARCHAR(255)
-//     );
-//   `;
+    const sqlDoc = `
+    CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__doc (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id VARCHAR(255) NOT NULL,
+    recipient_id VARCHAR(255) NOT NULL,
+    document_name VARCHAR(255) NOT NULL,
+    document_url VARCHAR(100),
+    document_size INT,
+    transfer_status ENUM('Pending', 'In Progress', 'Completed', 'Failed') DEFAULT 'Pending',
+    transfer_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    completion_date TIMESTAMP NULL,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-//     const sqlReportC = `
-//     CREATE TABLE IF NOT EXISTS bkew76jt01b1ylysxnzp.spc__content (
-//       id INT PRIMARY KEY AUTO_INCREMENT,
-//       activity TEXT,
-//       result TEXT,
-//       recommendation TEXT,
-//       status ENUM('completed', 'in progress', 'not started', 'onhold'),
-//       progress ENUM('pending', 'finished') DEFAULT 'pending',
-//       report_id VARCHAR(255) NOT NULL,
-//       FOREIGN KEY (report_id) REFERENCES bkew76jt01b1ylysxnzp.spc__report(report_id)
-//     );
-//   `;
+    -- Foreign key constraints for sender and recipient
+    FOREIGN KEY (sender_id) REFERENCES spc_users(user_id),
+    FOREIGN KEY (recipient_id) REFERENCES spc_users(user_id)
+    );
+  `;
 
-//     db.query(sqlReport, (errRoles) => {
-//         if (errRoles) {
-//             console.log('Error creating roles table:', errRoles);
-//             return res.status(500).send('Internal Server Error');
-//         }
-//         console.log('Report Created Successfully');
+    db.query(sqlDoc, (errRoles) => {
+        if (errRoles) {
+            console.log('Error creating roles table:', errRoles);
+            return res.status(500).send('Internal Server Error');
+        }
+        console.log('Doc Created Successfully');
 
-//     });
-//     db.query(sqlReportC, (errAccounts) => {
-//         if (errAccounts) {
-//             console.log('Error creating accounts table:', errAccounts);
-//             return res.status(500).send('Internal Server Error');
-//         }
-//         // console.log('Saved Table Created Successfully');
-
-//     });
-//     res.send('Report Table Created Successfully');
-// });
+    });
+   
+    res.send('Doc Table Created Successfully');
+});
 
 route.get('/createComplain', (req, res) => {
 

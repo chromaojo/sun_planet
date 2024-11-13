@@ -1,0 +1,138 @@
+<section class="section"> Publish A Property
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <form action="/admin/edit/pXrRoPp" method="POST" enctype="multipart/form-data">
+          <div class="card-body">
+            <h5 class="card-title">Property Editor</h5>
+            <div class="row mb-3">
+
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Title</span>
+                  <input type="text" class="form-control" placeholder="Enter Property Name" aria-label="Username"
+                    aria-describedby="basic-addon1" required name="property_name">
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Youtube</span>
+                  <input type="text" class="form-control" placeholder="Youtube Link if available" aria-label="Username"
+                    aria-describedby="basic-addon1" name="youtube">
+                </div>
+              </div>
+              
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Address</span>
+                  <input type="text" class="form-control" placeholder="Property Location" aria-label="Username"
+                    aria-describedby="basic-addon1" required name="address">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">City / Landmark</span>
+                  <input type="text" class="form-control" placeholder="Enter City or Town" aria-label="Username"
+                    aria-describedby="basic-addon1" required name="city">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">State</span>
+                  <input type="text" class="form-control" placeholder="Enter State/ Province" aria-label="Username"
+                    aria-describedby="basic-addon1" required name="state">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Bedroom(s)</span>
+                  <input type="number" class="form-control" placeholder="Number Of Bedrooms" aria-label="Username"
+                   min="0" aria-describedby="basic-addon1" required name="bedrooms">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Bathrooms</span>
+                  <input type="number" class="form-control" placeholder="Number Of Bathrooms" aria-label="Username"
+                  min="0"  aria-describedby="basic-addon1" required name="bathrooms">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Size </span>
+                  <input type="number" class="form-control" placeholder="Enter Size in SqFt" aria-label="Username"
+                  min="0" aria-describedby="basic-addon1" required name="size_in_sqft">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Unit(s)</span>
+                  <input type="number" class="form-control" placeholder="Available Units/ Quantity"
+                  min="0"  aria-label="Username" aria-describedby="basic-addon1" required name="number_of_units">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Price</span>
+                  <input type="Number" class="form-control" placeholder="Property Unit Price" aria-label="Username"
+                  min="0" aria-describedby="basic-addon1" required name="rent_price">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+
+              <div class="col-sm-6">
+                <label for="inputNumber" class="col-sm-6 col-form-label">Choose Image(s) [4 Max]</label>
+                <input class="form-control" type="file" id="pixz" multiple accept=".jpeg, .png, .jpg" required
+                  name="pixz">
+
+              </div>
+              <div class="col"> <label for="inputNumber" class="col-sm-6 col-form-label">Property Type</label>
+                <select class="form-select" aria-label="Default select example" name="property_type">
+                  <option selected>Select Property Type</option>
+                  <hr>
+                  <option value="apartment">Apartment</option>
+                  <option value="condo">Condo</option>
+                  <option value="detached_house">Detached House</option>
+                  <option value="duplex">Duplex</option>
+                  <option value="Flat">Flat</option>
+                  <option value="terrace">Terrace</option>
+                </select>
+              </div>
+              <div class="col"> <label for="inputNumber" class="col-sm-6 col-form-label">Current Status</label>
+                <select class="form-select" aria-label="Default select example" name="lease_status">
+                  <option selected>Select Status</option>
+                  <hr>
+                  <option value="available">Available</option>
+                  <option value="lease">Lease</option>
+                  <option value="Occupied">Occupied</option>
+                  <option value="under_construction">Under Construction</option>
+                  <option value="under_maintainance">Under Maintainance</option>
+                </select>
+              </div> 
+            </div>
+
+            <label for="inputNumber" class="col-sm-6 col-form-label">Details & Description of the Property</label>
+
+            <textarea class="tinymce-editor" name="description" id="description">
+
+            </textarea><!-- End TinyMCE Editor -->
+            <div>
+              <button type="submit" class="btn btn-outline-primary mt-3">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>

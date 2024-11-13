@@ -17,9 +17,10 @@
                     <tr>
                       <th scope="col">#</th>
 
+                      <th scope="col">Name / Acct</th>
                       <th scope="col">Reference Number</th>
                       <th scope="col">Description</th>
-                      <th scope="col">Currency</th>
+                      
                       <th scope="col">Amount (NGN)</th>
                       <th scope="col">Status</th>
                     </tr>
@@ -32,18 +33,19 @@
                           <%= counter++ %>
                         </th>
                         <td>
+                          <a href="" class="text-dark text-capitalize">
+                            <%= trans.name %>
+                          </a>
+                        </td>
+                        <td>
                           <a href="">
                             <%= trans.reference_number %>
                           </a>
                         </td>
-                        <td>
-                          <%= trans.description %>
+                        <td> 
+                        <%= trans.description.substring(0, 25)+( trans.description.length>25?'...': "") %>
                         </td>
-                        <td>
-                          <a href="" class="text-dark text-capitalize">
-                            <%= trans.currency %>
-                          </a>
-                        </td>
+                        
                         <td>
                           <a href="" class="text-dark text-capitalize">
                             <%= trans.amount %>

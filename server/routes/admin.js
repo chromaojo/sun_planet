@@ -12,7 +12,7 @@ const {eachUser, editUser, allUser }=require('../module/user')
 const {regNew} = require('../module/accounts')
 const {allMyNotice, deleteNotice, } = require('../module/notification')
 const { allMyAdLead, oneLead, createLead } = require('../module/lead');
-const { allAdProp, oneAdProp, createProp, deleteProp } = require('../module/property');
+const { allAdProp, oneAdProp, createProp, deleteProp, editProp, updateProp } = require('../module/property');
 const { allComplain, createComplain } = require('../module/complaint');
 const { allMyRept, allRept, oneRept, deleteRept } = require('../module/report');
 const { allAdSaved, createSaved, deleteSaved , createSavedAdmin } = require('../module/saved');
@@ -172,6 +172,18 @@ route.get('/property-zZkKqQP/:id', oneAdProp, (req, res) => {
 
 });
 
+// To edit a property 
+route.get('/property-edit/:id', editProp, (req, res) => {
+
+
+});
+
+// To post update Property
+route.post('/create/pXrRoPp', updateProp, (req, res) => {
+
+
+});
+
 
 // To gat Create Property
 route.get('/create/prop', async (req, res) => {
@@ -219,6 +231,9 @@ route.get('/transactions', myTrans);
 
 // To get the transaction page 
 route.get('/tranzact/:id', makeTrans);
+
+// To get the transaction page 
+route.post('/tranzact', makeTrans);
 
 // To post a transaction 
 route.post('/tranzit/GgTxXWyQkDx', postTrans);

@@ -9,8 +9,8 @@ const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 99999);
 const rand = rando + "rEs" + random;
 const session = require('express-session');
-const { AvoidIndex, UserLoggin} = require('../auth/auth');
-const {regNew , regSamp} = require('../module/accounts')
+const { AvoidIndex, UserLoggin } = require('../auth/auth');
+const { regNew, regSamp } = require('../module/accounts')
 
 
 route.use(
@@ -28,14 +28,14 @@ route.use(
 route.get('/', AvoidIndex, (req, res) => {
 
 
-    res.render('home-index', {info, layout: false})
+    res.render('home-index', { info, layout: false })
 })
 
 // pricing 
 route.get('/pricing', AvoidIndex, (req, res) => {
 
 
-    res.render('home-pricing', {info, layout: false})
+    res.render('home-pricing', { info, layout: false })
 })
 
 // Properties Section 
@@ -45,34 +45,34 @@ route.get('/prop/:type', AvoidIndex, (req, res) => {
     const sql = `
     SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE property_type = ? ORDER BY id DESC;
   `;
-  const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
 
-      db.query(sql,[property_type], (err, results) => {
-          if (err) {
-              console.log('Login Issues :', err);
-              return res.status(500).send('Internal Server Error');
-          }
-        
-          
-          if (results) {
-              const userProp = results
-              const userData = userCookie
-              return res.render('home-prop', { userProp, info, layout: false})
-          }
+    db.query(sql, [property_type], (err, results) => {
+        if (err) {
+            console.log('Login Issues :', err);
+            return res.status(500).send('Internal Server Error');
+        }
 
-      })
-    
+
+        if (results) {
+            const userProp = results
+            const userData = userCookie
+            return res.render('home-prop', { userProp, info, layout: false })
+        }
+
+    })
+
 })
 
 // About Section 
 route.get('/about', AvoidIndex, (req, res) => {
 
-    res.render('home-about', {info, layout: false})
+    res.render('home-about', { info, layout: false })
 })
 
 route.get('/contact', AvoidIndex, (req, res) => {
 
-    res.render('home-contact', {info, layout: false})
+    res.render('home-contact', { info, layout: false })
 })
 
 
@@ -92,15 +92,15 @@ route.get('/register', (req, res) => {
 })
 
 
- route.post('/XDcxXLQ/register', regNew)
- 
- route.get('/sampler', regSamp)
+route.post('/XDcxXLQ/register', regNew)
+
+route.get('/sampler', regSamp)
 
 // Register new User
 
 
 route.get('/login', AvoidIndex, (req, res) => {
-    
+
     res.sendFile(path.join(__dirname, "../../statics", 'login.html'));
 })
 
@@ -119,23 +119,22 @@ route.post('/nXcLl/login', async (req, res) => {
     db.query(sqlGetUserWithAccount, [email], async (error, result) => {
         if (error) {
 
-            return res.status(500).json({
-                message: 'Internal Server Error'
-            });
+            const error = 'Internal Server Login Error'
+            return res.render('error', { userData, error, notice })
+
         }
 
         if (result.length === 0) {
-            return res.status(401).json({
-                message: 'Invalid Email or Password'
-            });
+            const error = "Invalid Email or Password"
+            return res.render('error', { userData, error, notice })
+
         }
         // Compare the provided password with the hashed password in the database
         const isPasswordValid = await bcrypt.compare(password, result[0].password);
         if (!isPasswordValid) {
             // Password is invalid
-            return res.status(401).json({
-                message: 'Invalid Email or Password'
-            });
+            const error = "Invalid Email or Password"
+            return res.render('error', { userData, error, notice })
 
         }
 
@@ -146,14 +145,14 @@ route.post('/nXcLl/login', async (req, res) => {
         let ans = result[0];
         delete ans.password
         const userWithAccount = ans;
-        console.log('The details are ',ans)
+        console.log('The details are ', ans)
         res.cookie('user', JSON.stringify({ ...userWithAccount }));
-        
-       if (result[0].role === 'client') {
-        res.redirect('/user/dashboard');
-       } else {
-        res.redirect('/admin/dashboard');
-       }
+
+        if (result[0].role === 'client') {
+            res.redirect('/user/dashboard');
+        } else {
+            res.redirect('/admin/dashboard');
+        }
     });
 });
 

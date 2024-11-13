@@ -7,7 +7,7 @@
   
   
         <div class="card">
-          <form action="/admin/xXpPLliLZz" method="POST" enctype="multipart/form-data">
+          <form action="/admin/tranzact" method="POST">
             <div class="card-body">
               <h5 class="card-title text-center">Payment Page</h5>
               <div class="row">
@@ -15,7 +15,7 @@
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Account Id</span>
                     <input type="text" class="form-control" placeholder="Enter Account Id " aria-label="Username"
-                      aria-describedby="basic-addon1" required name="title">
+                      aria-describedby="basic-addon1" required name="account_id">
                     <button type="submit" class="btn btn-outline-primary ">Confirm</button>
                   </div>
                 </div>
@@ -39,24 +39,35 @@
             <p>Kindly fill in the<code> DATA carefully. Receipts are not editable .</p>
 
             <form action="/admin/tranzit/GgTxXWyQkDx" method="POST">
+              <h3><%= userTranz.surname %> <%= userTranz.othername %>//<%= userTranz.account_id %></h3>
               <!-- Table Variants -->
         <table class="table w-100">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-             
-              <th scope="col">Refrence Number</th>
-              
+                         
+              <th scope="col">Refrence</th>
+              <th scope="col">Payment Method</th>
               <th scope="col">Amount (NGN)</th>
-              <th scope="col">Payment Purpose</th>
+              <th scope="col">Payment Narration</th>
               <th scope="col">Submit</th>
             </tr>
           </thead>
           <tbody>
             <tr class="table-primary">
-              <th scope="row"><input readonly name="name" type="text" value="<%= userTranz.surname %>/<%= userTranz.account_id %>"></th>
+            
               <td><input type="text" readonly name="reference_number" value="SUN<%= refs %>"></td>
-              <input type="text" name="user_id" hidden value="<% userTranz.user_id %>">
+              <th scope="row">
+                <input hidden name="name" type="text" value="<%= userTranz.surname %>/<%= userTranz.account_id %>">
+                
+                <select name="payment_method" id="" class="" required>
+                  <option value=""></option> <hr>
+                  <option value="Bank Deposit">Bank Deposit</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Cash Payment">Cash Payment</option>
+                  <option value="Online Payment">Online Payment</option>
+                </select>
+              </th>
+              <input type="text" hidden name="user_id" value="<%= userTranz.user_id %>">
               <td><input type="number" name="amount"></td>
               <td><input type="text" name="description"></td>
               <td><button type="submit" class="btn btn-outline-success btn-sm">Confirmed</button></td>

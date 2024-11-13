@@ -14,6 +14,9 @@
                         </li>
                         <li><a class="dropdown-item" href="/admin/save/<%= userProp.prop_id %>">Add To Archive</a></li>
                         <li><a class="dropdown-item" href="/admin/apply-rent/<%= userProp.id %>">Apply</a></li>
+                        <li><a class="dropdown-item" href="/admin/property-edit/<%= userProp.id %>">Edit</a></li>
+
+                        
                         <li><a class="dropdown-item" href="/admin/del-prop/<%= userProp.id %>">Delete</a></li>
                     </ul>
                 </div>
@@ -82,8 +85,7 @@
 
                                     </div><!-- End Slides with indicators --> <br>
                                 </div>
-                                <div class="col-lg-3 mb-2">
-
+                                <div class="col-lg-3 mb-5">
                                     <h5 class="card-title text-capitalize"><i class="bi bi-geo-alt-fill"></i> <span>
                                             <%= userProp.address %>, <%= userProp.city %>, <%= userProp.state %>
                                         </span></h5>

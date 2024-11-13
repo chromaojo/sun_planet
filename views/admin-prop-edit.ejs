@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="card">
+        <form action="/admin/create/pXrRoPp" method="POST" enctype="multipart/form-data">
+          <div class="card-body">
+            <h5 class="card-title">Property Creator</h5>
+            <div class="row mb-3">
+
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Title</span>
+                  <input type="text" class="form-control" placeholder="Enter Property Name" value="<%= userProp.property_name %>"
+                    aria-describedby="basic-addon1" required name="property_name">
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Youtube</span>
+                  <input type="text" class="form-control" value="<%= userProp.youtube %>" name="youtube">
+                </div>
+              </div>
+              
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Address</span>
+                  <input type="text" class="form-control" placeholder="Property Location" aria-label="Username"
+                    value="<%= userProp.address %>" required name="address">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">City / Landmark</span>
+                  <input type="text" class="form-control" value="<%= userProp.city %>" required name="city">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">State</span>
+                  <input type="text" class="form-control" value="<%= userProp.state %>" required name="state">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Bedroom(s)</span>
+                  <input type="number" class="form-control" value="<%= userProp.bedrooms %>" required name="bedrooms">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Bathrooms</span>
+                  <input type="number" class="form-control" value="<%= userProp.bathrooms %>"
+                  min="0"   required name="bathrooms">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Size </span>
+                  <input type="number" class="form-control" value="<%= userProp.size_in_sqft %>"
+                  min="0" aria-describedby="basic-addon1" required name="size_in_sqft">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Unit(s)</span>
+                  <input type="number" class="form-control" placeholder="Available Units/ Quantity"
+                  min="0"  value="<%= userProp.number_of_units %>" required name="number_of_units">
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <span class="input-group-text" id="basic-addon1">Amount</span>
+                  <input type="Number" class="form-control" min="0" value="<%= userProp.rent_price %>" required name="rent_price">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+
+              <div class="col-sm-6">
+                <label for="inputNumber" class="col-sm-6 col-form-label">Choose Image(s) [4 Max]</label>
+                <input class="form-control" type="file" id="pixz" multiple accept=".jpeg, .png, .jpg" required
+                  name="pixz">
+
+              </div>
+              <div class="col"> <label for="inputNumber" class="col-sm-6 col-form-label">Property Type</label>
+                <select class="form-select" aria-label="Default select example" name="property_type">
+                  <option selected><%= userProp.property_type %></option>
+                  <hr>
+                  <option value="apartment">Apartment</option>
+                  <option value="condo">Condo</option>
+                  <option value="detached_house">Detached House</option>
+                  <option value="duplex">Duplex</option>
+                  <option value="Flat">Flat</option>
+                  <option value="terrace">Terrace</option>
+                </select>
+              </div>
+              <div class="col"> <label for="inputNumber" class="col-sm-6 col-form-label">Current Status</label>
+                <select class="form-select" aria-label="Default select example" name="lease_status">
+                  <option selected><%= userProp.lease_status %></option>
+                  <hr>
+                  <option value="available">Available</option>
+                  <option value="lease">Lease</option>
+                  <option value="Occupied">Occupied</option>
+                  <option value="under_construction">Under Construction</option>
+                  <option value="under_maintainance">Under Maintainance</option>
+                </select>
+              </div> 
+            </div>
+
+            <label for="inputNumber" class="col-sm-6 col-form-label">Details & Description of the Property</label>
+
+            <textarea class="tinymce-editor" name="description" id="description">
+                <%= userProp.description %>
+            </textarea><!-- End TinyMCE Editor -->
+            <div>
+              <button type="submit" class="btn btn-outline-primary mt-3">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+</div>

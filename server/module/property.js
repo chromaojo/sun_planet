@@ -176,6 +176,111 @@ const oneAdProp = async (req, res) => {
     }
 };
 
+const editProp = async (req, res) => {
+
+    const id = req.params.id;
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+    const user_id = userCookie.user_id;
+    const userData = userCookie
+    if (!userCookie) {
+        res.redirect('/logout');
+    } else {
+
+        const notice = await new Promise((resolve, reject) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
+        const userProps = await new Promise((resolve, reject) => {
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_property WHERE id =?;`;
+            db.query(sqls, [id], (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+
+        const userProp = userProps[0];
+        return res.render('admin-prop-edit', { userData, userProp, info, notice });
+
+    }
+};
+
+
+
+// To Post property form from the frontend 
+const updateProp = (req, res) => {
+    const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
+
+    const userData = userCookie
+
+    try {
+        upload(req, res, function (err) {
+            if (err) {
+                return res.send('Error uploading files.');
+            }
+
+
+            const { property_name, prop_id, youtube, lease_status, description, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, } = req.body;
+
+
+           
+            const country = 'Nigeria'
+            const pixz = req.files.map(file => file.filename);
+            const picture = '' + pixz + ""; 
+
+            // Now you can handle the name, age, address, and pictures array
+            // For example, save them to a database, send to another API, etc.
+
+            db.query('UPDATE bkew76jt01b1ylysxnzp.spc_property SET ? WHERE prop_id = ?', { property_name, youtube, prop_id, picture, lease_status, property_type, rent_price, number_of_units, address, bedrooms, bathrooms, city, state, size_in_sqft, country, description, });
+            // To create Alert for every user when property is created 
+
+            db.query('SELECT user_id FROM bkew76jt01b1ylysxnzp.spc_users', (err, results) => {
+                if (err) {
+                    console.error('Failed to retrieve user IDs:', err);
+                    return res.status(500).json({ error: 'Database error.' });
+                }
+
+                const title = 'New Property !!!';
+                const content = ' A new property has been added to the dashboard. Click to view details and explore the latest listings!'
+                const link = '/'
+                const notifications = results.map(user => ({
+                    user_id: user.user_id,
+                    title,
+                    content,
+                    link,
+                }));
+
+                // Insert notifications into spc_notification table
+                const query = 'INSERT INTO bkew76jt01b1ylysxnzp.spc_notification (user_id, title, content, link) VALUES ?';
+                const values = notifications.map(({ user_id, title, content, link }) => [user_id, title, content, link]);
+
+                db.query(query, [values], (err, result) => {
+                    if (err) {
+                        console.error('Failed to insert notifications:', err);
+                        return res.status(500).json({ error: 'Database error.' });
+                    }
+
+                    console.log(`Inserted ${result.affectedRows} notifications.`);
+                    if (userCookie.role === 'client') {
+                        res.redirect('/user/props');
+                    } else {
+                        res.redirect('/admin/props');
+                    }
+                });
+            });
+
+        });
+
+    } catch (error) {
+        console.log('Property Form Error :', error)
+    }
+
+}
 
 
 // To Post property form from the frontend 
@@ -368,4 +473,4 @@ const allSearchProp = async (req, res) => {
 
 
 
-module.exports = { oneProp, oneAdProp, allProp, allAdProp, deleteProp, createProp, allFiltProp, allSearchProp }
+module.exports = { oneProp, oneAdProp, allProp, editProp, allAdProp, updateProp, deleteProp, createProp, allFiltProp, allSearchProp }
