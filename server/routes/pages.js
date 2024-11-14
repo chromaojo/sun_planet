@@ -121,13 +121,13 @@ route.post('/nXcLl/login', async (req, res) => {
         if (error) {
 
             const error = 'Internal Server Login Error'
-            return res.render('error', {  error, notice })
+            return res.render('error-home', { error, layout: false  })
 
         }
 
         if (result.length === 0) {
             const error = "Invalid Email or Password"
-            return res.render('error-home', { error })
+            return res.render('error-home', { error , layout: false  })
 
         }
         // Compare the provided password with the hashed password in the database
@@ -135,7 +135,7 @@ route.post('/nXcLl/login', async (req, res) => {
         if (!isPasswordValid) {
             // Password is invalid
             const error = "Invalid Email or Password"
-            return res.render('error-home', { error })
+            return res.render('error-home', { error  , layout: false  })
 
         }
 
