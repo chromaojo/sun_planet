@@ -46,13 +46,14 @@ const allInvest = async (req, res) => {
     if (userCookie) {
 
         const notice = await new Promise((resolve, reject) => {
-            const userId = userCookie.user_id;
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [userId], (err, results) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
-        });
+        }); 
 
         const sql = `
       SELECT * FROM bkew76jt01b1ylysxnzp.spc_investment ORDER BY id DESC;
@@ -88,12 +89,14 @@ const allAdInvest = async (req, res) => {
 
     if (userCookie) {
         const notice = await new Promise((resolve, reject) => {
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [userId], (err, results) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
-        });
+        }); 
 
         const sql = `
       SELECT * FROM bkew76jt01b1ylysxnzp.spc_investment ORDER BY id DESC;

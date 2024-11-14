@@ -74,13 +74,14 @@ route.get('/transactions', async (req, res) => {
     const userCookie = req.cookies.user ? JSON.parse(req.cookies.user) : null;
     const userId = userCookie.user_id
     const notice = await new Promise((resolve, reject) => {
-        
-        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-        db.query(sqls, [userId], (err, results) => {
+        const status ='unread'
+        const user_id = userCookie.user_id;
+        const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+        db.query(sqls, [user_id, status], (err, results) => {
             if (err) return reject(err);
             resolve(results);
         });
-    });
+    }); 
     const sql = `
     SELECT * FROM bkew76jt01b1ylysxnzp.spc_transaction WHERE user_id = ? ORDER BY transaction_id DESC;
   `;
@@ -123,28 +124,32 @@ route.get('/invest/:id', oneInvest, (req, res) => {
 // User profile section
 route.get('/profile', UserLoggin, async (req, res) => {
     const userData = req.app.get('userData');
-    const userCookie = userData
-    console.log('Here is my Dashboard Data', userCookie);
+    const userCookie = userData;
+    const user_id = userCookie.user_id
+    
     if (!userCookie) {
         res.redirect('/login');
     } else {
         const notice = await new Promise((resolve, reject) => {
-            const user_id =userData.user_id
-            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ?`;
-            db.query(sqls, [user_id], (err, results) => {
+            const status ='unread'
+            const user_id = userCookie.user_id;
+            const sqls = `SELECT * FROM bkew76jt01b1ylysxnzp.spc_notification WHERE user_id = ? AND status = ? ORDER BY id DESC;`;
+            db.query(sqls, [user_id, status], (err, results) => {
                 if (err) return reject(err);
                 resolve(results);
             });
-        });
+        }); 
         const user = db.query('SELECT * FROM bkew76jt01b1ylysxnzp.spc_users WHERE email = ?', [userData.email], async (error, result) => {
 
             // console.log('This is the dashboard Details : ', userData);
             if (error) {
                 console.log(" Login Error :", error);
-                return res.redirect('/user/logout');
+                return res.redirect('/admin/logout');
             }
             if (result) {
-                res.render('profile', { userData, notice , });
+               
+                console.log(" Notice is :", notice);
+                res.render('profile', { userData, notice });
             }
 
         })

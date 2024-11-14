@@ -26,7 +26,7 @@ route.post('/generate-receipt', async (req, res) => {
     const { customerName, amount, receiptNumber } = req.body;
 
     // Path to the static template
-    const templatePath = path.join(__dirname, 'public', 'templates', 'receipt_template.pdf');
+    const templatePath = path.join(__dirname, 'public/pdf', 'templates', 'receipt_template.pdf');
     
     // Load the template PDF
     const templateBytes = fs.readFileSync(templatePath);
