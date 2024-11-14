@@ -85,4 +85,4 @@ route.post('/generate-receipt', async (req, res) => {
 
 
 
-module.exports = {regNew, regSamp, profile};
+module.exports = route;
