@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 const { UserLoggin, AvoidIndex, AdminRoleBased } = require('../auth/auth');
 const random = Math.floor(Math.random() * 99999);
 const rando = Math.floor(Math.random() * 99999);
-const rand = rando + "FTL" + random;
+const rand = rando + "SUN" + random;
 
 
 
